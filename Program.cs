@@ -1,7 +1,16 @@
+using GooBitAPI.Models;
+using GooBitAPI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("GooBitDatabase"));
+
+builder.Services.AddSingleton<MongoDBService>();
+builder.Services.AddSingleton<UserService>();
+builder.Services.AddSingleton<BooksService>();
 
 var app = builder.Build();
 
