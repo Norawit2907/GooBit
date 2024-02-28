@@ -16,14 +16,14 @@ public class BookController : Controller
     public async Task<List<Book>> Get() =>
         await _booksService.GetAsync();
 
-    [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<Book>> Get(string id)
-    {
+    // [HttpGet("{id}")]
+    public async Task<ActionResult<Book>> GetById(string id)
+    {   
         var book = await _booksService.GetAsync(id);
 
         if (book is null)
         {
-            return NotFound();
+            return BadRequest();
         }
 
         return book;

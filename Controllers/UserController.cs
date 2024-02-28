@@ -22,8 +22,8 @@ public class UserController : Controller
     }
         
 
-    [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<User>> Get(string id)
+    // [HttpGet("{id:length(24)}")]
+    public async Task<ActionResult<User>> GetById(string id)
     {
         var user = await _userService.GetAsync(id);
 
