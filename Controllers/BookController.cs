@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GooBitAPI.Controllers;
 
 
-public class BookController : ControllerBase
+public class BookController : Controller
 {
     private readonly BooksService _booksService;
 

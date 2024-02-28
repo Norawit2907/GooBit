@@ -5,16 +5,22 @@ using Microsoft.AspNetCore.Mvc;
 namespace GooBitAPI.Controllers;
 
 
-public class UserController : ControllerBase
+public class UserController : Controller
 {
     private readonly UserService _userService;
 
     public UserController(UserService userService) =>
         _userService = userService;
 
+
+
     [HttpGet]
-    public async Task<List<User>> Get() =>
-        await _userService.GetAsync();
+    public async Task<ActionResult<User>> Get()
+    {
+        var user = await _userService.GetAsync();
+        return View(user);
+    }
+        
 
     [HttpGet("{id:length(24)}")]
     public async Task<ActionResult<User>> Get(string id)
@@ -25,7 +31,6 @@ public class UserController : ControllerBase
         {
             return NotFound();
         }
-
         return user;
     }
 
