@@ -15,7 +15,6 @@ namespace GooBitAPI.Controllers;
             return View();
         }
 
-        public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPEG", ".JPE", ".BMP", ".GIF", ".PNG" };
         [HttpPost]
         public async Task<IActionResult> index(List<IFormFile> files)
         {
