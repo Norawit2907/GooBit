@@ -21,9 +21,11 @@ namespace GooBitAPI.Controllers;
         {
             if (files == null || files.Count == 0)
             {
-                return BadRequest("No file uploaded");
+                ModelState.AddModelError("imageFile", "Please select an image file to upload.");
+                return View();
             }
 
+           
             var folderName = Path.Combine("wwwroot","uploadFiles");
             string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(),folderName);
 
