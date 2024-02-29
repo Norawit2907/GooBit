@@ -1,8 +1,11 @@
 using System;    
 using System.IO;    
-using System.Web;    
+using System.Web;
+using Amazon.Runtime.Internal.Util;
 using Microsoft.AspNetCore.Mvc;
-    
+using Microsoft.Extensions.Primitives;
+using MongoDB.Driver;
+
 namespace GooBitAPI.Controllers;  
 
     public class FileUploadController : Controller    
@@ -12,9 +15,15 @@ namespace GooBitAPI.Controllers;
             return View();
         }
 
+        public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPEG", ".JPE", ".BMP", ".GIF", ".PNG" };
         [HttpPost]
-        public async Task<IActionResult> index(IFormFile file)
+        public async Task<IActionResult> index(List<IFormFile> files)
         {
+            if (files == null || files.Count == 0)
+            {
+                return BadRequest("No file uploaded");
+            }
+
             var folderName = Path.Combine("wwwroot","uploadFiles");
             string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(),folderName);
 
@@ -23,16 +32,21 @@ namespace GooBitAPI.Controllers;
                 Directory.CreateDirectory(uploadsFolder);
             }
 
-            string fileName = Path.GetFileName(file.FileName);
-            string fileSavePath = Path.Combine(uploadsFolder, fileName);
-
-            using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
+            foreach(var file in files)
             {
-                await file.CopyToAsync(stream);
+                Guid newuuid = Guid.NewGuid();
+                string newfilename = newuuid.ToString();
+                string ext = System.IO.Path.GetExtension(file.FileName);
+                newfilename = newuuid.ToString() + ext;
+                string fileSavePath = Path.Combine(uploadsFolder, newfilename);
+                
+                using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
+                {
+                     await file.CopyToAsync(stream);
+                }
+                
+            ViewBag.Message += string.Format("<b>{0}<b> uploaded successfully. <br/>", newfilename);
             }
-
-            ViewBag.Message = fileName + " upload successfully";
-
             return View();
         }    
     }    

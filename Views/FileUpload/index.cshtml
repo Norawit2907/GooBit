@@ -5,13 +5,13 @@
 <div>
     <form method="post" enctype="multipart/form-data" asp-controller="FileUpload" asp-action="index">
         <div>
-            <input type="file" name="file" class="form-control"/>
+            <input type="file" name="files" class="form-control" multiple/>
         </div>
         <div>
-            <input type="submit" value="Upload File"/>
+            <input type="submit" value="Upload Files"/>
         </div>
         <span class="text-sucess">
-            @ViewBag.Message
+            @Html.Raw(ViewBag.Message)
         </span>
     </form>
 </div>
