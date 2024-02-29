@@ -23,27 +23,8 @@ namespace GooBitAPI.Services
         public async Task<Book?> GetAsync(string id) =>
             await _booksCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public async Task<Book?> CreateAsync(Book newBook)
-        {
-            var existingBook = await _booksCollection.Find(_book => _book.Id == newBook.Id).SingleOrDefaultAsync();
-            if(existingBook != null)
-            {
-                return null;
-            }
-
-            var newPostBook = new Book{
-                BookName = newBook.BookName,
-                Price = newBook.Price,
-                Category = newBook.Category,
-                Author = newBook.Author
-            };
-            Console.WriteLine(newBook.BookName);
-            Console.WriteLine(newBook.Price);
-            Console.WriteLine(newPostBook.BookName);
+        public async Task CreateAsync(Book newBook) =>
             await _booksCollection.InsertOneAsync(newBook);
-            return newPostBook;
-        }
-            
 
         public async Task UpdateAsync(string id, Book updatedBook) =>
             await _booksCollection.ReplaceOneAsync(x => x.Id == id, updatedBook);

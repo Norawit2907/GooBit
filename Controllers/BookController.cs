@@ -16,21 +16,21 @@ public class BookController : Controller
     public async Task<List<Book>> Get() =>
         await _booksService.GetAsync();
 
-    // [HttpGet("{id}")]
-    public async Task<ActionResult<Book>> GetById(string id)
-    {   
+    [HttpGet("{id:length(24)}")]
+    public async Task<ActionResult<Book>> Get(string id)
+    {
         var book = await _booksService.GetAsync(id);
 
         if (book is null)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         return book;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] Book newBook)
+    public async Task<IActionResult> Post(Book newBook)
     {
         await _booksService.CreateAsync(newBook);
 
@@ -38,7 +38,7 @@ public class BookController : Controller
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, [FromBody]Book updatedBook)
+    public async Task<IActionResult> Update(string id, Book updatedBook)
     {
         var book = await _booksService.GetAsync(id);
 
