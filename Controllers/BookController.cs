@@ -38,7 +38,7 @@ public class BookController : Controller
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, Book updatedBook)
+    public async Task<IActionResult> Update(string id, [FromBody]Book updatedBook)
     {
         var book = await _booksService.GetAsync(id);
 
