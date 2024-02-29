@@ -11,6 +11,12 @@ builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("Go
 builder.Services.AddSingleton<MongoDBService>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<BooksService>();
+builder.Services.AddSingleton<EventService>();
+builder.Services.AddSingleton<CategoryService>();
+builder.Services.AddSingleton<CommentService>();
+builder.Services.AddSingleton<NotificationService>();
+builder.Services.AddSingleton<ParticipantService>();
+builder.Services.AddSingleton<ReplyService>();
 
 var app = builder.Build();
 
