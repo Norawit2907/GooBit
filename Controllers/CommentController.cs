@@ -35,7 +35,7 @@ public class CommentController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(Comment newComment)
+    public async Task<IActionResult> Post([FromBody]Comment newComment)
     {
         await _commentService.CreateAsync(newComment);
 
@@ -43,7 +43,7 @@ public class CommentController : Controller
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, Comment updatedComment)
+    public async Task<IActionResult> Update(string id, [FromBody]Comment updatedComment)
     {
         var comment = await _commentService.GetAsync(id);
 
