@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link href="~/css/style.css" rel="stylesheet" media="all" />
+</head>
+
+<body>
+    <div class="split left">
+        <div id="file-container">
+            <label for="image-input" class="file-label">Choose Images</label>
+            <input type="file" id="image-input" accept="image/*" multiple>
+            <div id="selected-images"></div>
+        </div>
+    </div>
+    <div class="split right">
+        <form id="post-form">
+            <textarea id="post-content" placeholder="Type title of this event..."></textarea>
+            <a>Maximum member : <button type="button">Enter Member Number</button>
+                <br><label for="datetimeInput">Select Date and Time:</label>
+                <input type="datetime-local" id="datetimeInput" name="datetimeInput">
+                <div class="category-dropdown">
+                    <a>Select Category: </a>
+                    <div class="dropdown">
+                        <button id="selectedOption" class="dropbtn">Category</button>
+                        <ul class="dropdown-content">
+                            <li><a href="#" onclick="updateButtonText('Eating')">Eating</a></li>
+                            <li><a href="#" onclick="updateButtonText('Fitness')">Fitness</a></li>
+                            <li><a href="#" onclick="updateButtonText('Trip')">Trip</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+            <textarea id="post-content" placeholder="Add description..."></textarea>
+        </form>
+        <input type="text" id="locationInput" placeholder="Add location...">
+        <button onclick="searchLocation()">Search</button>
+        <div id="map"></div>
+    </div>
+    <script src="~/js/CreatePost.js"></script>
+</body>
+
+</html>
