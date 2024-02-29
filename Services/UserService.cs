@@ -23,6 +23,9 @@ namespace GooBitAPI.Services
         public async Task<User?> GetAsync(string id) =>
             await _userCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
+        public async Task<User?> GetByEmail(Login login) =>
+            await _userCollection.Find(x => x.email == login.email).SingleOrDefaultAsync();
+
         public async Task CreateAsync(User newUser) =>
             await _userCollection.InsertOneAsync(newUser);
 
