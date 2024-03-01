@@ -38,7 +38,6 @@ body {
 
 form {
     width: 360px;
-    color: black;
 }
 
 form h2 {
@@ -64,7 +63,6 @@ form h2 {
 }
 
 .input-div {
-
     display: grid;
     grid-template-columns: 10% 90%;
     margin: 25px 0;
@@ -99,16 +97,6 @@ form h2 {
     height: 45px;
 }
 
-.input-div>div h5 {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 18px;
-    transition: .3s;
-    color: white;
-}
-
 .input {
     position: absolute;
     width: 100%;
@@ -118,7 +106,7 @@ form h2 {
     border: none;
     border-radius: 25px;
     outline: none;
-    background: #595959;
+    background: none;
     padding: 0.5rem 0.7rem;
     font-size: 1.2rem;
     color: white;
