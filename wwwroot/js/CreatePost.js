@@ -107,3 +107,25 @@ function loadMapScript() {
 }
 
 loadMapScript();
+
+
+$(document).ready(function() {
+    $('#createButton').click(function() {
+        $.ajax({
+            type: 'POST',
+            url: '/event/create',
+            //dataType: 'json',
+            data: {title: 'title'},
+            success: function(response) {
+                alert('Upload successful' + response);
+                // Handle response
+            },
+            error: function(response) {
+                alert('error : ' + response.response);
+                // Handle error
+            }
+        });
+    });
+    
+});
+    

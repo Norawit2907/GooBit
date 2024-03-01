@@ -13,19 +13,19 @@
     <div class="split left">
         <div id="file-container">
             <label for="image-input" class="file-label">Choose Images</label>
-            <input type="file" id="image-input" accept="image/*" multiple>
+            <input type="file" id="image-input" name="images" accept="image/*" multiple required>
             <div id="selected-images"></div>
         </div>
     </div>
     <div class="split right">
         <form id="post-form">
-            <textarea id="post-content" placeholder="Type title of this event..."></textarea>
-            <a>Maximum member : <input type="text"  id="maximumInput" name="maximumInput"></input>
+            <textarea id="post-content" placeholder="Type title of this event..." name="title"></textarea>
+            <a>Maximum member : <input type="text"  id="max_member" name="max_member"></input>
                 <br><label for="datetimeInput">Selection Ending Date and Time:</label>
-                <input type="datetime-local" id="enddatetimeInput" name="enddatetimeInput">
+                <input type="datetime-local" id="end_date" name="end_date">
                 <br><label for="datetimeInput">Select Event Date and Time:</label>
-                <input type="datetime-local" id="eventdatetimeInput" name="eventdatetimeInput">
-                <a>Duration : <input type="text"  id="durationtimeInput" name="enddatetimeInput"></input>
+                <input type="datetime-local" id="event_date" name="event_date">
+                <a>Duration : <input type="text"  id="duration" name="duration"></input>
                     <div class="category-dropdown">
                         <a>Select Category: </a>
                         <div class="dropdown">
@@ -39,12 +39,14 @@
                         </div>
                     </div>
                 </a>
-                <textarea id="post-content" placeholder="Add description..."></textarea>
+                <textarea id="description" placeholder="Add description..." name="description"></textarea>
         </form>
-        <input type="text" id="locationInput" placeholder="Add location...">
+        <input type="text" id="locationInput" placeholder="Add location..." name="googlemap_location">
         <button onclick="searchLocation()">Search</button>
         <div id="map"></div>
+        <button type="button" id="createButton">Create</button>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="~/js/CreatePost.js"></script>
 </body>
 

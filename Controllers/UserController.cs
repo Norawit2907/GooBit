@@ -63,11 +63,11 @@ public class UserController : Controller
     }
 
     // Log out
-    public async Task<IActionResult> LogOut()
-    {
-        HttpContext.Session.Remove("userID");
-        return Ok("Logout success");
-    }
+    // public async Task<IActionResult> LogOut()
+    // {
+    //     HttpContext.Session.Remove("userID");
+    //     return Ok("Logout success");
+    // }
 
     // [Not done]Update user
     [HttpPut("{id:length(24)}")]
