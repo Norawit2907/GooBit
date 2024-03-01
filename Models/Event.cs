@@ -22,6 +22,5 @@ namespace GooBitAPI.Models
         public string user_id {get; set;} = null!;
         public decimal latitude {get; set;} = 0!;
         public decimal longtitude {get; set;} = 0!;
-        public string location {get; set;} = null!;
     }
 }
