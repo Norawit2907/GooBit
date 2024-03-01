@@ -2,7 +2,24 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<link rel="stylesheet" href="~/css/homepage.css"/>
+<div class="home-page">
+    <a class='post__container' asp-area="" asp-controller="Home" asp-action="Post">
+        <div class='post__container-header'>
+            <img src="~/uploadFiles/875d5615-be02-4ae1-9e50-30471b89b779.jpg"/>
+            <p> Kitton </p>
+        </div>
+        <div class='post__container-body'>
+            <p> thee khaaa hreeeee</p>
+            <img src="~/uploadFiles/875d5615-be02-4ae1-9e50-30471b89b779.jpg"/>
+        </div>
+
+        <div class='post__container-footer'>
+            <p id="date">Ended in: xx/xx/xxxx</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar"></div>
+            </div>
+            <p id="attemp">3/5</p>
+        </div>
+    </a>
 </div>
