@@ -49,42 +49,37 @@ public class UserController : Controller
     [HttpPost]
     public async Task<IActionResult> LogIn([FromBody]Login login)
     {
-        User? user = await _userService.GetByEmail(login);
-        if (user == null)
+        string? id = await _userService.Login(login);
+        if (id == null)
         {
             return Unauthorized("Not found user");
         }
-        if (user.password != login.password || user.Id == null)
-        {
-            return Unauthorized("Not found user");
-        }
-        HttpContext.Session.SetString("userID",user.Id);
+        HttpContext.Session.SetString("userID",id);
         return Ok("Login success");
     }
 
     // Log out
-    public async Task<IActionResult> LogOut()
+    public IActionResult LogOut()
     {
-        HttpContext.Session.Remove("userID");
+        HttpContext.Session.Clear();
         return Ok("Logout success");
     }
 
     // [Not done]Update user
-    [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, [FromBody]User updatedUser)
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody]UpdateUser updatedUser)
     {
-        var user = await _userService.GetAsync(id);
-
-        if (user is null)
+        var id = HttpContext.Session.GetString("userID");
+        Console.WriteLine(id);
+        if (id == null)
         {
-            return NotFound();
+            return Unauthorized("Go back to login");
         }
-
-        updatedUser.Id = user.Id;
-
-        await _userService.UpdateAsync(id, updatedUser);
-
-        return NoContent();
+        if (updatedUser.password != updatedUser.confirm_password){
+            return BadRequest("Password not match");
+        }
+        var updateUser = await _userService.UpdateAsync(id,updatedUser);
+        return CreatedAtAction(nameof(Get),updateUser);
     }
 
     [HttpDelete("{id:length(24)}")]

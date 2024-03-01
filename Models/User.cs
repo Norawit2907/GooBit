@@ -33,4 +33,27 @@ namespace GooBitAPI.Models
         [Required(ErrorMessage = "Please enter password")]
         public string password { get; set;} = null!;
     }
+
+    public class UpdateUser
+    {
+        public string? firstname { get; set; }
+        public string? lastname { get; set; }
+        [EmailAddress]
+        public string? email { get; set; }
+        public string? password {get; set; }
+        public string? confirm_password { get; set; }
+        public string? profile_img { get; set; }
+        public string? description { get; set; } 
+    }
+
+    public class UserNoPassword
+    {
+        public string username { get; set; } = null!;
+        [EmailAddress]
+        public string email { get; set; } = null!;
+        public string firstname { get; set; } = null!;
+        public string lastname { get; set; } = null!;
+        public string? description { get; set; } = null!;
+        public string? profile_img { get; set; } = null!;
+    }
 }
