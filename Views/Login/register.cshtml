@@ -1,8 +1,8 @@
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_layoutforLogin.cshtml";
 }
-<link rel="stylesheet" href="~/css/login_style.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/register_style.css" asp-append-version="true" />
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 
 <div class="container">
@@ -14,7 +14,26 @@
     </div>
     <div class="login-container">
         <form>
-            <h2>Welcome</h2>
+            <h2>Hello!</h2>
+            <p>Sign Up to Get Started</p>
+            <div class="input-div one">
+                <div class="i">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <input class="input" type="text " placeholder="First Name">
+                </div>
+            </div>
+
+            <div class="input-div one">
+                <div class="i">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <input class="input" type="text " placeholder="Last Name">
+                </div>
+            </div>
+
             <div class="input-div one">
                 <div class="i">
                     <i class="fas fa-envelope"></i>
@@ -32,9 +51,7 @@
                     <input class="input" type="password" placeholder="Password">
                 </div>
             </div>
-            <button class="btn">Login</button>
-            <div class="line"><span>or</span></div>
-            <button class="btn" asp-controller="Login" asp-action="register">Register</button>
+            <button class="btn" asp-controller="Login" asp-action="index">Register</button>
         </form>
     </div>
 </div>

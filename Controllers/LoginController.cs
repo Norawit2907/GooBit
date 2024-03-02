@@ -8,5 +8,10 @@ namespace BasicASP.Controllers
         {
             return View();
         }
+        
+        public IActionResult Register()
+        {
+            return View();
+        }
     }
 }
