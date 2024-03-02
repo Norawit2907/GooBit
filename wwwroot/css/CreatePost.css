@@ -1,0 +1,121 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.split {
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+.left {
+    left: 0;
+    background-color: rgb(55, 55, 55);
+    width: 60%;
+  }
+  
+.right {
+    right: 0;
+    background-color: rgb(255, 255, 255);
+    width: 40%;
+    padding: 20px;
+  }
+
+.top{
+    top: 0;
+    background-color: black;
+}
+
+#post-form {
+    align-items: left;
+    height: 550px;
+    color: grey;
+}
+
+.col-left{
+  float: left;
+  width: 50%;
+}
+
+.col-right{
+  float: left;
+  width: 50%;
+}
+
+#post-form textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+} 
+
+#submitBtn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+#cancelBtn {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+
+.input-container {
+    margin-right: 10px;
+  }
+
+#map {
+    height: 150px;
+    width: 100%;
+  }
+
+#file-container {
+    text-align: center;
+    margin: 20px;
+    position: relative;
+    top: 0;
+    left:0;
+}
+
+.file-label {
+    cursor: pointer;
+    padding: 10px 20px;
+    color: #fff;
+    border-radius: 5px;
+    border: groove;
+}
+
+#image-input {
+    display: none;
+}
+
+.selected-image-container {
+    display: inline-block;
+    position: relative;
+}
+
+.selected-image {
+    max-width: 200px;
+    margin: 5px;
+}
+
+.delete-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}
