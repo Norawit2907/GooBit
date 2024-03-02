@@ -68,42 +68,58 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-function updateButtonText(option) {
-    document.getElementById('selectedOption').innerText = option;
-}
+let map, marker;
 
-var map;
-var marker;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 13, lng: 100 },
+                zoom: 5
+            });
 
-function initMap() {
-    var center = { lat: 40.7128, lng: -74.0060 };
-    map = new google.maps.Map(
-        document.getElementById('map'), { zoom: 10, center: center });
-}
+            // Add a marker on the map
+            marker = new google.maps.Marker({
+                map: map,
+                draggable: true
+            });
 
-function searchLocation() {
-    var locationName = document.getElementById('locationInput').value;
-    var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ 'address': locationName }, function (results, status) {
-        if (status === 'OK') {
-            var latitude = results[0].geometry.location.lat();
-            var longitude = results[0].geometry.location.lng();
-            var center = { lat: latitude, lng: longitude };
-            map.setCenter(center);
-            if (marker) {
-                marker.setMap(null);
-            }
-            marker = new google.maps.Marker({ position: center, map: map });
-        } else {
-            console.error('Geocode was not successful for the following reason: ' + status);
+            // Listen for the marker dragend event to update the selected location
+            google.maps.event.addListener(marker, 'dragend', function () {
+                updateSelectedLocation(marker.getPosition());
+            });
+
+            // Add a Places Autocomplete input field
+            const input = document.getElementById('locationInput');
+            const autocomplete = new google.maps.places.Autocomplete(input);
+
+            // Listen for the place changed event to update the map and selected location
+            autocomplete.addListener('place_changed', function () {
+                const place = autocomplete.getPlace();
+
+                if (!place.geometry) {
+                    alert("No details available for input: '" + place.name + "'");
+                    return;
+                }
+
+                // Update the map and selected location
+                map.setCenter(place.geometry.location);
+                marker.setPosition(place.geometry.location);
+                updateSelectedLocation(place.geometry.location);
+            });
         }
-    });
-}
 
-function loadMapScript() {
-    var script = document.createElement('script');
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&callback=initMap';
-    document.head.appendChild(script);
-}
+        function updateSelectedLocation(location) {
+            // Update the hidden input with the selected location
+            document.getElementById('selectedLocation').value = JSON.stringify({
+                lat: location.lat(),
+                lng: location.lng()
+            });
+        }
 
-loadMapScript();
+        // Initialize the map when the page is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            initMap();
+        });
+
+function clearForm() {
+    document.getElementById("post-form").reset();
+}
