@@ -114,7 +114,7 @@ $(document).ready(function() {
         $.ajax({
             type: 'POST',
             url: '/event/create',
-            //dataType: 'json',
+            dataType: 'json',
             data: {title: 'title'},
             success: function(response) {
                 alert('Upload successful' + response);
