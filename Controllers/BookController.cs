@@ -16,7 +16,7 @@ public class BookController : Controller
     public async Task<List<Book>> Get() =>
         await _booksService.GetAsync();
 
-    // [HttpGet("{id}")]
+    // [HttpGet("{id}")] -
     public async Task<ActionResult<Book>> GetById(string id)
     {   
         var book = await _booksService.GetAsync(id);
