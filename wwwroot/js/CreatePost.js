@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 displaySelectedImage(imageData);
 
                 // Store the selected image data in local storage
-                storedImages.push(imageData);
-                localStorage.setItem('selectedImages', JSON.stringify(storedImages));
+                // storedImages.push(imageData);
+                // localStorage.setItem('selectedImages', JSON.stringify(storedImages));
             };
 
             reader.readAsDataURL(file);
@@ -68,8 +68,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+let selectedCategory = null;
 function updateButtonText(option) {
     document.getElementById('selectedOption').innerText = option;
+    selectedCategory = option;
 }
 
 var map;
@@ -81,13 +83,15 @@ function initMap() {
         document.getElementById('map'), { zoom: 10, center: center });
 }
 
+let latitude, longitude;
+
 function searchLocation() {
-    var locationName = document.getElementById('locationInput').value;
+    var locationName = document.getElementById('googlemap_location').value;
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({ 'address': locationName }, function (results, status) {
         if (status === 'OK') {
-            var latitude = results[0].geometry.location.lat();
-            var longitude = results[0].geometry.location.lng();
+            latitude = results[0].geometry.location.lat();
+            longitude = results[0].geometry.location.lng();
             var center = { lat: latitude, lng: longitude };
             map.setCenter(center);
             if (marker) {
@@ -108,22 +112,45 @@ function loadMapScript() {
 
 loadMapScript();
 
+function chooseCategory(){
+
+}
+
 
 $(document).ready(function() {
     $('#createButton').click(function() {
+        var formData = new FormData();
+        // Add form fields to FormData object
+        formData.append("title", $("#title").val());
+        formData.append("description", $("#description").val());
+        formData.append("max_member", $("#max_member").val());
+        formData.append("end_date", $("#end_date").val());
+        formData.append("event_date", $("#event_date").val());
+        formData.append("duration", $("#duration").val());
+        formData.append("googlemap_location", $("#googlemap_location").val());
+        formData.append("latitude", latitude);
+        formData.append("longitude", longitude);
+        formData.append('category', selectedCategory);
+        
+        var totalImage = $('#image-input')[0].files.length;
+        console.log(totalImage);
+        for (var i = 0; i < totalImage; i++) {
+            var image = $('#image-input')[0].files[i];
+            formData.append("images", image);
+        }
+        
         $.ajax({
             type: 'POST',
             url: '/event/create',
             dataType: 'json',
-            data: {title: 'title'},
+            data: formData,
+            contentType: false,
+            processData: false,
             success: function(response) {
                 alert('Upload successful' + response);
                 // Handle response
             },
-            error: function(response) {
-                alert('error : ' + response.response);
-                // Handle error
-            }
+            error: function (ts) { alert(ts.responseText) } // error where is layout?
         });
     });
     

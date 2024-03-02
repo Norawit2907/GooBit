@@ -19,7 +19,7 @@
     </div>
     <div class="split right">
         <form id="post-form">
-            <textarea id="post-content" placeholder="Type title of this event..." name="title"></textarea>
+            <textarea id="title" placeholder="Type title of this event..." name="title"></textarea>
             <a>Maximum member : <input type="text"  id="max_member" name="max_member"></input>
                 <br><label for="datetimeInput">Selection Ending Date and Time:</label>
                 <input type="datetime-local" id="end_date" name="end_date">
@@ -29,7 +29,7 @@
                     <div class="category-dropdown">
                         <a>Select Category: </a>
                         <div class="dropdown">
-                            <button id="selectedOption" class="dropbtn">Category</button>
+                            <button id="selectedOption" class="dropbtn" type="button">Category</button>
                             <ul class="dropdown-content">
                                 <li><a href="#" onclick="updateButtonText('Eating')">Eating</a></li>
                                 <li><a href="#" onclick="updateButtonText('Fitness')">Fitness</a></li>
@@ -41,7 +41,7 @@
                 </a>
                 <textarea id="description" placeholder="Add description..." name="description"></textarea>
         </form>
-        <input type="text" id="locationInput" placeholder="Add location..." name="googlemap_location">
+        <input type="text" id="googlemap_location" placeholder="Add location..." name="googlemap_location">
         <button onclick="searchLocation()">Search</button>
         <div id="map"></div>
         <button type="button" id="createButton">Create</button>
