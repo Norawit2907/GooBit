@@ -72,7 +72,6 @@ form p {
     padding: 5px;
 }
 
-
 .input-div.one {
     background: #595959;
     border-radius: 25px;
@@ -82,7 +81,7 @@ form p {
 .input-div.two {
     background: #595959;
     border-radius: 25px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .i {
@@ -113,23 +112,6 @@ form p {
     padding: 0.5rem 0.7rem;
     font-size: 1.2rem;
     color: white;
-}
-
-
-
-.line {
-    width: 100%;
-    text-align: center;
-    border-bottom: 1px solid white;
-    line-height: 0.1em;
-    margin: 25px 0;
-}
-
-.line span {
-    font-size: 20px;
-    color: white;
-    background: black;
-    padding: 0 10px;
 }
 
 .btn {
