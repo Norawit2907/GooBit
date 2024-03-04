@@ -9,16 +9,17 @@
     <link href="~/css/CreatePost.css" rel="stylesheet" media="all" />
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
-    <script src="~/js/CreatePost.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
     <div class="split left">
         <div id="file-container">
-            <label for="image-input" class="file-label">Choose Images</label>
-            <input type="file" id="image-input" name="images" accept="image/*" multiple required>
-            <div id="selected-images"></div>
+            <form method="post" enctype="multipart/form-data" asp-controller="Event" asp-action="Create">
+                <label for="image-input" class="file-label">Choose Images</label>
+                <input type="file" id="image-input" name="images" accept="image/*" multiple required>
+                <div id="selected-images"></div>
+            </form>
         </div>
     </div>
     <div class="split right">
@@ -84,7 +85,7 @@
         </form>
 
     </div>
-
+    <script src="~/js/CreatePost.js" defer></script>
 </body>
 
 </html>

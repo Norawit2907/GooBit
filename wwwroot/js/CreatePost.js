@@ -155,6 +155,7 @@ $(document).ready(function() {
         }
         
         $.ajax({
+            async: false,
             type: 'POST',
             url: '/event/create',
             dataType: 'json',
