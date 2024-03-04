@@ -12,16 +12,15 @@ public class UserController : Controller
     public UserController(UserService userService) =>
         _userService = userService;
 
-
-
-    [HttpGet]
+    // [For Test] Find user controller 
+    // [HttpGet]
     public async Task<ActionResult<User>> Get()
     {
         var user = await _userService.GetAsync();
         return View(user);
     }
         
-
+    // [For Test] Find user by ID controller 
     // [HttpGet("{id:length(24)}")]
     public async Task<ActionResult<User>> GetById(string id)
     {
@@ -34,29 +33,53 @@ public class UserController : Controller
         return user;
     }
 
+    // Register user
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody]User newUser)
+    public async Task<IActionResult> Register([FromBody]User newUser)
     {
-        await _userService.CreateAsync(newUser);
-
-        return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
+        if (ModelState.IsValid)
+        {
+            await _userService.CreateAsync(newUser);
+            return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
+        }
+        return NotFound();
     }
 
-    [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, [FromBody]User updatedUser)
+    // Login user
+    [HttpPost]
+    public async Task<IActionResult> LogIn([FromBody]Login login)
     {
-        var user = await _userService.GetAsync(id);
-
-        if (user is null)
+        string? id = await _userService.Login(login);
+        if (id == null)
         {
-            return NotFound();
+            return Unauthorized("Not found user");
         }
+        HttpContext.Session.SetString("userID",id);
+        return Ok("Login success");
+    }
 
-        updatedUser.Id = user.Id;
+    // Log out
+    public IActionResult LogOut()
+    {
+        HttpContext.Session.Clear();
+        return Ok("Logout success");
+    }
 
-        await _userService.UpdateAsync(id, updatedUser);
-
-        return NoContent();
+    // [Not done]Update user
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody]UpdateUser updatedUser)
+    {
+        var id = HttpContext.Session.GetString("userID");
+        Console.WriteLine(id);
+        if (id == null)
+        {
+            return Unauthorized("Go back to login");
+        }
+        if (updatedUser.password != updatedUser.confirm_password){
+            return BadRequest("Password not match");
+        }
+        var updateUser = await _userService.UpdateAsync(id,updatedUser);
+        return CreatedAtAction(nameof(Get),updateUser);
     }
 
     [HttpDelete("{id:length(24)}")]
