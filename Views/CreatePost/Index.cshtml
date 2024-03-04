@@ -1,0 +1,89 @@
+@model GooBitAPI.Models.User
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link href="~/css/CreatePost.css" rel="stylesheet" media="all" />
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
+    <script src="~/js/CreatePost.js" defer></script>
+</head>
+
+<body>
+    <div class="split left">
+        <div id="file-container">
+            <label for="image-input" class="file-label">Choose Picture</label>
+            <input type="file" id="image-input" accept="image/*" multiple>
+            <div id="selected-images"></div>
+        </div>
+    </div>
+    <div class="split right">
+        <form id="post-form">
+            <label for="title"></label>
+            <textarea id="title" placeholder="Add Title..." name="title"></textarea>
+            <div class="row">
+                <div class="col-left">
+                    <label for="enddate">Selection Ending Date and Time:</label>
+                </div>
+                <div class="col-right">
+                    <input type="datetime-local" id="enddate" name="enddate">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-left">
+                    <label for="eventdate">Selection event Date and Time:</label>
+                </div>
+                <div class="col-right">
+                    <input type="datetime-local" id="eventdata" name="eventdate">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-left">
+                    <label for="max_member">Number of member:</label>
+                </div>
+                <div class="col-right">
+                    <input type="text" id="max_member" name="max_member">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-left">
+                    <label for="duration">Duration:</label>
+                </div>
+                <div class="col-right">
+                    <input type="text" id="duration" name="duration">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-left">
+                    <label for="category">Select Category: </label>
+                </div>
+                <div class="col-right">
+                    <select id="category" name="category">
+                        <option value="Eating">Eating</option>
+                        <option value="Fitness">Fitness</option>
+                        <option value="Trip">Trip</option>
+                        <option value="Study">Study</option>
+                    </select>
+                </div>
+            </div>
+            <label for="description"></label>
+            <textarea id="description" name="description" placeholder="Add description..."></textarea>
+            <label for="locationInput">Location:</label>
+            <input type="text" id="locationInput" placeholder="Type location...">
+            <div id="map"></div>
+
+
+            <input type="hidden" id="selectedLocation" name="googlemap_location">
+
+            <input type="image" id="submitBtn" src="~/Icon/Tick.png" alt="Submit">
+            <input type="image" id="cancelBtn" src="~/Icon/Cancel.png" onclick=clearForm() alt="button">
+        </form>
+
+    </div>
+
+</body>
+
+</html>
