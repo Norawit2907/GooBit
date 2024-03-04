@@ -132,7 +132,7 @@ function clearForm() {
 
 
 $(document).ready(function() {
-    $('#createButton').click(function() {
+    $('#submitBtn').click(function() {
         var formData = new FormData();
         // Add form fields to FormData object
         formData.append("title", $("#title").val());
@@ -141,13 +141,14 @@ $(document).ready(function() {
         formData.append("end_date", $("#end_date").val());
         formData.append("event_date", $("#event_date").val());
         formData.append("duration", $("#duration").val());
-        formData.append("googlemap_location", $("#googlemap_location").val());
+        formData.append("googlemap_location", $("#selectedLocation").val());
         formData.append("latitude", latitude);
         formData.append("longitude", longitude);
-        formData.append('category', $("category").val());
+        formData.append('category', $("#category").val());
         
         var totalImage = $('#image-input')[0].files.length;
         console.log(totalImage);
+        console.log("tcsa")
         for (var i = 0; i < totalImage; i++) {
             var image = $('#image-input')[0].files[i];
             formData.append("images", image);

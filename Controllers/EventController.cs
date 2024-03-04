@@ -88,6 +88,7 @@ public class EventController : Controller
         {
             Console.WriteLine(i);
         }
+        Console.WriteLine("wsws");
         await _eventService.CreateAsync(newEvent);
         return View();
     }
