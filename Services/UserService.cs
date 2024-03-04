@@ -21,7 +21,7 @@ namespace GooBitAPI.Services
         public async Task<List<User>> GetAsync() =>
             await _userCollection.Find(_ => true).ToListAsync();
 
-        public async Task<User?> GetAsync(string id) =>
+        public async Task<User?> GetById(string id) =>
             await _userCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
         public async Task<string?> Login(Login login)
@@ -57,6 +57,12 @@ namespace GooBitAPI.Services
                                                 .Set("profile_img",_profile_img)
                                                 .Set("description",_description);
             await _userCollection.FindOneAndUpdateAsync(_user => _user.Id == id, _update);
+            UserNoPassword userNoPW = await userProfile(id);
+            return userNoPW;
+        }
+
+        public async Task<UserNoPassword> userProfile(string id)
+        {
             User user = await _userCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
             var userNoPW = new UserNoPassword{
                 username = user.username,
