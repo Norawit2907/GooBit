@@ -10,13 +10,14 @@
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
     <script src="~/js/CreatePost.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
     <div class="split left">
         <div id="file-container">
-            <label for="image-input" class="file-label">Choose Picture</label>
-            <input type="file" id="image-input" accept="image/*" multiple>
+            <label for="image-input" class="file-label">Choose Images</label>
+            <input type="file" id="image-input" name="images" accept="image/*" multiple required>
             <div id="selected-images"></div>
         </div>
     </div>
@@ -26,18 +27,18 @@
             <textarea id="title" placeholder="Add Title..." name="title"></textarea>
             <div class="row">
                 <div class="col-left">
-                    <label for="enddate">Selection Ending Date and Time:</label>
+                    <label for="end_date">Selection Ending Date and Time:</label>
                 </div>
                 <div class="col-right">
-                    <input type="datetime-local" id="enddate" name="enddate">
+                    <input type="datetime-local" id="end_date" name="end_date">
                 </div>
             </div>
             <div class="row">
                 <div class="col-left">
-                    <label for="eventdate">Selection event Date and Time:</label>
+                    <label for="event_date">Selection event Date and Time:</label>
                 </div>
                 <div class="col-right">
-                    <input type="datetime-local" id="eventdata" name="eventdate">
+                    <input type="datetime-local" id="event_date" name="event_date">
                 </div>
             </div>
             <div class="row">
