@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using GooBit.Models;
 
-namespace GooBit.Controllers;
+namespace GooBitAPI.Controllers;
 
 public class HomeController : Controller
 {
@@ -20,7 +20,7 @@ public class HomeController : Controller
 
     public IActionResult Privacy()
     {
-        return View();
+        return RedirectToAction("Index","Login");
     }
 
     public IActionResult Post()
