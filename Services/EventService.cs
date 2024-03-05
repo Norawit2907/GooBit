@@ -56,6 +56,12 @@ namespace GooBitAPI.Services
             return sEvent;
         }
 
+        public async Task<List<Event>> GetByCategory(string category)
+        {
+            List<Event> _events = await _eventCollection.Find(x => x.category == category).ToListAsync();
+            return _events;
+        }
+
         public async Task CreateAsync(Event newEvent) =>
             await _eventCollection.InsertOneAsync(newEvent);
 

@@ -1,5 +1,6 @@
 using GooBitAPI.Models;
 using GooBitAPI.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 namespace GooBitAPI.Controllers;
@@ -19,8 +20,50 @@ public class EventController : Controller
         return View();
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetEventMain(string category)
+    {
+        if (category == "null")
+        {
+            return BadRequest();
+        }
+        var allevent = new List<ShortEventDisplay>{};
+        List<Event> _events;
+        if (category == "all")
+        {
+            Console.WriteLine("test");
+            _events = await _eventService.GetAsync();
+        }
+        else
+        {
+            _events = await _eventService.GetByCategory(category);
+        
+        }
+        if (_events == null)
+        {
+            return NotFound();
+        }
+        foreach (Event _event in _events)
+        {
+            var user_id = _event.user_id;
+            if (user_id != null)
+            {
+                var user = await _userService.GetById(user_id);
+                if(user != null)
+                {
+                    var firstname = user.firstname;
+                    var lastname = user.lastname;
+                    var sEvent = _eventService.MakeSEvent(_event, firstname, lastname);
+                    allevent.Add(sEvent);
+                }
+            }
+        }
+        ViewBag.ShortEventDisplay = allevent;
+        return View();
+    }
+
     // Event/Create ---- Get method
-    [HttpGet, ActionName("Create")]
+    [HttpGet, ActionName("create")]
     public async Task<IActionResult> Create()
     {
         string? user_id = HttpContext.Session.GetString("userID");
@@ -42,7 +85,7 @@ public class EventController : Controller
     }
 
     // Event/Create ---- Post method
-    [HttpPost, ActionName("Create")]
+    [HttpPost, ActionName("create")]
     public async Task<IActionResult> ConfirmedCreate(Event newEvent, List<IFormFile> images)
     {
         string? user_id = HttpContext.Session.GetString("userID");
@@ -85,13 +128,37 @@ public class EventController : Controller
             }
         }
 
-        //Console.WriteLine("yes");
-        // foreach(var i in newEvent.event_img)
-        // {
-        //     Console.WriteLine(i);
-        // }
-        //Console.WriteLine("wsws");
         await _eventService.CreateAsync(newEvent);
         return View("Create");
     }
+
+    [HttpGet, ActionName("update")]
+    public async Task<IActionResult> Update()
+    {
+        string? user_id = HttpContext.Session.GetString("userID");
+        if (!string.IsNullOrEmpty(user_id))
+        {
+            var user = await _userService.GetById(user_id);
+            {
+                if (user == null)
+                {
+                    return BadRequest();
+                }
+            }   
+        }
+        return View();
+    }
+
+    [HttpPatch, ActionName("update")]
+    public async Task<IActionResult> ConfirmedUpdate(string id, Event newevent)
+    {
+        if (newevent == null || id == null)
+        {
+            return BadRequest();
+        }
+        await _eventService.UpdateAsync(id ,newevent);
+        return View("update");
+    }
+
+    
 }
