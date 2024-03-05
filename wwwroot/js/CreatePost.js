@@ -128,47 +128,4 @@ let map, marker, latitude, longitude;
 function clearForm() {
     document.getElementById("post-form").reset();
 }
-
-
-
-$(document).ready(function() {
-    $('#submitBtn').click(function() {
-        var formData = new FormData();
-        // Add form fields to FormData object
-        formData.append("title", $("#title").val());
-        formData.append("description", $("#description").val());
-        formData.append("max_member", $("#max_member").val());
-        formData.append("end_date", $("#end_date").val());
-        formData.append("event_date", $("#event_date").val());
-        formData.append("duration", $("#duration").val());
-        formData.append("googlemap_location", $("#selectedLocation").val());
-        formData.append("latitude", latitude);
-        formData.append("longitude", longitude);
-        formData.append('category', $("#category").val());
-        
-        var totalImage = $('#image-input')[0].files.length;
-        console.log(totalImage);
-        console.log("tcsa")
-        for (var i = 0; i < totalImage; i++) {
-            var image = $('#image-input')[0].files[i];
-            formData.append("images", image);
-        }
-        
-        $.ajax({
-            async: false,
-            type: 'POST',
-            url: '/event/create',
-            dataType: 'json',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                alert('Upload successful' + response);
-                // Handle response
-            },
-            error: function (ts) { alert(ts.responseText) } // error where is layout?
-        });
-    });
-    
-});
     

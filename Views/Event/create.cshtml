@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="split right">
-        <form id="post-form">
+        <form id="post-form"  method="post" enctype="multipart/form-data" asp-controller="Event" asp-action="ConfirmedCreate">
             <label for="title"></label>
             <textarea id="title" placeholder="Add Title..." name="title"></textarea>
             <div class="row">

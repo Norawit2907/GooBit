@@ -42,8 +42,8 @@ public class EventController : Controller
     }
 
     // Event/Create ---- Post method
-    [HttpPost, ActionName("Create")]
-    public async Task<IActionResult> ConfirmedCreate(Event newEvent, List<IFormFile> images)
+    [HttpPost]
+    public async Task<IActionResult> ConfirmedCreate(Event newEvent)
     {
         foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
         {
@@ -51,38 +51,7 @@ public class EventController : Controller
             object? value = descriptor.GetValue(newEvent);
             Console.WriteLine("{0}={1}", name, value);
         }
-
-        if (images == null || images.Count == 0)
-        {
-            ModelState.AddModelError("imageFile", "Please select an image file to upload.");
-            Console.WriteLine("-----no images-----");
-            return View();
-        }
-
-        // store image to /wwwroot/uploadFiles
-        var folderName = Path.Combine("wwwroot","uploadFiles");
-        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(),folderName);
-
-        if (!Directory.Exists(uploadsFolder))
-        {
-            Directory.CreateDirectory(uploadsFolder);
-        }
-        // rename file to id
-        foreach(var file in images)
-        {
-            Guid newuuid = Guid.NewGuid();
-            string newfilename = newuuid.ToString();
-            string ext = System.IO.Path.GetExtension(file.FileName);
-            newfilename = newuuid.ToString() + ext;
-            newEvent.event_img.Add(newfilename);
-            string fileSavePath = Path.Combine(uploadsFolder, newfilename);
-            
-            using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
-            {
-                    await file.CopyToAsync(stream);
-            }
-        }
-
+        
         Console.WriteLine("yes");
         foreach(var i in newEvent.event_img)
         {
@@ -90,6 +59,6 @@ public class EventController : Controller
         }
         Console.WriteLine("wsws");
         await _eventService.CreateAsync(newEvent);
-        return View();
+        return View("create");
     }
 }
