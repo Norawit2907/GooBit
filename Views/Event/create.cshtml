@@ -9,7 +9,6 @@
     <link href="~/css/CreatePost.css" rel="stylesheet" media="all" />
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -76,7 +75,7 @@
             <div id="map"></div>
 
 
-            <input type="hidden" id="selectedLocation" name="selectedLocation">
+            <input type="hidden" id="selectedLocation" name="googlemap_location">
 
             <input type="image" id="submitBtn" src="~/Icon/Tick.png" alt="Submit">
             <input type="image" id="cancelBtn" src="~/Icon/Cancel.png" onclick=clearForm() alt="button">
