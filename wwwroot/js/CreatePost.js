@@ -129,6 +129,14 @@ function clearForm() {
     document.getElementById("post-form").reset();
 }
 
+function submitForm() {
+    document.getElementById("post-form").submit();
+
+    setTimeout(function() {
+        document.getElementById("post-form").reset();
+    }, 100);
+}
+
 
 
     

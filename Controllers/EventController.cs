@@ -32,7 +32,12 @@ public class EventController : Controller
                 {
                     return BadRequest();
                 }
-            }   
+                else
+                {
+                    ViewBag.UserName = $"{user.firstname} {user.lastname}";
+                    ViewBag.ProfileImg = $"{user.profile_img}";
+                }
+            }
         }
         // when current user is not found
         // else{
@@ -47,7 +52,7 @@ public class EventController : Controller
     {
         string? user_id = HttpContext.Session.GetString("userID");
         newEvent.user_id = user_id;
-        foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
+        foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
         {
             string name = descriptor.Name;
             object? value = descriptor.GetValue(newEvent);
@@ -62,15 +67,15 @@ public class EventController : Controller
         }
 
         // store image to /wwwroot/uploadFiles
-        var folderName = Path.Combine("wwwroot","uploadFiles");
-        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(),folderName);
+        var folderName = Path.Combine("wwwroot", "uploadFiles");
+        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
         if (!Directory.Exists(uploadsFolder))
         {
             Directory.CreateDirectory(uploadsFolder);
         }
         // rename file to id
-        foreach(var file in images)
+        foreach (var file in images)
         {
             Guid newuuid = Guid.NewGuid();
             string newfilename = newuuid.ToString();
@@ -78,10 +83,10 @@ public class EventController : Controller
             newfilename = newuuid.ToString() + ext;
             newEvent.event_img.Add(newfilename);
             string fileSavePath = Path.Combine(uploadsFolder, newfilename);
-            
+
             using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
             {
-                    await file.CopyToAsync(stream);
+                await file.CopyToAsync(stream);
             }
         }
 
@@ -94,4 +99,9 @@ public class EventController : Controller
         await _eventService.CreateAsync(newEvent);
         return View("Create");
     }
+    public IActionResult Edit()
+    {
+        return View();
+    }
+
 }
