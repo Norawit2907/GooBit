@@ -123,7 +123,7 @@ public class UserController : Controller
 
     // Update user
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody]UpdateUser updatedUser)
+    public async Task<IActionResult> Update([FromBody]UpdateUser updatedUser, IFormFile proImage)
     {
         var id = HttpContext.Session.GetString("userID");
         if (id == null)
@@ -131,8 +131,34 @@ public class UserController : Controller
             return RedirectToAction("Login","User");
         }
         if (updatedUser.password != updatedUser.confirm_password){
-            return BadRequest("Password not match");
+            ModelState.AddModelError("PasswordValidate","Unmatch password.");
+            return BadRequest();
         }
+        if (proImage == null)
+        {
+            ModelState.AddModelError("ImageValidate","Please select an image file to upload.");
+            return BadRequest();
+        }
+
+        var folderName = Path.Combine("wwwroot","profileImage");
+        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(),folderName);
+
+        if (!Directory.Exists(uploadsFolder))
+        {
+            Directory.CreateDirectory(uploadsFolder);
+        }
+
+        Guid newuuid = Guid.NewGuid();
+        string newfilename = newuuid.ToString();
+        string ext = System.IO.Path.GetExtension(proImage.FileName);
+        newfilename = newuuid.ToString() + ext;
+        updatedUser.profile_img = newfilename;
+        string fileSavePath = Path.Combine(uploadsFolder, newfilename);
+        using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
+        {
+                await proImage.CopyToAsync(stream);
+        }
+
         var updateUser = await _userService.UpdateAsync(id,updatedUser);
         return CreatedAtAction(nameof(Get),updateUser);
     }
