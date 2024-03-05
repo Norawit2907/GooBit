@@ -20,7 +20,8 @@ public class EventController : Controller
         return View();
     }
 
-    public async Task<IActionResult> GetEventByCategory(string category)
+    [HttpGet]
+    public async Task<IActionResult> GetEventMain(string category)
     {
         if (category == "null")
         {
@@ -30,6 +31,7 @@ public class EventController : Controller
         List<Event> _events;
         if (category == "all")
         {
+            Console.WriteLine("test");
             _events = await _eventService.GetAsync();
         }
         else
@@ -56,12 +58,12 @@ public class EventController : Controller
                 }
             }
         }
-        ViewData["event"] = allevent;
+        ViewBag.ShortEventDisplay = allevent;
         return View();
     }
 
     // Event/Create ---- Get method
-    [HttpGet, ActionName("Create")]
+    [HttpGet, ActionName("create")]
     public async Task<IActionResult> Create()
     {
         string? user_id = HttpContext.Session.GetString("userID");
@@ -83,9 +85,12 @@ public class EventController : Controller
     }
 
     // Event/Create ---- Post method
-    [HttpPost, ActionName("Create")]
+    [HttpPost, ActionName("create")]
     public async Task<IActionResult> ConfirmedCreate(Event newEvent, List<IFormFile> images)
     {
+        string? user_id = HttpContext.Session.GetString("userID");
+        newEvent.user_id = user_id;
+
         foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
         {
             string name = descriptor.Name;
@@ -124,13 +129,37 @@ public class EventController : Controller
             }
         }
 
-        //Console.WriteLine("yes");
-        // foreach(var i in newEvent.event_img)
-        // {
-        //     Console.WriteLine(i);
-        // }
-        //Console.WriteLine("wsws");
         await _eventService.CreateAsync(newEvent);
         return View("Create");
     }
+
+    [HttpGet, ActionName("update")]
+    public async Task<IActionResult> Update()
+    {
+        string? user_id = HttpContext.Session.GetString("userID");
+        if (!string.IsNullOrEmpty(user_id))
+        {
+            var user = await _userService.GetById(user_id);
+            {
+                if (user == null)
+                {
+                    return BadRequest();
+                }
+            }   
+        }
+        return View();
+    }
+
+    [HttpPatch, ActionName("update")]
+    public async Task<IActionResult> ConfirmedUpdate(string id, Event newevent)
+    {
+        if (newevent == null || id == null)
+        {
+            return BadRequest();
+        }
+        await _eventService.UpdateAsync(id ,newevent);
+        return View("update");
+    }
+
+    
 }
