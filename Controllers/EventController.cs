@@ -90,7 +90,6 @@ public class EventController : Controller
     {
         string? user_id = HttpContext.Session.GetString("userID");
         newEvent.user_id = user_id;
-
         foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
         {
             string name = descriptor.Name;
