@@ -26,7 +26,7 @@ public class EventController : Controller
         string? user_id = HttpContext.Session.GetString("userID");
         if (!string.IsNullOrEmpty(user_id))
         {
-            var user = await _userService.GetAsync(user_id);
+            var user = await _userService.GetById(user_id);
             {
                 if (user == null)
                 {

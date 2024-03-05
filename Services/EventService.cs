@@ -40,7 +40,7 @@ namespace GooBitAPI.Services
                 firstname = firstname,
                 lastname = lastname,
                 latitude = _event.latitude,
-                longtitude = _event.longtitude
+                longitude = _event.longitude
             };
             return ShEvD;
         }
