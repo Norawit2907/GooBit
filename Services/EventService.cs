@@ -22,6 +22,12 @@ namespace GooBitAPI.Services
         public async Task<Event?> GetById(string id) =>
             await _eventCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
+        public async Task<List<Event>> GetByCategory(string category)
+        {
+            List<Event> _events = await _eventCollection.Find(x => x.category == category).ToListAsync();
+            return _events;
+        }
+
         public ShortEventDisplay MakeSEvent(Event _event, string firstname, string lastname)
         {
             ShortEventDisplay ShEvD = new ShortEventDisplay{

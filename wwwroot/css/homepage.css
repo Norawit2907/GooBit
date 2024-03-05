@@ -47,7 +47,7 @@ body{
 
 .post__container-body{
     margin-top: 5px;
-    border-top: solid #a4a4a4 2px;
+    /* border-top: solid #a4a4a4 2px; */
     display: flex;
     flex-direction: column;
 }
@@ -69,11 +69,18 @@ body{
 .img-container{
     width: 875px;
     height: 380px;
-    border-top: 2px solid #a4a4a4;
-    border-bottom: 2px solid #a4a4a4;
-    background-color: #a4a4a4;
+    border-top: 1px solid #a4a4a4;
+    border-bottom: 1px solid #a4a4a4;
+    /* background-color: #a4a4a4; */
+    background-color: white;
     display: flex;
     justify-content: center;
+}
+
+.img-container img{
+    object-fit: cover;
+    height: 100%;
+    max-width: 100%;
 }
 
 .post__container-footer{

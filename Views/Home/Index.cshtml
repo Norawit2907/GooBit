@@ -1,24 +1,39 @@
 
-@model IEnumerable<GooBitAPI.Models.Event>
+@model IEnumerable<GooBitAPI.Models.ShortEventDisplay>
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <link rel="stylesheet" href="~/css/homepage.css"/>
+
+<ul>
+    @foreach (var std in ViewBag.ShortEventDisplay)
+    {
+        <li>
+            <strong>ID:</strong> @std.Id <br />
+            <strong>Title:</strong> @std.title <br />
+            <strong>Location:</strong> @std.googlemap_location <br />
+        </li>
+        <br />
+    }
+</ul>
+
 <div class="home-page">
     <div class="post__list">
-        @for(int i = 0; i< 10 ;i++)
+        @foreach(var evnt in ViewBag.ShortEventDisplay)
         {
             <a class='post__container' asp-area="" asp-controller="Home" asp-action="Post">
                 <div class='post__container-header'>
-                    <img src="~/uploadFiles/875d5615-be02-4ae1-9e50-30471b89b779.jpg"/>
-                    <p> Kitton </p>
+                    <img src="~/uploadFiles/1a193173-7cbe-4dc8-ab98-fbb0b112d88f.jpg"/>
+                    <p> @evnt.firstname @evnt.lastname</p>
+                    
                 </div>
+                
                 <div class='post__container-body'>
-                    <p> thee khaaa hreeeee</p>
+                    <p> @evnt.title</p>
                     <div class="img-container">
-                        <img src="~/uploadFiles/875d5615-be02-4ae1-9e50-30471b89b779.jpg"/>
+                        <img src="~/uploadFiles/9756b08b-e987-4a9a-b054-9b831d368b3d.jpg"/>
                     </div>
                 </div>
 
