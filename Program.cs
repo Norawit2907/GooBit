@@ -9,7 +9,8 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.IdleTimeout = TimeSpan.FromSeconds(3600);
+    options.IOTimeout = Timeout.InfiniteTimeSpan;
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -47,6 +48,6 @@ app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=User}/{action=Login}/{id?}");
 
 app.Run();
