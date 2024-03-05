@@ -1,0 +1,11 @@
+@model GooBitAPI.Models.ShortEventDisplay
+
+<h2>Display All EVENT</h2>
+<ul>
+@foreach (var std in ViewBag.ShortEventDisplay)
+    {
+        <li>
+            @std
+        </li>
+    }
+</ul>
