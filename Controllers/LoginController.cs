@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace GooBitAPI.Controllers
+namespace BasicASP.Controllers
 {
     public class LoginController : Controller
     {

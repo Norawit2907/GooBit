@@ -26,7 +26,7 @@ public class EventController : Controller
         string? user_id = HttpContext.Session.GetString("userID");
         if (!string.IsNullOrEmpty(user_id))
         {
-            var user = await _userService.GetById(user_id);
+            var user = await _userService.GetAsync(user_id);
             {
                 if (user == null)
                 {
@@ -45,8 +45,6 @@ public class EventController : Controller
     [HttpPost, ActionName("Create")]
     public async Task<IActionResult> ConfirmedCreate(Event newEvent, List<IFormFile> images)
     {
-        string? user_id = HttpContext.Session.GetString("userID");
-        newEvent.user_id = user_id;
         foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
         {
             string name = descriptor.Name;
@@ -85,13 +83,13 @@ public class EventController : Controller
             }
         }
 
-        //Console.WriteLine("yes");
-        // foreach(var i in newEvent.event_img)
-        // {
-        //     Console.WriteLine(i);
-        // }
-        //Console.WriteLine("wsws");
+        Console.WriteLine("yes");
+        foreach(var i in newEvent.event_img)
+        {
+            Console.WriteLine(i);
+        }
+        Console.WriteLine("wsws");
         await _eventService.CreateAsync(newEvent);
-        return View("Create");
+        return View();
     }
 }
