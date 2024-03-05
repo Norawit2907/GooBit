@@ -59,11 +59,21 @@ body{
     font-weight: 500;
 }
 
-.post__container-body img{
+/* .post__container-body img{
     width: 875px;
     height: 380px;
     border-top: 2px solid #a4a4a4;
     border-bottom: 2px solid #a4a4a4;
+} */
+
+.img-container{
+    width: 875px;
+    height: 380px;
+    border-top: 2px solid #a4a4a4;
+    border-bottom: 2px solid #a4a4a4;
+    background-color: #a4a4a4;
+    display: flex;
+    justify-content: center;
 }
 
 .post__container-footer{

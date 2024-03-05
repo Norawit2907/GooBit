@@ -45,6 +45,8 @@ public class EventController : Controller
     [HttpPost, ActionName("Create")]
     public async Task<IActionResult> ConfirmedCreate(Event newEvent, List<IFormFile> images)
     {
+        string? user_id = HttpContext.Session.GetString("userID");
+        newEvent.user_id = user_id;
         foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
         {
             string name = descriptor.Name;
