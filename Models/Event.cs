@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace GooBitAPI.Models
 {
-    public class Event
+    public class Event  
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
