@@ -56,7 +56,7 @@ public class UserController : Controller
         foreach (Participant participant in participants)
         {
             var _event = await _eventService.GetById(participant.event_id);
-            if (_event != null)
+            if (_event != null && _event.user_id != null)
             {
                 var host_user = await _userService.GetById(_event.user_id);
                 if (host_user != null)

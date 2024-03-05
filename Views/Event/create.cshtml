@@ -71,12 +71,14 @@
             <label for="description"></label>
             <textarea id="description" name="description" placeholder="Add description..."></textarea>
             <label for="locationInput">Location:</label>
-            <input type="text" id="locationInput" placeholder="Type location...">
+            <input type="text" id="locationInput" placeholder="Type location..." name="googlemap_location">
             <div id="map"></div>
 
 
-            <input type="hidden" id="selectedLocation" name="googlemap_location">
-
+            <input type="hidden" id="selectedLocation" name="selectedLocation">
+            <input type="hidden" id="latitude" name="latitude">
+            <input type="hidden" id="longitude" name="longitude">
+            
             <input type="image" id="submitBtn" src="~/Icon/Tick.png" alt="Submit">
             <input type="image" id="cancelBtn" src="~/Icon/Cancel.png" onclick=clearForm() alt="button">
 

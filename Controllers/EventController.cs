@@ -83,13 +83,13 @@ public class EventController : Controller
             }
         }
 
-        Console.WriteLine("yes");
-        foreach(var i in newEvent.event_img)
-        {
-            Console.WriteLine(i);
-        }
-        Console.WriteLine("wsws");
+        //Console.WriteLine("yes");
+        // foreach(var i in newEvent.event_img)
+        // {
+        //     Console.WriteLine(i);
+        // }
+        //Console.WriteLine("wsws");
         await _eventService.CreateAsync(newEvent);
-        return View();
+        return View("Create");
     }
 }

@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-let map, marker, latitude, longitude;
+let map, marker;
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
@@ -116,8 +116,8 @@ let map, marker, latitude, longitude;
                 lat: location.lat(),
                 lng: location.lng()
             });
-            latitude = location.lat()
-            longitude = location.lng()
+            document.getElementById('latitude').value = location.lat()
+            document.getElementById('longitude').value = location.lng()
         }
 
         // Initialize the map when the page is loaded
