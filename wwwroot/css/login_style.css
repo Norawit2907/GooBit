@@ -43,7 +43,7 @@ form h2 {
     color: white;
     font-size: 2.9rem;
     text-transform: uppercase;
-    margin: 15px 0;
+    margin-bottom: 50px;
 }
 
 .login-context {
@@ -68,6 +68,13 @@ form h2 {
     padding: 5px;
 }
 
+.input-div div span {
+    position: absolute;
+    left: 0;
+    top: -30px;
+    color: white;
+    font-size: 15px;
+}
 
 .input-div.one {
     background: #595959;

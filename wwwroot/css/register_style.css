@@ -72,6 +72,14 @@ form p {
     padding: 5px;
 }
 
+.input-div div span {
+    position: absolute;
+    left: 0;
+    top: -30px;
+    color: white;
+    font-size: 15px;
+}
+
 .input-div.one {
     background: #595959;
     border-radius: 25px;
