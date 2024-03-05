@@ -1,5 +1,6 @@
 using GooBitAPI.Models;
 using GooBitAPI.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 namespace GooBitAPI.Controllers;
@@ -16,6 +17,46 @@ public class EventController : Controller
 
     public IActionResult Index()
     {
+        return View();
+    }
+
+    public async Task<IActionResult> GetEventByCategory(string category)
+    {
+        if (category == "null")
+        {
+            return BadRequest();
+        }
+        var allevent = new List<ShortEventDisplay>{};
+        List<Event> _events;
+        if (category == "all")
+        {
+            _events = await _eventService.GetAsync();
+        }
+        else
+        {
+            _events = await _eventService.GetByCategory(category);
+        
+        }
+        if (_events == null)
+        {
+            return NotFound();
+        }
+        foreach (Event _event in _events)
+        {
+            var user_id = _event.user_id;
+            if (user_id != null)
+            {
+                var user = await _userService.GetById(user_id);
+                if(user != null)
+                {
+                    var firstname = user.firstname;
+                    var lastname = user.lastname;
+                    var sEvent = _eventService.MakeSEvent(_event, firstname, lastname);
+                    allevent.Add(sEvent);
+                }
+            }
+        }
+        ViewData["event"] = allevent;
         return View();
     }
 
