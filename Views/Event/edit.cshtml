@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Post</title>
+    <title>Edit Event</title>
     <link href="~/css/CreatePost.css" rel="stylesheet" media="all" />
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
@@ -13,7 +13,7 @@
 
 <body>
     <header class="header">
-        <a>Create your new event</a>
+        <a>Edit your event</a>
         <input type="image" id="submitBtn" src="~/Icon/Tick.png" alt="submitBtn" onclick="submitForm()">
         <input type="image" id="cancelBtn" src="~/Icon/Cancel.png" onclick="clearForm()" alt="cancleBtn">
     </header>
@@ -26,10 +26,7 @@
             </div>
         </div>
         <div class="split right">
-            <div class="profile">
-                <img class=profileimg src="~/uploadFiles/@ViewBag.ProfileImg" alt="ProfileImg">
-                <div class=username>@ViewBag.UserName</div>
-            </div>
+            <input type="image" id="deleteBtn" src="~/Icon/Bin.png" onclick="clearForm()" alt="deleteBtn">
             <label for="title"></label>
             <textarea id="title" placeholder="Add Title..." name="title"></textarea>
             <div class="row">
@@ -53,7 +50,7 @@
                     <label for="max_member" class="form-label">Number of member:</label>
                 </div>
                 <div class="col-right">
-                    <input type="text" id="max_member" name="max_member">
+                    <input type="text" id="max_member" name="max_member" placeholder="Add number of member...">
                 </div>
             </div>
             <div class="row">
@@ -61,7 +58,7 @@
                     <label for="duration" class="form-label">Duration:</label>
                 </div>
                 <div class="col-right">
-                    <input type="text" id="duration" name="duration">
+                    <input type="text" id="duration" name="duration" placeholder="Add Duration...">
                 </div>
             </div>
             <div class="row">
@@ -74,6 +71,31 @@
                         <option value="Fitness">Fitness</option>
                         <option value="Trip">Trip</option>
                         <option value="Study">Study</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-left">
+                    <label for="choose" class="form-label">Choose People: </label>
+                </div>
+                <div class="col-right">
+                    <select id="choose" name="choose">
+                        <option value="person1">Person1</option>
+                        <option value="person2">Person2</option>
+                        <option value="person3">Person3</option>
+                        <option value="person4">Person4</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-left">
+                    <label for="status" class="form-label">Status: </label>
+                </div>
+                <div class="col-right">
+                    <select id="status" name="status">
+                        <option value="open">Open</option>
+                        <option value="close">Close</option>
+
                     </select>
                 </div>
             </div>
