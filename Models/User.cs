@@ -9,17 +9,17 @@ namespace GooBitAPI.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
-        [Required(ErrorMessage = "Please enter username")]
+        [Required(ErrorMessage = "Please enter username.")]
         public string username { get; set; } = null!;
-        [Required(ErrorMessage = "Please enter password")]
+        [Required(ErrorMessage = "Please enter password.")]
         [DataType(DataType.Password)]
         public string password { get; set; } = null!;
-        [Required(ErrorMessage = "Please enter email")]
-        [EmailAddress(ErrorMessage = "Please enter email")]
+        [Required(ErrorMessage = "Please enter email.")]
+        [EmailAddress(ErrorMessage = "Please enter email.")]
         public string email { get; set; } = null!;
-        [Required(ErrorMessage = "Please enter first name")]
+        [Required(ErrorMessage = "Please enter first name.")]
         public string firstname { get; set; } = null!;
-        [Required(ErrorMessage = "Please enter last name")]
+        [Required(ErrorMessage = "Please enter last name.")]
         public string lastname { get; set; } = null!;
         public string? description { get; set; } = null!;
         public string? profile_img { get; set; } = null!;
@@ -28,10 +28,10 @@ namespace GooBitAPI.Models
 
     public class Login
     {
-        [Required(ErrorMessage = "Please enter email")]
+        [Required(ErrorMessage = "Please enter email.")]
         [EmailAddress]
         public string email { get; set; } = null!;
-        [Required(ErrorMessage = "Please enter password")]
+        [Required(ErrorMessage = "Please enter password.")]
         [DataType(DataType.Password)]
         public string password { get; set;} = null!;
     }
@@ -53,6 +53,7 @@ namespace GooBitAPI.Models
 
     public class UserNoPassword
     {
+        public string? Id { get; set; }
         public string username { get; set; } = null!;
         [EmailAddress]
         public string email { get; set; } = null!;
