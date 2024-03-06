@@ -53,6 +53,7 @@ namespace GooBitAPI.Models
 
     public class UserNoPassword
     {
+        public string? Id { get; set; }
         public string username { get; set; } = null!;
         [EmailAddress]
         public string email { get; set; } = null!;

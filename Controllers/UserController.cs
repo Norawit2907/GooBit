@@ -76,7 +76,7 @@ public class UserController : Controller
             owned_event = ownedEvent,
             joined_event = joinedEvent
         };
-        return CreatedAtAction(nameof(Get),userProfile);
+        return Ok(userProfile);
     }
 
     public IActionResult Register()

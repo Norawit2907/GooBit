@@ -77,7 +77,7 @@ namespace GooBitAPI.Models
 
     public class EditEventDisplay
     {
-        public string Id { get; set; } = null!;
+        public string? Id { get; set; } = null!;
         public string title {get; set;} = null!;
         public string description {get; set;} = null!;
         public int total_member {get; set;} = 0;
@@ -92,7 +92,8 @@ namespace GooBitAPI.Models
         public string? user_id {get; set;} = null!;
         public decimal? latitude {get; set;} = 0!;
         public decimal? longitude {get; set;} = 0!;
-        public List<Participant> participants {get; set;} = [];
+        public int available_user {get; set;} = 0;
+        public List<UserNoPassword> participants {get; set;} = [];
     }
 
 }

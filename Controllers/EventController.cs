@@ -7,10 +7,12 @@ namespace GooBitAPI.Controllers;
 public class EventController : Controller
 {
     private readonly UserService _userService;
+    private readonly ParticipantService _participantService;
     private readonly EventService _eventService;
-    public EventController(EventService eventService, UserService userService)
+    public EventController(EventService eventService, ParticipantService participantService, UserService userService)
     {
         _eventService = eventService;
+        _participantService = participantService;
         _userService = userService;
     }
 
@@ -24,20 +26,17 @@ public class EventController : Controller
     public async Task<IActionResult> Create()
     {
         string? user_id = HttpContext.Session.GetString("userID");
-        if (!string.IsNullOrEmpty(user_id))
+        if (user_id == null)
         {
-            var user = await _userService.GetById(user_id);
-            {
-                if (user == null)
-                {
-                    return BadRequest();
-                }
-            }   
+            return RedirectToAction("Login","User");
         }
-        // when current user is not found
-        // else{
-        //     return BadRequest();
-        // }
+        var user = await _userService.GetById(user_id);
+        {
+            if (user == null)
+            {
+                return RedirectToAction("Login","User");
+            }
+        }   
         return View();
     }
 
@@ -46,6 +45,10 @@ public class EventController : Controller
     public async Task<IActionResult> ConfirmedCreate(Event newEvent, List<IFormFile> images)
     {
         string? user_id = HttpContext.Session.GetString("userID");
+        if (user_id == null)
+        {
+            return RedirectToAction("Login","User");
+        }
         newEvent.user_id = user_id;
         foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
         {
@@ -85,13 +88,49 @@ public class EventController : Controller
             }
         }
 
-        //Console.WriteLine("yes");
-        // foreach(var i in newEvent.event_img)
-        // {
-        //     Console.WriteLine(i);
-        // }
-        //Console.WriteLine("wsws");
         await _eventService.CreateAsync(newEvent);
         return View("Create");
+    }
+
+    public async Task<IActionResult> EditEvent(string id)
+    {
+        Event? _event = await _eventService.GetById(id);
+        if (_event == null)
+        {
+            return BadRequest();
+        }
+        List<Participant> participants = await _participantService.GetByEvent(id);
+        List<UserNoPassword> pendingUser = [];
+        int submited_user = 0;
+        foreach (Participant participant in participants)
+        {
+            if (participant.status == "pending")
+            {
+                UserNoPassword user = await _userService.userProfile(participant.user_id);
+                pendingUser.Add(user);
+            } else if (participant.status == "submited")
+            {
+                submited_user++;
+            }
+        }
+        EditEventDisplay editEvent = new EditEventDisplay{
+            Id = _event.Id,
+            title = _event.title,
+            description = _event.description,
+            total_member = _event.total_member,
+            max_member = _event.max_member,
+            end_date = _event.end_date,
+            event_date = _event.event_date,
+            duration = _event.duration,
+            googlemap_location = _event.googlemap_location,
+            event_img = _event.event_img,
+            category = _event.category,
+            status = _event.status,
+            latitude = _event.latitude,
+            longitude = _event.longitude,
+            available_user = _event.max_member - submited_user,
+            participants = pendingUser
+        };
+        return Ok(editEvent);
     }
 }
