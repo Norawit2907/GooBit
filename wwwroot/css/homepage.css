@@ -20,15 +20,16 @@ body{
     
 }
 
-.post__container:hover{
+/* .post__container:hover{
     color: #F7971D;
-}
+} */
 
 .post__container-header{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    
 }
 
 .post__container-header img{
@@ -42,10 +43,17 @@ body{
 
 
 .post__container-header p{
-    margin-left: 5px;
-    font-size: 18px;
+    margin: 0px 0px;
+}
+
+.post__container-header-name{
     font-weight: bold;
-    
+    font-size: 18px;
+}
+
+.post__container-header-end-date{
+    font-weight: normal;
+    font-size: 12px;
 }
 
 .post__container-body{
@@ -94,28 +102,78 @@ body{
     /* border: 2px solid red; */
 }
 
-.post__container-footer #date{
-    margin-left: 20px;
-    font-size: 20px;
+.element__container{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    margin: 20px 0px;
+}
+
+.post__container-location{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    margin: 10px 15px;
+}
+.post__container-location img{
+    width: auto;
+    height: 10%;
+}
+
+.post__container-location #location{
+    margin: 0px 15px;
+    font-size: 15px;
     font-weight: 500;
+    
+}
+
+.post__container-date{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    margin: 10px 15px;
+
+}
+.post__container-date #date{
+    padding: 0px 15px;
+    margin: 0px 0px;
+}
+
+.element__container #participant{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    margin:10px 15px;
 }
 
 .post__container-footer #attemp{
-    margin-right: 40px;
     font-size: 20px;
     font-weight: 500;
+    margin: 0px;
+}
+
+.element__container img{
+    width: 4%;
+    height: auto;
 }
 
 .progress-bar-container{
-    margin-top: 12px;
-    width: 60%;
-    height: 12px;
+    width: 150px;
+    height: 10px;
     border-radius: 20px;
-    background-color: #a4a4a4;
+    margin: 0px 20px;
+    
+    background-color: #181817;
 }
 
 .progress-bar{
-    width: 60%;
+    height: 100%;
+    width: 50%;
     border-radius: 20px;
-    background-color: #f7971d;
+    background-color: #F7971D;
 }

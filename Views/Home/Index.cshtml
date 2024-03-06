@@ -6,7 +6,32 @@
 }
 
 <link rel="stylesheet" href="~/css/homepage.css"/>
+<script type="text/javascript">
+    function CalEndDate(endDate, elementid) {
+    const currentDate = new Date();
+    const timeEnd = new Date(endDate);
+    const timeDifference = timeEnd.getTime() - currentDate.getTime();
+    const dayDifference = Math.ceil(timeDifference / (1000 * 3600 * 24)).toString();
 
+    // Get list of element by class name
+    var elements = document.getElementsByClassName(elementid);
+
+    // Loop through the elements and update their content
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].innerHTML = dayDifference.concat(" Days left");
+    }
+    }
+
+    function CalPeoplePercent(totalpeople, maxpeople, elementName){
+        var elements = document.getElementsByClassName(elementName);
+        for (var i = 0; i < elements.length; i++) {
+            var percent = ((totalpeople / maxpeople) * 100).toString();
+            elements[i].style.width = percent.concat("%")
+        }
+        
+    }
+    
+</script>
 <!-- <ul>
     @foreach (var std in ViewBag.ShortEventDisplay)
     {
@@ -26,7 +51,11 @@
             <a class='post__container' asp-area="" asp-controller="Home" asp-action="Post">
                 <div class='post__container-header'>
                     <img src="~/uploadFiles/1a193173-7cbe-4dc8-ab98-fbb0b112d88f.jpg"/>
-                    <p> @evnt.firstname @evnt.lastname</p>
+                    <div>
+                        <p class="post__container-header-name"> @evnt.firstname @evnt.lastname</p>
+                        <p class="post__container-header-end_date @evnt.Id" id="@evnt.Id">-</p>
+                        <script> CalEndDate("@evnt.end_date", "post__container-header-end_date @evnt.Id")</script>
+                    </div>
                     
                 </div>
                 
@@ -38,12 +67,25 @@
                 <div class='post__container-footer'>
                     <p id="title"> @evnt.title</p>
                     <p id="description">@evnt.description</p>
-                    <p id="date">Ended in: xx/xx/xxxx</p>
-                    
-                    <div class="progress-bar-container">
-                        <div class="progress-bar"></div>
+                    <div class="element__container">
+                        <div class='post__container-location'>
+                            <img src="~/icon/location.png">
+                            <p id="location">@evnt.googlemap_location</p>
+                        </div>
+                        <div class='post__container-date'>
+                            <img src="~/icon/calendar.png">
+                            <p id="date">@evnt.event_date</p>
+                        </div>
+
+                        <div id="participant">
+                            <img src="~/icon/group.png">
+                            <div class="progress-bar-container">
+                                <div class="progress-bar @evnt.Id"></div>
+                            </div>
+                            <script> CalPeoplePercent("@evnt.total_member", "@evnt.max_member","progress-bar @evnt.Id") </script>
+                            <p id="attemp">@evnt.total_member/@evnt.max_member</p>
+                        </div>
                     </div>
-                    <p id="attemp">3/5</p>
                 </div>
             </a>
         } 
