@@ -1,18 +1,90 @@
 @model GooBitAPI.Models.User
 
+@{
+    ViewData["Title"] = "Profile";
+}
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile</title>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="utf-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <title>Profile - DARK</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins%3A500%2C600%2C700"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A500%2C600%2C700"/>
+  <link rel="stylesheet" href="~/css/Profile.css"/>
 </head>
 <body>
-    <div class="container">
-
+<div class="profile-dark">
+  <div class="Profile">
+    <div class="Profile-box">
+      <div class="profilebg">
+        <div class="profile-banner">
+          <div class="progile-bg">
+          </div>
+          <img class="profile-pic" src="./assets/profile-pic-PYs.png"/>
+          <p class="email">kitton@sudlor.com</p>
+          <p class="Profilename">Kitton Sudlor</p>
+        </div>
+        <p class="bio">
+        bio1
+        <br/>
+        bio2
+        <br/>
+        bio3
+        </p>
+        <div class="event-counter">
+          <div class="participated">
+            <p class="participated-head">Participated </p>
+            <p class="participated-num">4</p>
+            <img class="participated-logo" src="./assets/interface-essential-flag-ZRq.png"/>
+          </div>
+          <div class="hosted-box">
+            <div class="host-bg">
+            </div>
+            <p class="hosted">Hosted</p>
+            <p class="hosted-num">3</p>
+            <img class="hosted-logo" src="./assets/interface-essential-flag-7i7.png"/>
+          </div>
+        </div>
+      </div>
+      <div class="settings-butt">
+        <div class="settings-info">
+          <p class="settings">Settings</p>
+          <img class="settings-gears" src="./assets/droop-line-settings-CT9.png"/>
+        </div>
+      </div>
     </div>
-    
+    <div class="create-post-butt">
+      <div class="create-post">
+        <img class="Profile-pic-createpost" src="./assets/ellipse-490-6KR.png"/>
+        <div class="createquote">What’s event do you want to start?</div>
+        <img class="posts-icon" src="./assets/droop-line-photo-wWP.png"/>
+        <img class="post-icon" src="./assets/post-icon-Erj.png"/>
+      </div>
+      <div class="posts">
+        <div class="post-container">
+          <div class="postbox">
+          </div>
+          <div class="post-pic">
+          </div>
+          <img class="ellipse" src="./assets/ellipse-490-z95.png"/>
+          <img class="droop-line" src="./assets/droop-line-settings-EqD.png"/>
+          <div class="progress-bar">
+            <div class="total-bar">
+            </div>
+          </div>
+          <p class="Postname">Kitton Sudlor</p>
+          <p class="Description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p class="end-date">Ended in: 29/2/2024</p>
+          <p class="Max">3/5</p>
+          <div class="line">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
-</html>
