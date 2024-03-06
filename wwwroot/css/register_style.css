@@ -72,6 +72,14 @@ form p {
     padding: 5px;
 }
 
+.input-div div span {
+    position: absolute;
+    left: 0;
+    top: -30px;
+    color: white;
+    font-size: 15px;
+}
+
 .input-div.one {
     background: #595959;
     border-radius: 25px;
@@ -126,4 +134,14 @@ form p {
     cursor: pointer;
     border: none;
     outline: none;
+}
+
+@media screen and (max-width: 900px) {
+    .login-detail {
+        display: none;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+    }
 }
