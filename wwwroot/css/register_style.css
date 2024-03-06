@@ -135,3 +135,13 @@ form p {
     border: none;
     outline: none;
 }
+
+@media screen and (max-width: 900px) {
+    .login-detail {
+        display: none;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
