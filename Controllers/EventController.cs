@@ -151,11 +151,6 @@ public class EventController : Controller
         return View(editEvent);
     }
 
-    //     public IActionResult Edit()
-    //     {
-    //         return View();
-    //     }
-
     // [HttpPost]
     // public async Task<IActionResult> Edit()
     // {
@@ -175,7 +170,7 @@ public class EventController : Controller
             return BadRequest("Backendddd!!!!!!!");
         }
         Participant? check_p = await _participantService.GetByEU(user_id,id);
-        if (check_p != null)
+        if (check_p != null || _event.status == false)
         {
             return BadRequest("Can not do it again");
         }
