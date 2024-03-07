@@ -1,0 +1,754 @@
+body {
+    margin: 0;
+    line-height: normal;
+  }
+  
+  .goo1,
+  .navbar-item {
+    position: relative;
+    z-index: 1;
+  }
+  .navbar-item {
+    height: 94px;
+    width: 1440px;
+    background-color: #000;
+    display: none;
+    max-width: 100%;
+  }
+  .goo1 {
+    margin: 0;
+    height: 45.4px;
+    width: 117px;
+    font-size: inherit;
+    font-weight: 700;
+    font-family: inherit;
+    white-space: pre-wrap;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .first-name-frame-child {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    border-radius: 5px;
+    width: 63.3px;
+    height: 48px;
+    z-index: 1;
+  }
+  .bit2 {
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 4px;
+    font-size: inherit;
+    font-weight: 700;
+    font-family: inherit;
+    display: inline-block;
+    width: 59px;
+    height: 46px;
+    z-index: 2;
+  }
+  .first-name-frame {
+    height: 53px;
+    width: 63px;
+    position: relative;
+    margin-left: -30px;
+    color: #000;
+  }
+  .navbar1 {
+    align-self: stretch;
+    background-color: #000;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 17px 32px 24px;
+    box-sizing: border-box;
+    top: 0;
+    z-index: 99;
+    position: sticky;
+    max-width: 100%;
+    text-align: left;
+    font-size: 40px;
+    color: #FFF;
+    font-family: Poppins;
+  }
+  .edit-profile {
+    margin: 0;
+    width: 495px;
+    height: 53px;
+    font-size: inherit;
+    font-family: inherit;
+    display: inline-block;
+    flex-shrink: 0;
+    max-width: 100%;
+  }
+  .edit-profile,
+  .first-name {
+    position: relative;
+    font-weight: 600;
+  }
+  .input-fields-group-child {
+    height: 70px;
+    width: 405px;
+    position: relative;
+    border-radius: 5px;
+    display: none;
+    max-width: 100%;
+  }
+  .first-name1 {
+    width: 118px;
+    border: 0;
+    outline: 0;
+    font-weight: 500;
+    font-family: Roboto;
+    font-size: 24px;
+    background-color: transparent;
+    height: 28px;
+    position: relative;
+    color: #858585;
+    text-align: left;
+    display: inline-block;
+    z-index: 1;
+  }
+  .input-fields-group,
+  .last-name-frame-child {
+    display: flex;
+    justify-content: flex-start;
+    max-width: 100%;
+  }
+  .input-fields-group {
+    align-self: stretch;
+    border-radius: 5px;
+    background-color: #595959;
+    border: 0 solid #595959;
+    box-sizing: border-box;
+    flex-direction: row;
+    align-items: center;
+    padding: 21px 27px;
+  }
+  .last-name-frame-child {
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px 0;
+    min-width: 263px;
+  }
+  .last-name {
+    position: relative;
+    font-weight: 600;
+  }
+  .frame-child {
+    height: 70px;
+    width: 405px;
+    position: relative;
+    border-radius: 5px;
+    display: none;
+    max-width: 100%;
+  }
+  .last-name1 {
+    width: 116px;
+    border: 0;
+    outline: 0;
+    font-weight: 500;
+    font-family: Roboto;
+    font-size: 24px;
+    background-color: transparent;
+    height: 28px;
+    position: relative;
+    color: #858585;
+    text-align: left;
+    display: inline-block;
+    z-index: 1;
+  }
+  .vector-parent {
+    align-self: stretch;
+    border-radius: 5px;
+    background-color: #595959;
+    border: 0 solid #595959;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 21px 27px;
+    max-width: 100%;
+  }
+  .description-frame,
+  .first-name-frame-child1,
+  .last-name-frame-child1 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    max-width: 100%;
+  }
+  .last-name-frame-child1 {
+    flex: 1;
+    flex-direction: column;
+    gap: 8px 0;
+    min-width: 263px;
+  }
+  .description-frame,
+  .first-name-frame-child1 {
+    align-self: stretch;
+  }
+  .first-name-frame-child1 {
+    flex-direction: row;
+    gap: 0 72px;
+    font-size: 26px;
+    font-family: Roboto;
+  }
+  .description-frame {
+    flex-direction: column;
+    gap: 40px 0;
+  }
+  .email2 {
+    width: 278.8px;
+    position: relative;
+    font-weight: 600;
+    display: inline-block;
+  }
+  .description-label-child {
+    height: 64px;
+    width: 882px;
+    position: relative;
+    border-radius: 5px;
+    display: none;
+    max-width: 100%;
+  }
+  .email3 {
+    width: 257px;
+    border: 0;
+    outline: 0;
+    font-weight: 500;
+    font-family: Roboto;
+    font-size: 24px;
+    background-color: transparent;
+    height: 28px;
+    position: relative;
+    color: #858585;
+    text-align: left;
+    display: inline-block;
+    z-index: 1;
+  }
+  .description-label,
+  .email1 {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    max-width: 100%;
+  }
+  .description-label {
+    border-radius: 5px;
+    background-color: #595959;
+    border: 0 solid #595959;
+    box-sizing: border-box;
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 22px 27px 14px;
+  }
+  .email1 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .description {
+    width: 278.8px;
+    position: relative;
+    font-weight: 600;
+    display: inline-block;
+  }
+  .frame-item {
+    height: 92px;
+    width: 882px;
+    position: relative;
+    border-radius: 5px;
+    display: none;
+    max-width: 100%;
+  }
+  .description1 {
+    width: 257px;
+    border: 0;
+    outline: 0;
+    font-weight: 500;
+    font-family: Roboto;
+    font-size: 24px;
+    background-color: transparent;
+    height: 28px;
+    position: relative;
+    color: #858585;
+    text-align: left;
+    display: inline-block;
+    z-index: 1;
+  }
+  .email4,
+  .vector-group {
+    align-self: stretch;
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    max-width: 100%;
+  }
+  .vector-group {
+    border-radius: 5px;
+    background-color: #595959;
+    border: 0 solid #595959;
+    box-sizing: border-box;
+    flex-direction: row;
+    padding: 22px 27px;
+  }
+  .email4 {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .password1 {
+    width: 278.8px;
+    position: relative;
+    font-weight: 600;
+    display: inline-block;
+  }
+  .frame-inner {
+    height: 70.6px;
+    width: 882px;
+    position: relative;
+    border-radius: 5px;
+    display: none;
+    max-width: 100%;
+  }
+  .password2 {
+    width: 257px;
+    border: 0;
+    outline: 0;
+    font-weight: 500;
+    font-family: Roboto;
+    font-size: 24px;
+    background-color: transparent;
+    height: 28.3px;
+    position: relative;
+    color: #858585;
+    text-align: left;
+    display: inline-block;
+    z-index: 1;
+  }
+  .password,
+  .vector-container {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+  .vector-container {
+    border-radius: 5px;
+    background-color: #595959;
+    border: 0 solid #595959;
+    flex-direction: row;
+    align-items: center;
+    padding: 22px 27px 20px;
+  }
+  .password {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 0 1px;
+    gap: 8px;
+  }
+  .confirm-password {
+    width: 278.8px;
+    position: relative;
+    font-weight: 600;
+    display: inline-block;
+  }
+  .rectangle-icon {
+    height: 70.6px;
+    width: 882px;
+    position: relative;
+    border-radius: 5px;
+    display: none;
+    max-width: 100%;
+  }
+  .password4 {
+    width: 257px;
+    border: 0;
+    outline: 0;
+    font-weight: 500;
+    font-family: Roboto;
+    font-size: 24px;
+    background-color: transparent;
+    height: 28.3px;
+    position: relative;
+    color: #858585;
+    text-align: left;
+    display: inline-block;
+    z-index: 1;
+  }
+  .frame-div {
+    align-self: stretch;
+    border-radius: 5px;
+    background-color: #595959;
+    border: 0 solid #595959;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 22px 27px 20px;
+    max-width: 100%;
+  }
+  .password3 {
+    padding: 0 0 1px;
+    box-sizing: border-box;
+    gap: 8px;
+  }
+  .email-frame,
+  .info,
+  .password3 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    max-width: 100%;
+  }
+  .info {
+    height: 548px;
+    gap: 32px 0;
+    font-size: 26px;
+    font-family: Roboto;
+  }
+  .email-frame {
+    gap: 27px 0;
+  }
+  .cancel-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 20px;
+    background-color:#f7971d;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    display: none;
+  }
+  .cancel1 {
+    position: absolute;
+    right: -65px;
+    bottom: 10px;
+    font-weight: 600;
+    display: inline-block;
+    width: 181px;
+    height: 36px;
+    z-index: 1;
+  }
+  .cancel,
+  .save-child {
+    border-radius: 20px;
+    background-color:#f7971d;
+  }
+  .cancel {
+    height: 60px;
+    flex: 1;
+    position: relative;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border: 1px solid #000;
+    box-sizing: border-box;
+  }
+  .save-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+  }
+  .save1 {
+    position: absolute;
+    right: -83px;
+    bottom: 10px;
+    font-weight: 600;
+    display: inline-block;
+    width: 181px;
+    height: 36px;
+    z-index: 1;
+  }
+  .save {
+    height: 60px;
+    flex: 1;
+    position: relative;
+    border-radius: 20px;
+    background-color:#f7971d;
+  }
+  .cancel-save-buttons1,
+  .edit-profile-text {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    max-width: 100%;
+  }
+  .cancel-save-buttons1 {
+    width: 322px;
+    flex-direction: row;
+    gap: 0 52px;
+    font-size: 24px;
+  }
+  .edit-profile-text {
+    flex: 1;
+    flex-direction: column;
+    gap: 39px 0;
+    min-width: 573px;
+  }
+  .profile-pic,
+  .profile-pic-icon1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+  }
+  .profile-pic-icon1 {
+    margin: 0 !important;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    object-fit: cover;
+  }
+  .profile-pic {
+    background-color: rgba(183, 183, 183, 0.5);
+    border: 0 solid #fffcfc;
+    box-sizing: border-box;
+    z-index: 1;
+  }
+  .icon {
+    position: absolute;
+    top: 98px;
+    left: 100px;
+    width: 19px;
+    height: 19px;
+    z-index: 2;
+  }
+  .email-description-frame {
+    height: 215px;
+    flex: 1;
+    position: relative;
+  }
+  .frame-info,
+  .user-image-ellipse {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .frame-info {
+    flex: 1;
+  }
+  .user-image-ellipse {
+    width: 220px;
+    position: relative;
+  }
+  .change-profile-picture {
+    position: relative;
+    font-weight: 600;
+  }
+  .change-picture-frame,
+  .user-image-frame {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .change-picture-frame {
+    align-items: center;
+    gap: 16px 0;
+  }
+  .user-image-frame {
+    align-items: flex-start;
+    padding: 27px 0 0;
+    font-size: 26px;
+    font-family: Roboto;
+  }
+  .cancel-save-buttons,
+  .profile-picture-frame {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 100%;
+  }
+  .profile-picture-frame {
+    width: 1262px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0 118px;
+    text-align: left;
+    font-size: 45px;
+    color: #FFF;
+    font-family: Poppins;
+  }
+  .cancel-save-buttons {
+    width: 1354px;
+    justify-content: flex-end;
+    padding: 0 20px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+  }
+  .edit-profile-dark {
+    width: 100%;
+    position: relative;
+    background-color: #373737;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1px 0 44px;
+    box-sizing: border-box;
+    gap: 12px 0;
+    letter-spacing: normal;
+  }
+  
+  
+  .button {
+    color: #000000;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-color: #000000;
+    border-width: 1px;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+  }
+  .input {
+    color: #000000;
+    cursor: auto;
+    padding: 0.5rem 1rem;
+    border-color: #000000;
+    border-width: 1px;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+  }
+  .textarea {
+    color: #000000;
+    cursor: auto;
+    padding: 0.5rem;
+    border-color: #000000;
+    border-width: 1px;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+  }
+  .list {
+    width: 100%;
+    margin: 1em 0px 1em 0px;
+    display: block;
+    padding: 0px 0px 0px 1.5rem;
+    list-style-type: none;
+    list-style-position: outside;
+  }
+  .list-item {
+    display: list-item;
+  }
+  .teleport-show {
+    display: flex !important;
+    transform: none !important;
+  }
+  .Content {
+    font-size: 16px;
+    font-family: Inter;
+    font-weight: 400;
+    line-height: 1.15;
+    text-transform: none;
+    text-decoration: none;
+  }
+  .Heading {
+    font-size: 32px;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 1.15;
+    text-transform: none;
+    text-decoration: none;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .edit-profile {
+      font-size: 36px;
+    }
+    .first-name-frame-child1 {
+      flex-wrap: wrap;
+      gap: 0 72px;
+    }
+  }
+  @media screen and (max-width: 675px) {
+    .edit-profile-text {
+      min-width: 100%;
+    }
+    .profile-picture-frame {
+      gap: 0 118px;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .edit-profile {
+      font-size: 27px;
+    }
+    .first-name {
+      font-size: 21px;
+    }
+    .first-name1 {
+      font-size: 19px;
+    }
+    .last-name {
+      font-size: 21px;
+    }
+    .last-name1 {
+      font-size: 19px;
+    }
+    .first-name-frame-child1 {
+      gap: 0 72px;
+    }
+    .description-frame {
+      gap: 40px 0;
+    }
+    .email2 {
+      font-size: 21px;
+    }
+    .email3 {
+      font-size: 19px;
+    }
+    .description {
+      font-size: 21px;
+    }
+    .description1 {
+      font-size: 19px;
+    }
+    .password1 {
+      font-size: 21px;
+    }
+    .password2 {
+      font-size: 19px;
+    }
+    .confirm-password {
+      font-size: 21px;
+    }
+    .password4 {
+      font-size: 19px;
+    }
+    .info {
+      gap: 32px 0;
+    }
+    .cancel1,
+    .save1 {
+      font-size: 19px;
+    }
+    .cancel-save-buttons1 {
+      gap: 0 52px;
+    }
+    .edit-profile-text {
+      gap: 39px 0;
+    }
+    .change-profile-picture {
+      font-size: 21px;
+    }
+    .profile-picture-frame {
+      gap: 0 118px;
+    }
+  }
+  
