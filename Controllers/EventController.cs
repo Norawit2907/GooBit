@@ -172,7 +172,12 @@ public class EventController : Controller
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
         {
-            return BadRequest();
+            return BadRequest("Backendddd!!!!!!!");
+        }
+        Participant? check_p = await _participantService.GetByEU(user_id,id);
+        if (check_p != null)
+        {
+            return BadRequest("Can not do it again");
         }
         _event.total_member ++;
         await _eventService.UpdateAsync(id,_event);
