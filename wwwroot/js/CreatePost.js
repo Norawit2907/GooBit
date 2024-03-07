@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 displaySelectedImage(imageData);
 
                 // Store the selected image data in local storage
-                storedImages.push(imageData);
-                localStorage.setItem('selectedImages', JSON.stringify(storedImages));
+                // storedImages.push(imageData);
+                // localStorage.setItem('selectedImages', JSON.stringify(storedImages));
             };
 
             reader.readAsDataURL(file);
@@ -76,6 +76,9 @@ let map, marker;
                 zoom: 5
             });
 
+            latitude = 13;
+            longitude = 100;
+
             // Add a marker on the map
             marker = new google.maps.Marker({
                 map: map,
@@ -113,6 +116,8 @@ let map, marker;
                 lat: location.lat(),
                 lng: location.lng()
             });
+            document.getElementById('latitude').value = location.lat()
+            document.getElementById('longitude').value = location.lng()
         }
 
         // Initialize the map when the page is loaded
@@ -123,3 +128,15 @@ let map, marker;
 function clearForm() {
     document.getElementById("post-form").reset();
 }
+
+function submitForm() {
+    document.getElementById("post-form").submit();
+
+    setTimeout(function() {
+        document.getElementById("post-form").reset();
+    }, 100);
+}
+
+
+
+    
