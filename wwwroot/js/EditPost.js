@@ -126,28 +126,23 @@ let map, marker;
         });
 
 function clearForm() {
-    document.getElementById("post-form").reset();
-}
-
-function createsubmitForm() {
-    document.getElementById("post-form").submit();
-
-    setTimeout(function() {
-        document.getElementById("post-form").reset();
-    }, 100);
+    document.getElementById("edit-form").reset();
 }
 
 function editsubmitForm() {
-    document.getElementById("edit-form").submit();
-
-    setTimeout(function() {
-        document.getElementById("edit-form").reset();
-    }, 100);
+    document.getElementById("tags").value = document.querySelector(".tags_input").value;
+    // document.getElementById("edit-form").submit();
+    // setTimeout(function() {
+    //     document.getElementById("edit-form").reset();
+    // }, 100);
+    const formData = new FormData(document.getElementById("edit-form"));
+    for (const [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function(){
     const customSelects = document.querySelectorAll(".custom-select");
-
     function updateSelectedOptions(customSelect){
         const selectedOptions = Array.from(customSelect.querySelectorAll(".option.active")).filter(option =>
             option !== customSelect.querySelector(".option.all-tags")).map(function(option){
@@ -161,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 return option.value;
             });
 
-            customSelect.querySelector(".tags_input").value = selectedValues.join(', ');
+            customSelect.querySelector(".tags_input").value = selectedValues.join(',');
             
             let tagsHTML = "";
 
@@ -294,13 +289,11 @@ document.addEventListener("DOMContentLoaded", function(){
     }
     updateSelectedOptions(customSelects[0]);
 
-    const editsubmitButton = document.querySelector(".editsubmitBtn");
-    editsubmitButton.addEventListener("click", function(){
-        customSelects.forEach(function(customSelect){
-            const selectedOptions = customSelect.querySelectorAll(".option.active");
-        });
-        let tags = document.querySelector(".tags_input").value;
-        alert(tags);
-        resetCustomSelects();
-    })
+    // const editsubmitButton = document.querySelector(".editsubmitBtn");
+    // editsubmitButton.addEventListener("click", function(){
+    //     customSelects.forEach(function(customSelect){
+    //         const selectedOptions = customSelect.querySelectorAll(".option.active");
+    //     }); 
+    //     resetCustomSelects();
+    // })
 });
