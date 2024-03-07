@@ -111,7 +111,7 @@ public class UserController : Controller
             return View();
         }
         HttpContext.Session.SetString("userID",id);
-        return Ok("Login success");
+        return RedirectToAction("Index","Home");
     }
 
     // Logout user

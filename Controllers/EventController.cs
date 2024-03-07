@@ -106,18 +106,24 @@ public class EventController : Controller
             return BadRequest();
         }
         List<Participant> participants = await _participantService.GetByEvent(id);
-        List<UserNoPassword> pendingUser = [];
+        List<UserStatus> allUser = [];
         int submited_user = 0;
         foreach (Participant participant in participants)
         {
-            if (participant.status == "pending")
-            {
-                UserNoPassword user = await _userService.userProfile(participant.user_id);
-                pendingUser.Add(user);
-
-            } else if (participant.status == "submited")
+            if (participant.status == "submited")
             {
                 submited_user++;
+            }
+            User? user = await _userService.GetById(participant.user_id);
+            if (user != null)
+            {
+                UserStatus u = new UserStatus{
+                    Id = user.Id,
+                    firstname = user.firstname,
+                    lastname = user.lastname,
+                    status = participant.status
+                };
+                allUser.Add(u);
             }
         }
         EditEventDisplay editEvent = new EditEventDisplay
@@ -138,7 +144,7 @@ public class EventController : Controller
             latitude = _event.latitude,
             longitude = _event.longitude,
             available_user = _event.max_member - submited_user,
-            participants = pendingUser
+            participants = allUser
         };
         return Ok(editEvent);
     }
@@ -146,5 +152,35 @@ public class EventController : Controller
     public IActionResult Edit()
     {
         return View();
+    }
+
+    // [HttpPost]
+    // public async Task<IActionResult> Edit()
+    // {
+        
+    // } 
+
+    public async Task<IActionResult> JoinedEvent(string id)
+    {
+        string? user_id = HttpContext.Session.GetString("userID");
+        if (user_id == null)
+        {
+            return RedirectToAction("Login","User");
+        }
+        Event? _event = await _eventService.GetById(id);
+        if (_event == null)
+        {
+            return BadRequest();
+        }
+        _event.total_member ++;
+        await _eventService.UpdateAsync(id,_event);
+        Participant participant = new Participant{
+            event_id = id,
+            user_id = user_id,
+            status = "pending"
+        };
+        await _participantService.CreateAsync(participant);
+        return Ok();
+
     }
 }

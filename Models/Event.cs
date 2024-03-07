@@ -93,7 +93,24 @@ namespace GooBitAPI.Models
         public decimal? latitude {get; set;} = 0!;
         public decimal? longitude {get; set;} = 0!;
         public int available_user {get; set;} = 0;
-        public List<UserNoPassword> participants {get; set;} = [];
+        public List<UserStatus> participants {get; set;} = [];
+    }
+
+    public class UpdatedEvent
+    {
+        public string title {get; set;} = null!;
+        public string description {get; set;} = null!;
+        public int max_member {get; set;} = 0!;
+        public DateTime end_date {get; set;}
+        public DateTime event_date {get; set;}
+        public string duration {get; set;} = null!;
+        public string? googlemap_location {get; set;} = null!;
+        public List<string> event_img {get; set;} = [];
+        public string category {get; set;} = null!;
+        public bool status {get; set;} = true;
+        public decimal? latitude {get; set;} = 0!;
+        public decimal? longitude {get; set;} = 0!;
+        public List<string> sub_user_id {get; set;} = [];
     }
 
 }
