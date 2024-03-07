@@ -28,7 +28,7 @@ namespace GooBitAPI.Services
             return _events;
         }
 
-        public ShortEventDisplay MakeSEvent(Event _event, string firstname, string lastname)
+        public ShortEventDisplay MakeSEvent(Event _event, string firstname, string lastname, string user_image)
         {
             ShortEventDisplay ShEvD = new ShortEventDisplay{
                 Id = _event.Id,
@@ -45,19 +45,20 @@ namespace GooBitAPI.Services
                 status = _event.status,
                 firstname = firstname,
                 lastname = lastname,
+                user_image = user_image,
                 latitude = _event.latitude,
                 longitude = _event.longitude
             };
             return ShEvD;
         }
 
-        public async Task<List<ShortEventDisplay>> GetByCreateUser(string id, string firstname, string lastname)
+        public async Task<List<ShortEventDisplay>> GetByCreateUser(string id, string firstname, string lastname, string user_image)
         {
             List<Event> _events = await _eventCollection.Find(x => x.user_id == id).ToListAsync();
             List<ShortEventDisplay> sEvent = new List<ShortEventDisplay>();
             foreach (Event _event in _events)
             {
-                sEvent.Add(MakeSEvent(_event,firstname,lastname));
+                sEvent.Add(MakeSEvent(_event,firstname,lastname, user_image));
             }
             return sEvent;
         }

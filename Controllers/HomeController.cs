@@ -47,11 +47,11 @@ public class HomeController : Controller
             if(user_id != null)
             {
                 var user = await _userService.GetById(user_id);
-                if(user != null)
+                if(user != null && user.profile_img != null)
                 {
                     var firstname = user.firstname;
                     var lastname = user.lastname;
-                    var sEvent = _eventService.MakeSEvent(_event, firstname, lastname);
+                    var sEvent = _eventService.MakeSEvent(_event, firstname, lastname, user.profile_img);
                     allEvent.Add(sEvent);
                 }
             }

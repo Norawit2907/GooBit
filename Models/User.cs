@@ -69,7 +69,7 @@ namespace GooBitAPI.Models
         public string firstname { get; set; } = null!;
         public string lastname { get; set; } = null!;
         public string? description { get; set; } = null!;
-        public string? profile_img { get; set; } = null!;
+        public string profile_img { get; set; } = null!;
         public List<ShortEventDisplay> owned_event { get; set;} = null!;
         public List<ShortEventDisplay> joined_event { get; set;} = null!;
     }

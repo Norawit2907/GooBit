@@ -49,6 +49,7 @@ namespace GooBitAPI.Models
         public bool status {get; set;} = true;
         public string firstname {get; set;} = null!;
         public string lastname {get; set;} = null!;
+        public string user_image {get; set;} = "default_img.png";
         public decimal? latitude {get; set;} = 0!;
         public decimal? longitude {get; set;} = 0!;
     }
