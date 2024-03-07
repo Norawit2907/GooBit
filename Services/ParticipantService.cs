@@ -40,5 +40,3 @@ namespace GooBitAPI.Services
             await _participantCollection.DeleteOneAsync(x => x.Id == id);
     }
 }
-
-

@@ -29,12 +29,15 @@ public class EventController : Controller
         if (user_id == null)
         {
             return RedirectToAction("Login","User");
+
         }
         var user = await _userService.GetById(user_id);
         {
             if (user == null)
             {
+
                 return RedirectToAction("Login","User");
+
             }
         }
         ViewBag.UserName = $"{user.firstname} {user.lastname}";
@@ -49,6 +52,7 @@ public class EventController : Controller
         string? user_id = HttpContext.Session.GetString("userID");
         if (user_id == null)
         {
+
             return RedirectToAction("Login","User");
         }
         newEvent.user_id = user_id;
@@ -110,12 +114,15 @@ public class EventController : Controller
             {
                 UserNoPassword user = await _userService.userProfile(participant.user_id);
                 pendingUser.Add(user);
+
             } else if (participant.status == "submited")
             {
                 submited_user++;
             }
         }
-        EditEventDisplay editEvent = new EditEventDisplay{
+        EditEventDisplay editEvent = new EditEventDisplay
+        {
+
             Id = _event.Id,
             title = _event.title,
             description = _event.description,
