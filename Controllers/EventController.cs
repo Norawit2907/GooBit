@@ -30,7 +30,7 @@ public class EventController : Controller
         string? user_id = HttpContext.Session.GetString("userID");
         if (user_id == null)
         {
-            return RedirectToAction("Login","User");
+            return RedirectToAction("Login", "User");
 
         }
         var user = await _userService.GetById(user_id);
@@ -38,7 +38,7 @@ public class EventController : Controller
             if (user == null)
             {
 
-                return RedirectToAction("Login","User");
+                return RedirectToAction("Login", "User");
 
             }
         }
@@ -55,7 +55,7 @@ public class EventController : Controller
         if (user_id == null)
         {
 
-            return RedirectToAction("Login","User");
+            return RedirectToAction("Login", "User");
         }
         newEvent.user_id = user_id;
         foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
@@ -100,7 +100,7 @@ public class EventController : Controller
         return View("Create");
     }
 
-    public async Task<IActionResult> EditEvent(string id)
+    public async Task<IActionResult> Edit(string id)
     {
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
@@ -148,13 +148,13 @@ public class EventController : Controller
             available_user = _event.max_member - submited_user,
             participants = allUser
         };
-        return Ok(editEvent);
+        return View(editEvent);
     }
 
-    public IActionResult Edit()
-    {
-        return View();
-    }
+    //     public IActionResult Edit()
+    //     {
+    //         return View();
+    //     }
 
     // [HttpPost]
     // public async Task<IActionResult> Edit()
@@ -197,4 +197,5 @@ public class EventController : Controller
         return Ok();
 
     }
+
 }
