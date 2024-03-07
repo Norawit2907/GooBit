@@ -9,11 +9,13 @@ public class EventController : Controller
     private readonly UserService _userService;
     private readonly ParticipantService _participantService;
     private readonly EventService _eventService;
-    public EventController(EventService eventService, ParticipantService participantService, UserService userService)
+    private readonly NotificationService _notificationService;
+    public EventController(EventService eventService, ParticipantService participantService, UserService userService, NotificationService notificationService)
     {
         _eventService = eventService;
         _participantService = participantService;
         _userService = userService;
+        _notificationService = notificationService;
     }
 
     public IActionResult Index()
@@ -179,6 +181,13 @@ public class EventController : Controller
             user_id = user_id,
             status = "pending"
         };
+        Notification notification = new Notification{
+            user_id = _event.user_id,
+            event_id = id,
+            body = "RequestToJoin",
+            send_by = user_id
+        };
+        await _notificationService.CreateAsync(notification);
         await _participantService.CreateAsync(participant);
         return Ok();
 
