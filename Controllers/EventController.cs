@@ -105,7 +105,7 @@ public class EventController : Controller
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
         {
-            return BadRequest();
+            return BadRequest("What do you looking for");
         }
         List<Participant> participants = await _participantService.GetByEvent(id);
         List<UserStatus> allUser = [];
