@@ -22,7 +22,8 @@ namespace GooBitAPI.Services
 
         public async Task<Comment?> GetAsync(string id) =>
             await _commentCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
-
+        public async Task<List<Comment>?> GetByEventId(string event_id) =>
+            await _commentCollection.Find(x => x.event_id == event_id).ToListAsync();
         public async Task CreateAsync(Comment newComment) =>
             await _commentCollection.InsertOneAsync(newComment);
 
@@ -31,6 +32,7 @@ namespace GooBitAPI.Services
 
         public async Task RemoveAsync(string id) =>
             await _commentCollection.DeleteOneAsync(x => x.Id == id);
+        
     }
 }
 

@@ -51,7 +51,7 @@ public class UserController : Controller
             return RedirectToAction("Login","User");
         }
         UserNoPassword userData = await _userService.userProfile(id);
-        List<Participant> participants = await _participantService.GetByUser(id);
+        List<Participant> participants = await _participantService.GetByUserId(id);
         List<ShortEventDisplay> joinedEvent = new List<ShortEventDisplay>();
         foreach (Participant participant in participants)
         {

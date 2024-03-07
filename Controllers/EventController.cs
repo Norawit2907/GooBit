@@ -101,7 +101,7 @@ public class EventController : Controller
         {
             return BadRequest();
         }
-        List<Participant> participants = await _participantService.GetByEvent(id);
+        List<Participant> participants = await _participantService.GetByEventId(id);
         List<UserNoPassword> pendingUser = [];
         int submited_user = 0;
         foreach (Participant participant in participants)

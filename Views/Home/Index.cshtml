@@ -48,7 +48,7 @@
     <div class="post__list">
         @foreach(var evnt in ViewBag.ShortEventDisplay)
         {
-            <a class='post__container' asp-area="" asp-controller="Home" asp-action="Post">
+            <a class='post__container' asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@evnt.Id">
                 <div class='post__container-header'>
                     <img src="~/uploadFiles/UserProfile/@evnt.user_image"/>
                     <div>

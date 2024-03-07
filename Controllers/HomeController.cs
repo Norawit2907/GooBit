@@ -11,11 +11,16 @@ public class HomeController : Controller
 {
     private readonly UserService _userService;
     private readonly EventService _eventService;
-    
-    public HomeController(EventService eventService, UserService userService)
+    private readonly CommentService _commentService;
+    private readonly ParticipantService _participantService;
+    private readonly ReplyService _replyService;
+    public HomeController(EventService eventService, UserService userService, CommentService commentService, ParticipantService participantService, ReplyService replyService)
     {
         _eventService = eventService;
         _userService = userService;
+        _commentService = commentService;
+        _participantService = participantService;
+        _replyService = replyService;
     }
 
     public async Task<IActionResult> Index(string category="all")
@@ -65,8 +70,41 @@ public class HomeController : Controller
         return RedirectToAction("Index","Login");
     }
 
-    public IActionResult Post()
+    public async Task<IActionResult> Post(string id)
     {
+        Console.WriteLine(id);
+        Event? _event = await _eventService.GetById(id);
+        if(_event == null || _event.Id == null)     {   return NotFound();}
+
+        User? _user = await _userService.GetById(_event.user_id);
+        if (_user == null || _user.Id == null)      {   return NotFound();}
+
+        List<Comment>? _comments = await _commentService.GetByEventId(_event.Id);
+        if (_comments == null)                      {   return NotFound();}
+        List<Participant>? _participants = await _participantService.GetByEventId(_event.Id);
+        if (_participants == null)                  {   return NotFound();}
+
+        List<Reply> _replies = new List<Reply>{};
+        foreach(Comment _comment in _comments)
+        {
+            if (_comment.Id != null)
+            {
+                var onecommentreply = await _replyService.GetRepliesAsyncByCommentId(_comment.Id);
+                if (onecommentreply != null)
+                {
+                    foreach (Reply _replyincomment in onecommentreply)
+                    {
+                        _replies.Add(_replyincomment);
+                    }
+                }
+            
+            }
+        }
+        EventDisplay _eventdisplay = _eventService.MakeEventDisplay(_event, _user, _comments, _participants, _replies);
+        if (_eventdisplay == null)  {   return NotFound();}
+        Console.WriteLine(_eventdisplay.title);
+
+        ViewBag.EventDisplay = _eventdisplay;
         return View();
     }
 

@@ -7,7 +7,7 @@
     <div class="post-header">
         <div class="map">
             <h1>GOOGLE MAP HERE</h1>
-            <img src="~/uploadFiles/875d5615-be02-4ae1-9e50-30471b89b779.jpg"/>
+            <img src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image"/>
         </div>
         <a class="back" asp-area="" asp-controller="Home" asp-action="Index">
             <img  src="~/Icon/Union.png"/>
@@ -16,22 +16,22 @@
     <div class="post-body">
             <div class="post-header">
                 <div class="post-info">
-                    <h4>SUKI PARTY kmitl</h4>
-                    <p id="author">by Kitton Sudlor</p>
-                    <p id="category">Category • Eating</p>
+                    <h4>@ViewBag.EventDisplay.title</h4>
+                    <p id="author">by @ViewBag.EventDisplay.firstname @ViewBag.EventDisplay.lastname</p>
+                    <p id="category">Category • @ViewBag.EventDisplay.category</p>
                 </div>
                 <div class="post-status">
                     <div class="date-line">
                         <div>
                             <p>End in</p>
-                            <p id="date">xx/xx/xxxx</p>
+                            <p id="date">@ViewBag.EventDisplay.end_date</p>
                         </div>
                         <img src="~/Icon/Union.png"/>
                     </div>
                     <div class="joined">
                         <div>
                             <p>joined</p>
-                            <p id="parti"> 3/5 </p>
+                            <p id="parti"> @ViewBag.EventDisplay.total_member/@ViewBag.EventDisplay.max_member </p>
                         </div>
                         <img src="~/Icon/Vector.png"/>
                     </div>
@@ -39,14 +39,14 @@
             </div>
             <div class="post-middle">
                 <div class="post">
-                    <p class="des">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh tellus molestie nunc non blandit massa enim nec. Suscipit tellus mauris a diam maecenas sed. Orci phasellus egestas tellus rutrum tellus pellentesque. Risus in hendrerit gravida rutrum quisque. Vitae turpis massa sed elementum tempus egestas sed. Placerat orci nulla pellentesque dignissim enim sit amet venenatis. Diam vulputate ut pharetra sit amet aliquam id. Felis donec et odio pellentesque. Nec dui nunc mattis enim.</p>
+                    <p class="des">@ViewBag.EventDisplay.description</p>
                     <div class="img-container">
                         <img src="~/uploadFiles/875d5615-be02-4ae1-9e50-30471b89b779.jpg"/>
                     </div>
                 </div>
                 <div class="comment-container">
                     <div class="creat-comment">
-                        <img  id="uimg"src="~/uploadFiles/875d5615-be02-4ae1-9e50-30471b89b779.jpg"/>
+                        <img  id="uimg"src="~/uploadFiles/875d5615-be02-4ae1-9e50-304    71b89b779.jpg"/>
                         <input type="text" placeholder="Add comment">
                         <button type="submit">
                             <img src="~/Icon/Icon.png"/>

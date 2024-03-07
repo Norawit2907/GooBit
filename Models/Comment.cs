@@ -11,6 +11,7 @@ namespace GooBitAPI.Models
         public string user_id { get; set; } = null!;
         public string event_id {get; set;} = null!;
         public string text {get; set;} = null!;
+        public DateTime create_time {get; set;}
 
     }
 }
