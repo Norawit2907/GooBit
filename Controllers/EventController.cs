@@ -140,4 +140,34 @@ public class EventController : Controller
     {
         return View();
     }
+
+    // [HttpPost]
+    // public async Task<IActionResult> Edit()
+    // {
+        
+    // } 
+
+    public async Task<IActionResult> JoinedEvent(string id)
+    {
+        string? user_id = HttpContext.Session.GetString("userID");
+        if (user_id == null)
+        {
+            return RedirectToAction("Login","User");
+        }
+        Event? _event = await _eventService.GetById(id);
+        if (_event == null)
+        {
+            return BadRequest();
+        }
+        _event.total_member ++;
+        await _eventService.UpdateAsync(id,_event);
+        Participant participant = new Participant{
+            event_id = id,
+            user_id = user_id,
+            status = "pending"
+        };
+        await _participantService.CreateAsync(participant);
+        return Ok();
+
+    }
 }
