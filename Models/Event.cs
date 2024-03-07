@@ -93,7 +93,7 @@ namespace GooBitAPI.Models
         public decimal? latitude {get; set;} = 0!;
         public decimal? longitude {get; set;} = 0!;
         public int available_user {get; set;} = 0;
-        public List<UserNoPassword> participants {get; set;} = [];
+        public List<UserStatus> participants {get; set;} = [];
     }
 
     public class UpdatedEvent
