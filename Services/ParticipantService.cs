@@ -29,7 +29,16 @@ namespace GooBitAPI.Services
         public async Task<List<Participant>> GetByUser(string id) =>
             await _participantCollection.Find(x => x.user_id == id).ToListAsync();
         
-
+        public async Task<Participant?> GetByEU(string user_id, string event_id)
+        {
+            var filterBuilder = Builders<Participant>.Filter;
+            var filter = filterBuilder.And(
+                filterBuilder.Eq("user_id", user_id),
+                filterBuilder.Eq("event_id", event_id)
+            );
+            Participant? participant = await _participantCollection.Find(filter).FirstOrDefaultAsync();
+            return participant;
+        }
         public async Task CreateAsync(Participant newParticipant) =>
             await _participantCollection.InsertOneAsync(newParticipant);
 

@@ -9,11 +9,13 @@ public class EventController : Controller
     private readonly UserService _userService;
     private readonly ParticipantService _participantService;
     private readonly EventService _eventService;
-    public EventController(EventService eventService, ParticipantService participantService, UserService userService)
+    private readonly NotificationService _notificationService;
+    public EventController(EventService eventService, ParticipantService participantService, UserService userService, NotificationService notificationService)
     {
         _eventService = eventService;
         _participantService = participantService;
         _userService = userService;
+        _notificationService = notificationService;
     }
 
     public IActionResult Index()
@@ -28,7 +30,7 @@ public class EventController : Controller
         string? user_id = HttpContext.Session.GetString("userID");
         if (user_id == null)
         {
-            return RedirectToAction("Login","User");
+            return RedirectToAction("Login", "User");
 
         }
         var user = await _userService.GetById(user_id);
@@ -36,7 +38,7 @@ public class EventController : Controller
             if (user == null)
             {
 
-                return RedirectToAction("Login","User");
+                return RedirectToAction("Login", "User");
 
             }
         }
@@ -53,7 +55,7 @@ public class EventController : Controller
         if (user_id == null)
         {
 
-            return RedirectToAction("Login","User");
+            return RedirectToAction("Login", "User");
         }
         newEvent.user_id = user_id;
         foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
@@ -98,12 +100,12 @@ public class EventController : Controller
         return View("Create");
     }
 
-    public async Task<IActionResult> EditEvent(string id)
+    public async Task<IActionResult> Edit(string id)
     {
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
         {
-            return BadRequest();
+            return BadRequest("What do you looking for");
         }
         List<Participant> participants = await _participantService.GetByEvent(id);
         List<UserStatus> allUser = [];
@@ -146,12 +148,7 @@ public class EventController : Controller
             available_user = _event.max_member - submited_user,
             participants = allUser
         };
-        return Ok(editEvent);
-    }
-
-    public IActionResult Edit()
-    {
-        return View();
+        return View(editEvent);
     }
 
     // [HttpPost]
@@ -170,7 +167,12 @@ public class EventController : Controller
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
         {
-            return BadRequest();
+            return BadRequest("Backendddd!!!!!!!");
+        }
+        Participant? check_p = await _participantService.GetByEU(user_id,id);
+        if (check_p != null || _event.status == false)
+        {
+            return BadRequest("Can not do it again");
         }
         _event.total_member ++;
         await _eventService.UpdateAsync(id,_event);
@@ -179,8 +181,16 @@ public class EventController : Controller
             user_id = user_id,
             status = "pending"
         };
+        Notification notification = new Notification{
+            user_id = _event.user_id,
+            event_id = id,
+            body = "RequestToJoin",
+            send_by = user_id
+        };
+        await _notificationService.CreateAsync(notification);
         await _participantService.CreateAsync(participant);
         return Ok();
 
     }
+
 }
