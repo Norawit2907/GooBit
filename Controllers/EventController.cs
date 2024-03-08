@@ -108,24 +108,38 @@ public class EventController : Controller
             return BadRequest("What do you looking for");
         }
         List<Participant> participants = await _participantService.GetByEvent(id);
-        List<UserStatus> allUser = [];
+        List<UserStatus> submittedUser = [];
+        List<UserStatus> pendingUser = [];
         int submited_user = 0;
         foreach (Participant participant in participants)
         {
-            if (participant.status == "submited")
+            if (participant.status == "submitted")
             {
                 submited_user++;
-            }
-            User? user = await _userService.GetById(participant.user_id);
-            if (user != null)
+                User? user = await _userService.GetById(participant.user_id);
+                if (user != null)
+                {
+                    UserStatus u = new UserStatus{
+                        Id = user.Id,
+                        firstname = user.firstname,
+                        lastname = user.lastname,
+                        status = participant.status
+                    };
+                    submittedUser.Add(u);
+                }
+            } else if (participant.status == "pending")
             {
-                UserStatus u = new UserStatus{
-                    Id = user.Id,
-                    firstname = user.firstname,
-                    lastname = user.lastname,
-                    status = participant.status
-                };
-                allUser.Add(u);
+                User? user = await _userService.GetById(participant.user_id);
+                if (user != null)
+                {
+                    UserStatus u = new UserStatus{
+                        Id = user.Id,
+                        firstname = user.firstname,
+                        lastname = user.lastname,
+                        status = participant.status
+                    };
+                    pendingUser.Add(u);
+                }
             }
         }
         EditEventDisplay editEvent = new EditEventDisplay
@@ -146,7 +160,8 @@ public class EventController : Controller
             latitude = _event.latitude,
             longitude = _event.longitude,
             available_user = _event.max_member - submited_user,
-            participants = allUser
+            submitted_user = submittedUser,
+            pending_user = pendingUser
         };
         return View(editEvent);
     }

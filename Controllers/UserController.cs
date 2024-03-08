@@ -121,9 +121,14 @@ public class UserController : Controller
         return Ok("Logout success");
     }
 
-    // Update user
+    public IActionResult Edit()
+    {
+        return View();
+    }
+
+    // Edit user
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody]UpdateUser updatedUser, IFormFile proImage)
+    public async Task<IActionResult> Edit([FromBody]UpdateUser updatedUser, IFormFile proImage)
     {
         var id = HttpContext.Session.GetString("userID");
         if (id == null)
