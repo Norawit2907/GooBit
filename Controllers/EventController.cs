@@ -108,24 +108,38 @@ public class EventController : Controller
             return BadRequest("What do you looking for");
         }
         List<Participant> participants = await _participantService.GetByEvent(id);
-        List<UserStatus> allUser = [];
+        List<UserStatus> submittedUser = [];
+        List<UserStatus> allparticipant = [];
         int submited_user = 0;
         foreach (Participant participant in participants)
         {
-            if (participant.status == "submited")
+            if (participant.status == "submitted")
             {
                 submited_user++;
-            }
-            User? user = await _userService.GetById(participant.user_id);
-            if (user != null)
+                User? user = await _userService.GetById(participant.user_id);
+                if (user != null)
+                {
+                    UserStatus u = new UserStatus{
+                        Id = user.Id,
+                        firstname = user.firstname,
+                        lastname = user.lastname,
+                        status = participant.status
+                    };
+                    submittedUser.Add(u);
+                }
+            } if (participant.status != null)
             {
-                UserStatus u = new UserStatus{
-                    Id = user.Id,
-                    firstname = user.firstname,
-                    lastname = user.lastname,
-                    status = participant.status
-                };
-                allUser.Add(u);
+                User? user = await _userService.GetById(participant.user_id);
+                if (user != null)
+                {
+                    UserStatus u = new UserStatus{
+                        Id = user.Id,
+                        firstname = user.firstname,
+                        lastname = user.lastname,
+                        status = participant.status
+                    };
+                    allparticipant.Add(u);
+                }
             }
         }
         EditEventDisplay editEvent = new EditEventDisplay
@@ -145,16 +159,12 @@ public class EventController : Controller
             status = _event.status,
             latitude = _event.latitude,
             longitude = _event.longitude,
-            available_user = _event.max_member - submited_user,
-            participants = allUser
+            available_user = _event.max_member,
+            submitted_user = submittedUser,
+            participants = allparticipant
         };
         return View(editEvent);
     }
-
-    //     public IActionResult Edit()
-    //     {
-    //         return View();
-    //     }
 
     // [HttpPost]
     // public async Task<IActionResult> Edit()
@@ -175,7 +185,7 @@ public class EventController : Controller
             return BadRequest("Backendddd!!!!!!!");
         }
         Participant? check_p = await _participantService.GetByEU(user_id,id);
-        if (check_p != null)
+        if (check_p != null || _event.status == false)
         {
             return BadRequest("Can not do it again");
         }
