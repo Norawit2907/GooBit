@@ -1,170 +1,106 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
 
     <link rel="stylesheet" href="~/css/EditProfile.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;600&display=swap"
-    />
-  </head>
-  <body>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;600&display=swap" />
+</head>
+
+<body>
     <div class="edit-profile-dark">
-      <header class="navbar1">
-        <div class="navbar-item"></div>
-        <h2 class="goo1">Goo</h2>
-        <div class="first-name-frame">
-          <img
-            class="first-name-frame-child"
-            loading="lazy"
-            alt=""
-            src="./public/rectangle-5650.svg"
-          />
-
-          <h2 class="bit2">bit</h2>
-        </div>
-      </header>
-      <main class="cancel-save-buttons">
-        <section class="profile-picture-frame">
-          <div class="edit-profile-text">
-            <div class="email-frame">
-              <div class="description-frame">
-                <h2 class="edit-profile">Edit profile</h2>
-                <div class="first-name-frame-child1">
-                  <div class="last-name-frame-child">
-                    <div class="first-name">First Name</div>
-                    <div class="input-fields-group">
-                      <img
-                        class="input-fields-group-child"
-                        alt=""
-                        src="~/Icon/assets/rectangle-7.svg"
-                      />
-
-                      <input
-                        class="first-name1"
-                        placeholder="First Name"
-                        type="text"
-                      />
-                    </div>
-                  </div>
-                  <div class="last-name-frame-child1">
-                    <div class="last-name">Last Name</div>
-                    <div class="vector-parent">
-                      <img
-                        class="frame-child"
-                        alt=""
-                        src="~/Icon/assets/rectangle-7.svg"
-                      />
-
-                      <input
-                        class="last-name1"
-                        placeholder="Last Name"
-                        type="text"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="info">
-                <div class="email1">
-                  <div class="email2">Email</div>
-                  <div class="description-label">
-                    <img
-                      class="description-label-child"
-                      alt=""
-                      src="~/Icon/assets/rectangle-7.svg"
-                    />
-
-                    <input class="email3" placeholder="Email" type="text" />
-                  </div>
-                </div>
-                <div class="email4">
-                  <div class="description">Description</div>
-                  <div class="vector-group">
-                    <img
-                      class="frame-item"
-                      alt=""
-                      src="~/Icon/assets/rectangle-7.svg"
-                    />
-
-                    <input
-                      class="description1"
-                      placeholder="Description"
-                      type="text"
-                    />
-                  </div>
-                </div>
-                <div class="password">
-                  <div class="password1">Password</div>
-                  <div class="vector-container">
-                    <img
-                      class="frame-inner"
-                      alt=""
-                      src="~/Icon/assets/rectangle-7.svg"
-                    />
-
-                    <input
-                      class="password2"
-                      placeholder="Password"
-                      type="text"
-                    />
-                  </div>
-                </div>
-                <div class="password3">
-                  <div class="confirm-password">Confirm Password</div>
-                  <div class="frame-div">
-                    <img
-                      class="rectangle-icon"
-                      alt=""
-                      src="~/Icon/assets/rectangle-7.svg"
-                    />
-
-                    <input
-                      class="password4"
-                      placeholder="Password"
-                      type="text"
-                    />
-                  </div>
-                </div>
-              </div>
+        <header class="navbar">
+            <div class="navbar-item"></div>
+            <h2 class="goo">Goo</h2>
+            <div class="first-name-frame">
+                <img class="first-name-frame-child" loading="lazy" alt="" src="./public/rectangle-5650.svg" />
+                <h2 class="bit">bit</h2>
             </div>
-          <div class="button-container">
-            <button class="button save">SAVE</button>
-            <button class="button cancel">CANCEL</button>
-          </div>
-          </div>
-          <div class="user-image-frame">
-            <div class="change-picture-frame">
-              <div class="user-image-ellipse">
-                <img
-                  class="profile-pic-icon1"
-                  alt=""
-                  src="~/Icon/assets/profile-pic@2x.png"
-                />
-
-                <div class="frame-info">
-                  <div class="email-description-frame">
-                    <div class="profile-pic"></div>
-                    <img
-                      class="icon"
-                      loading="lazy"
-                      alt=""
-                      src="~/Icon/assets/icon.svg"
-                    />
-                  </div>
+        </header>
+        <main class="mainbox">
+            <section class="profile-picture-frame">
+                <div class="edit-profile-field">
+                    <div class="edit-frame">
+                        <div class="description-frame">
+                            <h2 class="edit-profile">Edit profile</h2>
+                            <div class="name-container">
+                                <div class="first-name-container">
+                                    <div class="first-name-header">First Name</div>
+                                    <div class="first-name-box">
+                                        <img class="name-box" alt="" src="~/Icon/assets/rectangle-7.svg" />
+                                        <input class="first-name" placeholder="First Name" type="text" />
+                                    </div>
+                                </div>
+                                <div class="last-name-container">
+                                    <div class="last-name-header">Last Name</div>
+                                    <div class="last-name-box">
+                                        <img class="name-box" alt="" src="~/Icon/assets/rectangle-7.svg" />
+                                        <input class="last-name" placeholder="Last Name" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <div class="email-container">
+                                <div class="email-header">Email</div>
+                                <div class="email-box">
+                                    <img class="text-box" alt="" src="~/Icon/assets/rectangle-7.svg" />
+                                    <input class="email" placeholder="Email" type="text" />
+                                </div>
+                            </div>
+                            <div class="description-container">
+                                <div class="description-header">Description</div>
+                                <div class="description-box">
+                                    <img class="text-box" alt="" src="~/Icon/assets/rectangle-7.svg" />
+                                    <input class="description" placeholder="Description" type="text" />
+                                </div>
+                            </div>
+                            <div class="password-container">
+                                <div class="password-header">Password</div>
+                                <div class="password-box">
+                                    <img class="text-box" alt="" src="~/Icon/assets/rectangle-7.svg" />
+                                    <input class="password" placeholder="Password" type="text" />
+                                </div>
+                            </div>
+                            <div class="confirm-password-container">
+                                <div class="confirm-password-header">Confirm Password</div>
+                                <div class="confirm-password-box">
+                                    <img class="text-box" alt="" src="~/Icon/assets/rectangle-7.svg" />
+                                    <input class="confirm-password" placeholder="Password" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button class="button save">SAVE</button>
+                        <button class="button cancel">CANCEL</button>
+                    </div>
                 </div>
-              </div>
-              <div class="change-profile-picture">Change Profile Picture</div>
-            </div>
-          </div>
-        </section>
-      </main>
+                <div class="user-image-frame">
+                    <div class="change-picture-frame">
+                        <div class="user-image-ellipse">
+                            <label for="profile-picture-input">
+                                <img class="profile-pic-icon1"  id="output" alt="Selected Image" src="~/Icon/assets/profile-pic@2x.png" />
+                                <div class="frame-info">
+                                    <div class="email-description-frame">
+                                    </div>
+                                </div>
+                            </label>
+                            <input type="file" id="profile-picture-input" accept="image/*" style="display:none" onchange="displaySelectedImage(this)" />
+                        </div>
+                        <div class="change-profile-picture" onclick="document.getElementById('profile-picture-input').click()">
+                            <a>Change Profile Picture</a>
+                            <input type="file" id="profile-picture-input" style="display: none;" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
-  </body>
+    <script src="~/js/EditProfile.js" defer></script>
+</body>
+
 </html>
