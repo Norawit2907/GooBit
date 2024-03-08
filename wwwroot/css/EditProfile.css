@@ -569,6 +569,30 @@ body {
     font-size: 26px;
     font-family: Roboto;
   }
+  
+  .button-container {
+    display: flex;
+    gap: 25px; 
+  }
+
+  .button {
+    color: #f7971d; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 18px;
+    border-radius: 10px; 
+    cursor: pointer;
+    font-family: Poppins; 
+  }
+  
+  .button:hover {
+    background-color: #e78e16; 
+  }
+  
+  .button:active {
+    background-color: #d58013; /
+  }
+
   .cancel-save-buttons,
   .profile-picture-frame {
     display: flex;
@@ -576,6 +600,7 @@ body {
     align-items: flex-start;
     max-width: 100%;
   }
+
   .profile-picture-frame {
     width: 1262px;
     flex-wrap: wrap;
