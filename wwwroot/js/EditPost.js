@@ -132,13 +132,13 @@ function clearForm() {
 function editsubmitForm() {
     document.getElementById("tags").value = document.querySelector(".tags_input").value;
     // document.getElementById("edit-form").submit();
-    // setTimeout(function() {
-    //     document.getElementById("edit-form").reset();
-    // }, 100);
     const formData = new FormData(document.getElementById("edit-form"));
     for (const [key, value] of formData.entries()) {
         console.log(`${key}: ${value}`);
     }
+    setTimeout(function() {
+        document.getElementById("edit-form").reset();
+    }, 100);
 }
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -151,6 +151,16 @@ document.addEventListener("DOMContentLoaded", function(){
                     text: option.textContent.trim()
                 };
             });
+
+            const maxTagsLimit = 5;
+            if (selectedOptions.length > maxTagsLimit) {
+                alert('You cannot select more.');
+                const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
+                const lastSelectedOptionElement = customSelect.querySelector(`.option[data-value="${lastSelectedOption.value}"]`);
+                lastSelectedOptionElement.classList.remove('active');
+                updateSelectedOptions(customSelect); 
+                return;
+            }
         
             const selectedValues = selectedOptions.map(function(option){
                 return option.value;
