@@ -1,26 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GooBit</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/GooBit.styles.css" asp-append-version="true" />
-    
+    <link rel="stylesheet" href="~/css/nav.css" asp-append-version="true" />
 </head>
 <body>
     <header class="header">
-        <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">
-                All
-                <img src="~/uploadFiles/drop.png"/>
-            </button>
-            <div id="myDropdown" class="dropdown-content">
-                @for(int i = 0; i< 10 ;i++){
-                    <a href="#">Link 1</a>
-                }
-            </div>
-        </div> 
         <div class="logo">
             <a href="#" class="lo">Goo</a>
             <a href="#" class="go">bit</a>
@@ -45,26 +33,6 @@
     @await RenderSectionAsync("Scripts", required: false)
 
     <script>
-
-        /* When the user clicks on the button,
-        toggle between hiding and showing the dropdown content */
-        function myFunction() {
-        document.getElementById("myDropdown").classList.toggle("show");
-        }
-
-        // Close the dropdown menu if the user clicks outside of it
-        window.onclick = function(event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-                }
-            }
-        }
         // JavaScript for page navigation
         document.addEventListener("DOMContentLoaded", function() {
             const navLinks = document.querySelectorAll('.nav-link');
