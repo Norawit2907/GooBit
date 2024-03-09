@@ -90,6 +90,7 @@ public class EventController : Controller
             newEvent.event_img.Add(newfilename);
             string fileSavePath = Path.Combine(uploadsFolder, newfilename);
 
+
             using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
@@ -100,10 +101,21 @@ public class EventController : Controller
         return View("Create");
     }
 
+    [HttpGet, ActionName("Edit")]
     public async Task<IActionResult> Edit(string id)
     {
+        string? user_id = HttpContext.Session.GetString("userID");
+        if (user_id == null)
+        {
+            return RedirectToAction("Login", "User");
+
+        }
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
+        {
+            return BadRequest("What do you looking for");
+        }
+        if (user_id != _event.user_id)
         {
             return BadRequest("What do you looking for");
         }
@@ -119,7 +131,8 @@ public class EventController : Controller
                 User? user = await _userService.GetById(participant.user_id);
                 if (user != null)
                 {
-                    UserStatus u = new UserStatus{
+                    UserStatus u = new UserStatus
+                    {
                         Id = user.Id,
                         firstname = user.firstname,
                         lastname = user.lastname,
@@ -127,12 +140,14 @@ public class EventController : Controller
                     };
                     submittedUser.Add(u);
                 }
-            } if (participant.status != null)
+            }
+            if (participant.status != null)
             {
                 User? user = await _userService.GetById(participant.user_id);
                 if (user != null)
                 {
-                    UserStatus u = new UserStatus{
+                    UserStatus u = new UserStatus
+                    {
                         Id = user.Id,
                         firstname = user.firstname,
                         lastname = user.lastname,
@@ -166,43 +181,89 @@ public class EventController : Controller
         return View(editEvent);
     }
 
-    // [HttpPost]
-    // public async Task<IActionResult> Edit()
-    // {
-        
-    // } 
+    [HttpPost, ActionName("Edit")]
+    public async Task<IActionResult> Edit(string id, UpdatedEvent updatedEvent, List<IFormFile> images)
+    {
+        string? user_id = HttpContext.Session.GetString("userID");
+        if (user_id == null)
+        {
+            return RedirectToAction("Login", "User");
+
+        }
+        Event? _event = await _eventService.GetById(id);
+        if (_event == null)
+        {
+            return BadRequest("What do you looking for");
+        }
+        if (user_id != _event.user_id)
+        {
+            return BadRequest("What do you looking for");
+        }
+        Event newEvent = new Event
+        {
+            Id = id,
+            title = updatedEvent.title,
+            description = updatedEvent.description,
+            total_member = _event.total_member,
+            max_member = updatedEvent.max_member,
+            end_date = updatedEvent.end_date,
+            event_date = updatedEvent.event_date,
+            duration = updatedEvent.duration,
+            googlemap_location = updatedEvent.googlemap_location,
+            event_img = [],
+            category = updatedEvent.category,
+            status = updatedEvent.status == "open",
+            user_id = _event.user_id,
+            latitude = updatedEvent.latitude,
+            longitude = updatedEvent.longitude
+        };
+
+        var folderName = Path.Combine("wwwroot", "uploadFiles");
+        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+        Console.WriteLine(images);
+        if (!Directory.Exists(uploadsFolder))
+        {
+            Directory.CreateDirectory(uploadsFolder);
+        }
+
+        Console.WriteLine(images.Count);
+        foreach (var file in images)
+        {
+            Console.WriteLine(file.FileName);
+        }
+
+        return Ok();
+    }
 
     public async Task<IActionResult> JoinedEvent(string id)
     {
         string? user_id = HttpContext.Session.GetString("userID");
         if (user_id == null)
         {
-            return RedirectToAction("Login","User");
+            return RedirectToAction("Login", "User");
         }
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
         {
-            return BadRequest("Backendddd!!!!!!!");
+            return BadRequest("What do you looking for");
         }
-        Participant? check_p = await _participantService.GetByEU(user_id,id);
+        if (user_id != _event.user_id)
+        {
+            return BadRequest("What do you looking for");
+        }
+        Participant? check_p = await _participantService.GetByEU(user_id, id);
         if (check_p != null || _event.status == false)
         {
-            return BadRequest("Can not do it again");
+            return BadRequest("Can not do it");
         }
-        _event.total_member ++;
-        await _eventService.UpdateAsync(id,_event);
-        Participant participant = new Participant{
+        _event.total_member++;
+        await _eventService.UpdateAsync(id, _event);
+        Participant participant = new Participant
+        {
             event_id = id,
             user_id = user_id,
             status = "pending"
         };
-        Notification notification = new Notification{
-            user_id = _event.user_id,
-            event_id = id,
-            body = "RequestToJoin",
-            send_by = user_id
-        };
-        await _notificationService.CreateAsync(notification);
         await _participantService.CreateAsync(participant);
         return Ok();
 

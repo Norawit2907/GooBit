@@ -106,12 +106,11 @@ namespace GooBitAPI.Models
         public DateTime event_date { get; set; }
         public string duration { get; set; } = null!;
         public string? googlemap_location { get; set; } = null!;
-        public List<string> event_img { get; set; } = [];
         public string category { get; set; } = null!;
-        public bool status { get; set; } = true;
+        public string status { get; set; } = null!;
         public decimal? latitude { get; set; } = 0!;
         public decimal? longitude { get; set; } = 0!;
-        public List<string> sub_user_id { get; set; } = [];
+        public List<string> submitted_user { get; set; } = [];
     }
 
 }

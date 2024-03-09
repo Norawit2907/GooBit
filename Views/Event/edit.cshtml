@@ -1,4 +1,7 @@
 @model GooBitAPI.Models.EditEventDisplay
+@{
+    Layout = "";
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +38,7 @@
                 </div>
                 <div class="col-right">
                     <input class="edit-form-input" type="datetime-local" id="end_date" name="end_date"
-                        value="@Model.event_date.ToString("yyyy-MM-ddTHH:mm")">
+                        value="@Model.end_date.ToLocalTime().ToString("yyyy-MM-ddTHH:mm")">
                 </div>
             </div>
             <div class="row">
@@ -44,7 +47,7 @@
                 </div>
                 <div class="col-right">
                     <input class="edit-form-input" type="datetime-local" id="event_date" name="event_date"
-                        value="@Model.event_date.ToString("yyyy-MM-ddTHH:mm")">
+                        value="@Model.event_date.ToLocalTime().ToString("yyyy-MM-ddTHH:mm")">
                 </div>
             </div>
             <div class=" row">
