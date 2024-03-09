@@ -127,7 +127,8 @@ public class EventController : Controller
                     };
                     submittedUser.Add(u);
                 }
-            } if (participant.status != null)
+            } 
+            if (participant.status != null)
             {
                 User? user = await _userService.GetById(participant.user_id);
                 if (user != null)
