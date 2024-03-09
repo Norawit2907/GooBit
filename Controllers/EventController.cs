@@ -108,7 +108,7 @@ public class EventController : Controller
             return BadRequest("What do you looking for");
         }
 
-        List<Participant> participants = await _participantService.GetByEvent(id);
+        List<Participant> participants = await _participantService.GetByEventId(id);
         List<UserStatus> submittedUser = [];
         List<UserStatus> allparticipant = [];
         int submited_user = 0;
