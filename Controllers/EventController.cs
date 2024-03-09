@@ -73,7 +73,7 @@ public class EventController : Controller
         }
 
         // store image to /wwwroot/uploadFiles
-        var folderName = Path.Combine("wwwroot", "uploadFiles");
+        var folderName = Path.Combine("wwwroot", "uploadFiles/EventImage");
         string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
         if (!Directory.Exists(uploadsFolder))
@@ -107,6 +107,7 @@ public class EventController : Controller
         {
             return BadRequest("What do you looking for");
         }
+
         List<Participant> participants = await _participantService.GetByEvent(id);
         List<UserStatus> submittedUser = [];
         List<UserStatus> allparticipant = [];
