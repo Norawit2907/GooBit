@@ -143,7 +143,7 @@ function clearForm() {
 
 function editsubmitForm() {
     document.getElementById("tags").value = document.querySelector(".tags_input").value;
-    // document.getElementById("edit-form").submit();
+    document.getElementById("edit-form").submit();
     const formData = new FormData(document.getElementById("edit-form"));
     for (const [key, value] of formData.entries()) {
         console.log(`${key}: ${value}`);
