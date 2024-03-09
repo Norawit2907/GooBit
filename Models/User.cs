@@ -63,6 +63,14 @@ namespace GooBitAPI.Models
         public string? profile_img { get; set; } = null!;
     }
 
+    public class UserStatus
+    {
+        public string? Id { get; set; }
+        public string firstname { get; set; } = null!;
+        public string lastname { get; set; } = null!;
+        public string status { get; set;} = null!;
+    }
+
     public class UserProfile
     {   
         public string email { get; set; } = null!;

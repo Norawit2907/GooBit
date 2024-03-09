@@ -9,11 +9,13 @@ public class EventController : Controller
     private readonly UserService _userService;
     private readonly ParticipantService _participantService;
     private readonly EventService _eventService;
-    public EventController(EventService eventService, ParticipantService participantService, UserService userService)
+    private readonly NotificationService _notificationService;
+    public EventController(EventService eventService, ParticipantService participantService, UserService userService, NotificationService notificationService)
     {
         _eventService = eventService;
         _participantService = participantService;
         _userService = userService;
+        _notificationService = notificationService;
     }
 
     public IActionResult Index()
@@ -28,13 +30,16 @@ public class EventController : Controller
         string? user_id = HttpContext.Session.GetString("userID");
         if (user_id == null)
         {
-            return RedirectToAction("Login","User");
+            return RedirectToAction("Login", "User");
+
         }
         var user = await _userService.GetById(user_id);
         {
             if (user == null)
             {
-                return RedirectToAction("Login","User");
+
+                return RedirectToAction("Login", "User");
+
             }
         }
         ViewBag.UserName = $"{user.firstname} {user.lastname}";
@@ -49,7 +54,8 @@ public class EventController : Controller
         string? user_id = HttpContext.Session.GetString("userID");
         if (user_id == null)
         {
-            return RedirectToAction("Login","User");
+
+            return RedirectToAction("Login", "User");
         }
         newEvent.user_id = user_id;
         foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
@@ -94,28 +100,53 @@ public class EventController : Controller
         return View("Create");
     }
 
-    public async Task<IActionResult> EditEvent(string id)
+    public async Task<IActionResult> Edit(string id)
     {
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
         {
-            return BadRequest();
+            return BadRequest("What do you looking for");
         }
-        List<Participant> participants = await _participantService.GetByEventId(id);
-        List<UserNoPassword> pendingUser = [];
+
+        List<Participant> participants = await _participantService.GetByEvent(id);
+        List<UserStatus> submittedUser = [];
+        List<UserStatus> allparticipant = [];
         int submited_user = 0;
         foreach (Participant participant in participants)
         {
-            if (participant.status == "pending")
-            {
-                UserNoPassword user = await _userService.userProfile(participant.user_id);
-                pendingUser.Add(user);
-            } else if (participant.status == "submited")
+            if (participant.status == "submitted")
             {
                 submited_user++;
+                User? user = await _userService.GetById(participant.user_id);
+                if (user != null)
+                {
+                    UserStatus u = new UserStatus{
+                        Id = user.Id,
+                        firstname = user.firstname,
+                        lastname = user.lastname,
+                        status = participant.status
+                    };
+                    submittedUser.Add(u);
+                }
+            } 
+            if (participant.status != null)
+            {
+                User? user = await _userService.GetById(participant.user_id);
+                if (user != null)
+                {
+                    UserStatus u = new UserStatus{
+                        Id = user.Id,
+                        firstname = user.firstname,
+                        lastname = user.lastname,
+                        status = participant.status
+                    };
+                    allparticipant.Add(u);
+                }
             }
         }
-        EditEventDisplay editEvent = new EditEventDisplay{
+        EditEventDisplay editEvent = new EditEventDisplay
+        {
+
             Id = _event.Id,
             title = _event.title,
             description = _event.description,
@@ -130,14 +161,53 @@ public class EventController : Controller
             status = _event.status,
             latitude = _event.latitude,
             longitude = _event.longitude,
-            available_user = _event.max_member - submited_user,
-            participants = pendingUser
+            available_user = _event.max_member,
+            submitted_user = submittedUser,
+            participants = allparticipant
         };
-        return Ok(editEvent);
+        return View(editEvent);
     }
 
-    public IActionResult Edit()
+    // [HttpPost]
+    // public async Task<IActionResult> Edit()
+    // {
+        
+    // } 
+
+    public async Task<IActionResult> JoinedEvent(string id)
     {
-        return View();
+        string? user_id = HttpContext.Session.GetString("userID");
+        if (user_id == null)
+        {
+            return RedirectToAction("Login","User");
+        }
+        Event? _event = await _eventService.GetById(id);
+        if (_event == null)
+        {
+            return BadRequest("Backendddd!!!!!!!");
+        }
+        Participant? check_p = await _participantService.GetByEU(user_id,id);
+        if (check_p != null || _event.status == false)
+        {
+            return BadRequest("Can not do it again");
+        }
+        _event.total_member ++;
+        await _eventService.UpdateAsync(id,_event);
+        Participant participant = new Participant{
+            event_id = id,
+            user_id = user_id,
+            status = "pending"
+        };
+        Notification notification = new Notification{
+            user_id = _event.user_id,
+            event_id = id,
+            body = "RequestToJoin",
+            send_by = user_id
+        };
+        await _notificationService.CreateAsync(notification);
+        await _participantService.CreateAsync(participant);
+        return Ok();
+
     }
+
 }

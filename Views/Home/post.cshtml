@@ -1,6 +1,7 @@
 
 @{
     ViewData["Title"] = "Post";
+    Layout = "~/Views/Shared/_layoutforPost.cshtml";
 }
 
 <link rel="stylesheet" href="~/css/postpage.css"/>
@@ -50,15 +51,14 @@
                         </div>
                         <img src="~/Icon/Union.png"/>
                     </div>
-                    <div class="joined">
+                    <button class="joined">
                         <div>
                             <p>joined</p>
                             <p id="parti"> @ViewBag.EventDisplay.total_member/@ViewBag.EventDisplay.max_member </p>
                         </div>
                         <img src="~/Icon/Vector.png"/>
-                    </div>
+                    </button>
                 </div>
-
                 <div class="post-middle">
                     <div class="comment-section">
                         <div class="create-comment">
