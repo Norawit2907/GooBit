@@ -37,9 +37,10 @@ public class CommentController : Controller
     [HttpPost]
     public async Task<IActionResult> Post([FromBody]Comment newComment)
     {
+        Console.WriteLine(newComment.ToString());
         await _commentService.CreateAsync(newComment);
 
-        return CreatedAtAction(nameof(Get), new { id = newComment.Id }, newComment);
+        return RedirectToAction("Home", "Post", new { Id = newComment.event_id});
     }
 
     [HttpPut("{id:length(24)}")]
