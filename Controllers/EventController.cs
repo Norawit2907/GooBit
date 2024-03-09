@@ -109,7 +109,7 @@ public class EventController : Controller
         }
         List<Participant> participants = await _participantService.GetByEvent(id);
         List<UserStatus> submittedUser = [];
-        List<UserStatus> pendingUser = [];
+        List<UserStatus> allparticipant = [];
         int submited_user = 0;
         foreach (Participant participant in participants)
         {
@@ -127,7 +127,8 @@ public class EventController : Controller
                     };
                     submittedUser.Add(u);
                 }
-            } else if (participant.status == "pending")
+            } 
+            if (participant.status != null)
             {
                 User? user = await _userService.GetById(participant.user_id);
                 if (user != null)
@@ -138,7 +139,7 @@ public class EventController : Controller
                         lastname = user.lastname,
                         status = participant.status
                     };
-                    pendingUser.Add(u);
+                    allparticipant.Add(u);
                 }
             }
         }
@@ -159,9 +160,9 @@ public class EventController : Controller
             status = _event.status,
             latitude = _event.latitude,
             longitude = _event.longitude,
-            available_user = _event.max_member - submited_user,
+            available_user = _event.max_member,
             submitted_user = submittedUser,
-            pending_user = pendingUser
+            participants = allparticipant
         };
         return View(editEvent);
     }

@@ -10,6 +10,15 @@ document.addEventListener('DOMContentLoaded', function () {
         displaySelectedImage(imageData);
     });
 
+    eventImages.forEach(imageUrl => {
+        const eventData = {
+            name: 'event-image.jpg',
+            dataUrl: `/uploadFiles/${imageUrl}`
+        };
+        displaySelectedImage(eventData);
+        console.log(imageUrl)
+    });
+
     fileInput.addEventListener('change', handleFileSelect);
 
     function handleFileSelect(event) {
@@ -71,17 +80,20 @@ document.addEventListener('DOMContentLoaded', function () {
 let map, marker;
 
         function initMap() {
+            var defaultCoordinates = { lat: oldlatitude, lng: oldlongitude };
             map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 13, lng: 100 },
+                center: { lat: oldlatitude, lng: oldlongitude },
                 zoom: 5
             });
 
+            var defaultMarkerPosition = new google.maps.LatLng(defaultCoordinates.lat, defaultCoordinates.lng);
             latitude = 13;
             longitude = 100;
 
             // Add a marker on the map
             marker = new google.maps.Marker({
                 map: map,
+                position: defaultMarkerPosition,
                 draggable: true
             });
 
@@ -152,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 };
             });
 
-            const maxTagsLimit = 5;
+            const maxTagsLimit = availableUser;
             if (selectedOptions.length > maxTagsLimit) {
                 alert('You cannot select more.');
                 const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
@@ -244,6 +256,11 @@ document.addEventListener("DOMContentLoaded", function(){
     customSelects.forEach(function(customSelect){
         const options = customSelect.querySelectorAll(".option");
         options.forEach(function(option){
+            const optionValue = option.getAttribute("data-value");
+            
+            if(optionValue !== "ALL" &&submitted_users.some(user => user.id === optionValue)){
+                option.classList.toggle("active");
+            }
             option.addEventListener("click", function(){
                 option.classList.toggle("active");
                 updateSelectedOptions(customSelect);

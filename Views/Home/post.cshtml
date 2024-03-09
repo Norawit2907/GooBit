@@ -1,5 +1,6 @@
 @{
     ViewData["Title"] = "Post";
+    Layout = "~/Views/Shared/_layoutforPost.cshtml";
 }
 
 <link rel="stylesheet" href="~/css/postpage.css"/>
@@ -7,7 +8,7 @@
     <div class="post-header">
         <div class="map">
             <h1>GOOGLE MAP HERE</h1>
-            <img src="~/uploadFiles/875d5615-be02-4ae1-9e50-30471b89b779.jpg"/>
+            <img src="~/uploadFiles/1a193173-7cbe-4dc8-ab98-fbb0b112d88f.jpg"/>
         </div>
         <a class="back" asp-area="" asp-controller="Home" asp-action="Index">
             <img  src="~/Icon/Union.png"/>
@@ -28,37 +29,36 @@
                         </div>
                         <img src="~/Icon/Union.png"/>
                     </div>
-                    <div class="joined">
+                    <button class="joined">
                         <div>
                             <p>joined</p>
                             <p id="parti"> 3/5 </p>
                         </div>
                         <img src="~/Icon/Vector.png"/>
-                    </div>
+                    </button>
                 </div>
             </div>
             <div class="post-middle">
                 <div class="post">
                     <p class="des">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh tellus molestie nunc non blandit massa enim nec. Suscipit tellus mauris a diam maecenas sed. Orci phasellus egestas tellus rutrum tellus pellentesque. Risus in hendrerit gravida rutrum quisque. Vitae turpis massa sed elementum tempus egestas sed. Placerat orci nulla pellentesque dignissim enim sit amet venenatis. Diam vulputate ut pharetra sit amet aliquam id. Felis donec et odio pellentesque. Nec dui nunc mattis enim.</p>
                     <div class="img-container">
-                        <img src="~/uploadFiles/875d5615-be02-4ae1-9e50-30471b89b779.jpg"/>
+                        <img src="~/uploadFiles/1a193173-7cbe-4dc8-ab98-fbb0b112d88f.jpg"/>
                     </div>
                 </div>
                 <div class="comment-container">
                     <div class="creat-comment">
-                        <img  id="uimg"src="~/uploadFiles/875d5615-be02-4ae1-9e50-30471b89b779.jpg"/>
+                        <img  id="uimg"src="~/uploadFiles/1a193173-7cbe-4dc8-ab98-fbb0b112d88f.jpg"/>
                         <input type="text" placeholder="Add comment">
                         <button type="submit">
                             <img src="~/Icon/Icon.png"/>
                         </button>
                     </div>
                     <p id="comment_num">X comments</p>
-                    
                     <div class="list-comment">
                     @for(int i = 0; i< 10 ;i++){
                         <div class="comment">
                             <div class="comment-header">
-                                <img  id="uimg"src="~/uploadFiles/875d5615-be02-4ae1-9e50-30471b89b779.jpg"/>
+                                <img  id="uimg" src="~/uploadFiles/1a193173-7cbe-4dc8-ab98-fbb0b112d88f.jpg"/>
                                 <div class="header-text">
                                     <p id="uname">Kitton Sudmilor</p>
                                     <p id="date">XX/XX/XXXX</p>
@@ -85,6 +85,42 @@
             <div class="join-bt">
                     <button class="join-bt">I want to anticipate in this event </button>
             </div>
-            
     </div> 
 </div>
+<div class="popup-container">
+    <div class="popup-box">
+        <div class="box-header">
+            <button class="close-btn">
+                <img  src="~/Icon/Union.png"/>
+            </button>
+            <h1>participant</h1>
+            <div></div>
+        </div>
+        <div class="box-body">
+            <div class="list-parti">
+                @for(int i = 0; i< 10 ;i++){
+                <div class="show-parti">
+                    <img id="user-image"src="~/uploadFiles/1a193173-7cbe-4dc8-ab98-fbb0b112d88f.jpg"/>
+                    <p>Kitton Sudmilor want to antipated your event at SUKI party KMITL  </p>
+                    <img src="~/uploadFiles/not.png">
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const showPopup = document.querySelector('.joined');
+    const popupContainer = document.querySelector('.popup-container');
+    const closeBtn = document.querySelector('.close-btn');
+
+    showPopup.onclick = () => {
+        popupContainer.classList.add('active');
+    }
+
+    closeBtn.onclick = () => {
+        popupContainer.classList.remove('active');
+    }
+
+</script>
