@@ -100,15 +100,25 @@ public class EventController : Controller
         return View("Create");
     }
 
+    [HttpGet, ActionName("Edit")]
     public async Task<IActionResult> Edit(string id)
     {
+        string? user_id = HttpContext.Session.GetString("userID");
+        if (user_id == null)
+        {
+            return RedirectToAction("Login", "User");
+
+        }
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
         {
             return BadRequest("What do you looking for");
         }
-
-        List<Participant> participants = await _participantService.GetByEventId(id);
+        if (user_id != _event.user_id)
+        {
+            return BadRequest("What do you looking for");
+        }
+        List<Participant> participants = await _participantService.GetByEvent(id);
         List<UserStatus> submittedUser = [];
         List<UserStatus> allparticipant = [];
         int submited_user = 0;
@@ -168,11 +178,86 @@ public class EventController : Controller
         return View(editEvent);
     }
 
-    // [HttpPost]
-    // public async Task<IActionResult> Edit()
-    // {
-        
-    // } 
+    [HttpPost, ActionName("Edit")]
+    public async Task<IActionResult> Edit(string id, UpdatedEvent updatedEvent, List<IFormFile> images)
+    {
+        string? user_id = HttpContext.Session.GetString("userID");
+        if (user_id == null)
+        {
+            return RedirectToAction("Login", "User");
+
+        }
+        Event? _event = await _eventService.GetById(id);
+        if (_event == null)
+        {
+            return BadRequest("What do you looking for");
+        }
+        if (user_id != _event.user_id)
+        {
+            return BadRequest("What do you looking for");
+        }
+        Event newEvent = new Event{
+            Id = id,
+            title = updatedEvent.title,
+            description = updatedEvent.description,
+            total_member = _event.total_member,
+            max_member = updatedEvent.max_member,
+            end_date = updatedEvent.end_date,
+            event_date = updatedEvent.event_date,
+            duration = updatedEvent.duration,
+            googlemap_location = updatedEvent.googlemap_location,
+            event_img = [],
+            category = updatedEvent.category,
+            status = updatedEvent.status == "open",
+            user_id = _event.user_id,
+            latitude = updatedEvent.latitude,
+            longitude = updatedEvent.longitude
+        };
+
+        var folderName = Path.Combine("wwwroot", "uploadFiles");
+        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+        if (!Directory.Exists(uploadsFolder))
+        {
+            Directory.CreateDirectory(uploadsFolder);
+        }
+
+        if (updatedEvent.submitted_user != null)
+        {
+            List<string> sUserID = updatedEvent.submitted_user.Split(",").ToList();
+            foreach (string u in sUserID)
+            {
+                Participant? par = await _participantService.GetByEU(u,id);
+            }
+        }
+        if (updatedEvent.status != "open")
+        {
+            List<Participant> participants = await _participantService.GetByEvent(id);
+            foreach (Participant p in participants)
+            {
+                if (p.status == "submitted")
+                {
+                    Notification noti = new Notification{
+                        user_id = p.user_id,
+                        event_id = p.event_id,
+                        body = "submitted"
+                    };
+                    await _notificationService.CreateAsync(noti);
+                } else if (p.status == "rejected" || p.status == "pending") {
+                    Notification noti = new Notification{
+                        user_id = p.user_id,
+                        event_id = p.event_id,
+                        body = "rejected"
+                    };
+                    await _notificationService.CreateAsync(noti);
+                    if (p.status == "pending"){
+                        p.status = "rejected";
+                        if (p.Id != null){await _participantService.UpdateAsync(p.Id,p);}
+                    }
+                }
+            }
+        }
+        return Ok();
+    } 
 
     public async Task<IActionResult> JoinedEvent(string id)
     {
@@ -184,12 +269,16 @@ public class EventController : Controller
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
         {
-            return BadRequest("Backendddd!!!!!!!");
+            return BadRequest("What do you looking for");
+        }
+        if (user_id == _event.user_id)
+        {
+            return BadRequest("What do you looking for");
         }
         Participant? check_p = await _participantService.GetByEU(user_id,id);
         if (check_p != null || _event.status == false)
         {
-            return BadRequest("Can not do it again");
+            return BadRequest("Can not do it");
         }
         _event.total_member ++;
         await _eventService.UpdateAsync(id,_event);
@@ -198,13 +287,6 @@ public class EventController : Controller
             user_id = user_id,
             status = "pending"
         };
-        Notification notification = new Notification{
-            user_id = _event.user_id,
-            event_id = id,
-            body = "RequestToJoin",
-            send_by = user_id
-        };
-        await _notificationService.CreateAsync(notification);
         await _participantService.CreateAsync(participant);
         return Ok();
 
