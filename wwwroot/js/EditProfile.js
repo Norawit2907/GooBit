@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', async function (event) {
         event.preventDefault();
 
-        const firstName = document.querySelector('.first-name').value;
-        const lastName = document.querySelector('.last-name').value;
-        const email = document.querySelector('.email').value;
-        const description = document.querySelector('.description').value;
-        const password = document.querySelector('.password').value;
-        const confirmPassword = document.querySelector('.confirm-password').value;
+        const firstName = form.querySelector('.first-name input').value;
+        const lastName = form.querySelector('.last-name input').value;
+        const email = form.querySelector('.email input').value;
+        const description = form.querySelector('.description input').value;
+        const password = form.querySelector('.password input').value;
+        const confirmPassword = form.querySelector('.confirm-password input').value;
 
         const data = {
             firstName: firstName,
@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 });
-
 // EditProfile.js
 
 // Function to handle file input change and update the image
