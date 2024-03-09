@@ -24,6 +24,22 @@ namespace GooBitAPI.Services
             await _commentCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
         public async Task<List<Comment>?> GetByEventId(string event_id) =>
             await _commentCollection.Find(x => x.event_id == event_id).ToListAsync();
+
+        public ShowComment MakeSComment(Comment _comment, string firstname, string lastname, List<Reply> _replies)
+        {
+            ShowComment SC = new ShowComment{
+                Id = _comment.Id,
+                user_id = _comment.user_id,
+                user_image = _comment.user_image,
+                firstname = firstname,
+                lastname = lastname,
+                event_id = _comment.event_id,
+                text = _comment.text,
+                create_time = _comment.create_time
+            };
+            return SC;
+        }
+
         public async Task CreateAsync(Comment newComment) =>
             await _commentCollection.InsertOneAsync(newComment);
 

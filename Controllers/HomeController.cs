@@ -72,6 +72,7 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Post(string id)
     {
+        string? user_id = HttpContext.Session.GetString("userID");
         Console.WriteLine(id);
         Event? _event = await _eventService.GetById(id);
         if(_event == null || _event.Id == null)     {   return NotFound();}
@@ -105,7 +106,25 @@ public class HomeController : Controller
         Console.WriteLine(_eventdisplay.title);
 
         ViewBag.EventDisplay = _eventdisplay;
+        ViewBag.user_id = user_id;
         return View();
+    }
+
+    [HttpPost]
+    public async Task<object> CreateComment([FromBody]Comment newComment)
+    {
+        Console.WriteLine(newComment.ToString());
+        await _commentService.CreateAsync(newComment);
+
+        return ViewData["Comments"] = "Sucess";
+    }
+
+    public async Task<object> CreateReply([FromBody]Reply newReply)
+    {
+        Console.WriteLine(newReply.ToString());
+        await _replyService.CreateAsync(newReply);
+        
+        return ViewData["Replies"] = "Sucess";
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
