@@ -1,25 +1,93 @@
-﻿@{
-    ViewData["Title"] = "Profile";
+
+@model IEnumerable<GooBitAPI.Models.ShortEventDisplay>
+
+@{
+    ViewData["Title"] = "Home Page";
 }
 
 <link rel="stylesheet" href="~/css/homepage.css"/>
-<div class="home-page">
-    <a class='post__container' asp-area="" asp-controller="Home" asp-action="Post">
-        <div class='post__container-header'>
-            <img src="~/uploadFiles/875d5615-be02-4ae1-9e50-30471b89b779.jpg"/>
-            <p> Kitton </p>
-        </div>
-        <div class='post__container-body'>
-            <p> thee khaaa hreeeee</p>
-            <img src="~/uploadFiles/875d5615-be02-4ae1-9e50-30471b89b779.jpg"/>
-        </div>
+<script type="text/javascript">
+    function CalEndDate(endDate, elementid) {
+    const currentDate = new Date();
+    const timeEnd = new Date(endDate);
+    const timeDifference = timeEnd.getTime() - currentDate.getTime();
+    const dayDifference = Math.ceil(timeDifference / (1000 * 3600 * 24)).toString();
 
-        <div class='post__container-footer'>
-            <p id="date">Ended in: xx/xx/xxxx</p>
-            <div class="progress-bar-container">
-                <div class="progress-bar"></div>
-            </div>
-            <p id="attemp">3/5</p>
-        </div>
-    </a>
+    // Get list of element by class name
+    var elements = document.getElementsByClassName(elementid);
+
+    // Loop through the elements and update their content
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].innerHTML = dayDifference.concat(" Days left");
+    }
+    }
+
+    function CalPeoplePercent(totalpeople, maxpeople, elementName){
+        var elements = document.getElementsByClassName(elementName);
+        for (var i = 0; i < elements.length; i++) {
+            var percent = ((totalpeople / maxpeople) * 100).toString();
+            elements[i].style.width = percent.concat("%")
+        }
+        
+    }
+    
+</script>
+<!-- <ul>
+    @foreach (var std in ViewBag.ShortEventDisplay)
+    {
+        <li>
+            <strong>ID:</strong> @std.Id <br />
+            <strong>Title:</strong> @std.title <br />
+            <strong>Location:</strong> @std.googlemap_location <br />
+        </li>
+        <br />
+    }
+</ul> -->
+
+<div class="home-page">
+    <div class="post__list">
+        @foreach(var evnt in ViewBag.ShortEventDisplay)
+        {
+            <a class='post__container' asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@evnt.Id">
+                <div class='post__container-header'>
+                    <img src="~/uploadFiles/UserProfile/@evnt.user_image"/>
+                    <div>
+                        <p class="post__container-header-name"> @evnt.firstname @evnt.lastname</p>
+                        <p class="post__container-header-end_date @evnt.Id" id="@evnt.Id">-</p>
+                        <script> CalEndDate("@evnt.end_date", "post__container-header-end_date @evnt.Id")</script>
+                    </div>
+                    
+                </div>
+                
+                <div class='post__container-body'>
+                    <div class="img-container">
+                        <img src="~/uploadFiles/EventImage/@evnt.event_img[0]"/>
+                    </div>
+                </div>
+                <div class='post__container-footer'>
+                    <p id="title"> @evnt.title</p>
+                    <p id="description">@evnt.description</p>
+                    <div class="element__container">
+                        <div class='post__container-location'>
+                            <img src="~/icon/location.png">
+                            <p id="location">@evnt.googlemap_location</p>
+                        </div>
+                        <div class='post__container-date'>
+                            <img src="~/icon/calendar.png">
+                            <p id="date">@evnt.event_date</p>
+                        </div>
+
+                        <div id="participant">
+                            <img src="~/icon/group.png">
+                            <div class="progress-bar-container">
+                                <div class="progress-bar @evnt.Id"></div>
+                            </div>
+                            <script> CalPeoplePercent("@evnt.total_member", "@evnt.max_member","progress-bar @evnt.Id") </script>
+                            <p id="attemp">@evnt.total_member/@evnt.max_member</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        } 
+    </div>
 </div>

@@ -1,0 +1,298 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.split {
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+.left {
+    left: 0;
+    background-color: rgb(55, 55, 55);
+    width: 60%;
+    margin-top: 80px;
+  }
+  
+.right {
+    right: 0;
+    background-color: rgb(255, 255, 255);
+    width: 40%;
+    padding: 0px;
+    margin-top: 80px;
+  }
+
+#edit-form {
+    align-items: left;
+    height: 450px;
+    color: grey;
+}
+
+.col-left{
+  float: left;
+  width: 50%;
+}
+
+.col-right{
+  float: left;
+  width: 50%;
+}
+
+.header{
+  position:  fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 30px;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  color: #fff;
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.edit-form-input{
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 2px solid;
+  border-color: #ddd;
+  text-align: center;
+}
+
+#edit-form select{
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 2px solid;
+  border-color: #ddd;
+  text-align: center;
+}
+
+.form-label{
+  margin-left: 10px;
+}
+
+.profile{
+  margin-left: 10px;
+  margin-top: 0px;
+  display: flex;
+}
+.username{
+  margin-left: 30px;
+  color: black;
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 50px;
+}
+
+.profileimg{
+  width: 62px;
+  height: 62px;
+  margin-left: 20px;
+  border-radius: 45px;
+  margin-top: 30px;
+}
+#edit-form textarea {
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    margin: 10px 0px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+} 
+
+#submitBtn {
+  position: absolute;
+  top: auto;
+  right: 80px;
+}
+
+.editsubmitBtn {
+  position: absolute;
+  top: auto;
+  right: 80px;
+}
+
+#cancelBtn {
+  position: absolute;
+  top: auto;
+  left: 20px;
+}
+
+#deleteBtn{
+  position: absolute;
+  top: 20px;
+  right: 10px;
+}
+
+.input-container {
+    margin-right: 10px;
+  }
+
+#map {
+    height: 150px;
+    width: 100%;
+  }
+
+#file-container {
+    text-align: center;
+    margin: 20px;
+    position: relative;
+    top: 0;
+    left:0;
+}
+
+.file-label {
+    cursor: pointer;
+    padding: 10px 20px;
+    color: #ddd;
+    border-radius: 20px;
+    border: groove;
+}
+
+#image-input {
+    display: none;
+}
+
+.selected-image-container {
+    display: inline-block;
+    position: relative;
+}
+
+.selected-image {
+    max-width: 200px;
+    margin: 5px;
+}
+
+.delete-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.custom-select{
+  position: relative;
+  width: 300px;
+}
+
+.select-box{
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  cursor: pointer;
+  height: 30px;
+}
+
+.selected-options{
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 5px;
+}
+
+.tag{
+  background-color: #ddd;
+  color: black;
+  border-radius: 5px;
+  margin-right: 5px;
+  align-items: center;
+}
+
+.remove-tag{
+  cursor: pointer;
+}
+
+.arrow{
+  margin: 0 3px;
+}
+
+.angle-down{
+  color: #ddd;
+  height: 8px;
+  width: 15px;
+}
+
+.options{
+  display: none;
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-top:none;
+  overflow-y: auto;
+  z-index: 1;
+  max-height: 225px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+}
+
+.open .options{
+  display: block;
+}
+
+.option-search-tags{
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 8px 1px;
+  margin: 8px;
+}
+
+.search-tags{
+  width: 90%;
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.clear{
+  position: absolute;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  top: 26px;
+  left:auto;
+  right: 15px;
+}
+
+.clearimg{
+  height: 14px;
+}
+
+.option{
+  padding: 12px;
+  cursor: pointer;
+}
+
+.option.active{
+  color: #000;
+  background-color: #ddd;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.tag:hover,
+.option:hover{
+  background-color: #eaeaea;
+}
+
+.no-result-match{
+  padding: 0px 0px 12px 12px;
+}

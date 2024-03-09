@@ -1,0 +1,153 @@
+@model GooBitAPI.Models.EditEventDisplay
+@{
+    Layout = "";    
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Event</title>
+    <link href="~/css/EditPost.css" rel="stylesheet" media="all" />
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
+</head>
+
+<body>
+    <header class="header">
+        <a>Edit your event</a>
+        <input type="image" class="editsubmitBtn" src="~/Icon/Tick.png" alt="editsubmitBtn" onclick="editsubmitForm()">
+        <input type="image" id="cancelBtn" src="~/Icon/Cancel.png" onclick="clearForm()" alt="cancleBtn">
+    </header>
+    <form id="edit-form" method="post" enctype="multipart/form-data" asp-controller="Event" asp-action="Edit">
+        <div class="split left">
+            <div id="file-container">
+                <label for="image-input" class="file-label">Choose Images</label>
+                <input type="file" id="image-input" name="images" accept="image/*" multiple required>
+                <div id="selected-images"></div>
+            </div>
+        </div>
+        <div class="split right">
+            <input type="image" id="deleteBtn" src="~/Icon/Bin.png" onclick="clearForm()" alt="deleteBtn">
+            <label for="title"></label>
+            <textarea id="title" placeholder="Add Title..." name="title">@Model.title</textarea>
+            <div class="row">
+                <div class="col-left">
+                    <label for="end_date" class="form-label">Selection Ending Date and Time:</label>
+                </div>
+                <div class="col-right">
+                    <input class="edit-form-input" type="datetime-local" id="end_date" name="end_date"
+                        value="@Model.end_date.ToLocalTime().ToString("yyyy-MM-ddTHH:mm")">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-left">
+                    <label for="event_date" class="form-label">Selection event Date and Time:</label>
+                </div>
+                <div class="col-right">
+                    <input class="edit-form-input" type="datetime-local" id="event_date" name="event_date"
+                        value="@Model.event_date.ToLocalTime().ToString("yyyy-MM-ddTHH:mm")">
+                </div>
+            </div>
+            <div class=" row">
+                <div class="col-left">
+                    <label for="max_member" class="form-label">Number of member:</label>
+                </div>
+                <div class="col-right">
+                    <input class="edit-form-input" type="text" id="max_member" name="max_member"
+                        placeholder="Add number of member..." value="@Model.max_member">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-left">
+                    <label for="duration" class="form-label">Duration:</label>
+                </div>
+                <div class="col-right">
+                    <input class="edit-form-input" type="text" id="duration" name="duration" value="@Model.duration"
+                        placeholder=" Add Duration...">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-left">
+                    <label for="category" class="form-label">Select Category: </label>
+                </div>
+                <div class="col-right">
+                    <select id="category" name="category">
+                        <option value="Eating">Eating</option>
+                        <option value="Fitness">Fitness</option>
+                        <option value="Trip">Trip</option>
+                        <option value="Study">Study</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-left">
+                    <label for="multiselect" class="form-label">Choose People: </label>
+                </div>
+                <div class="col-right">
+                    <div class="custom-select">
+                        <div class="select-box">
+                            <input type="text" class="tags_input" id="tags" name="submitted_user" hidden />
+                            <div class="selected-options">
+                            </div>
+                            <div class="arrow">
+                                <img class="angle-down" src="~/Icon/angle-down.png">
+                            </div>
+                        </div>
+                        <div class="options">
+                            <div class="option-search-tags">
+                                <input type="text" class="search-tags" placeholder="Search People..." />
+                                <button type="button" class="clear"><img class="clearimg"
+                                        src="~/Icon/Cancel.png"></button>
+                            </div>
+                            <div class="option all-tags" data-value="All">Select All</div>
+                            @foreach (var participant in @Model.participants)
+                            {
+                                <div class="option" data-value="@participant.Id">@participant.firstname</div>
+                            }
+
+                            <div class="no-result-match" style="display: none;">No result match
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-left">
+                        <label for="status" class="form-label">Status: </label>
+                    </div>
+                    <div class="col-right">
+                        <select id="status" name="status">
+                            <option value="open">Open</option>
+                            <option value="close">Close</option>
+
+                        </select>
+                    </div>
+                </div>
+                <label for="description"></label>
+                <textarea id="description" name="description"
+                    placeholder="Add description...">@Model.description</textarea>
+                <label for="locationInput" class="form-label">Location:</label>
+                <input class="edit-form-input" type="text" id="locationInput" placeholder="Type location..."
+                    name="googlemap_location" value="@Model.googlemap_location">
+                <div id="map"></div>
+
+
+                <input type="hidden" id="selectedLocation" name="selectedLocation">
+                <input type="hidden" id="latitude" name="latitude" value="@Model.latitude">
+                <input type="hidden" id="longitude" name="longitude" value="@Model.longitude">
+
+            </div>
+    </form>
+    <script>
+        var availableUser = "@Html.Raw(Json.Serialize(Model.available_user))";
+        var eventImages = "@Html.Raw(Json.Serialize(Model.event_img))";
+        var participants = "@Html.Raw(Json.Serialize(Model.participants))";
+        var submitted_users = "@Html.Raw(Json.Serialize(Model.submitted_user))";
+        var oldlatitude = "@Html.Raw(Json.Serialize(Model.latitude))";
+        var oldlongitude = "@Html.Raw(Json.Serialize(Model.longitude))";
+    </script>
+    <script src="~/js/EditPost.js" defer></script>
+</body>
+
+</html>

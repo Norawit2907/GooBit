@@ -37,7 +37,6 @@ namespace GooBitAPI.Services
             }
             return user.Id;
         }
-
         public async Task CreateAsync(User newUser) =>
             await _userCollection.InsertOneAsync(newUser);
 
@@ -65,6 +64,7 @@ namespace GooBitAPI.Services
         {
             User user = await _userCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
             var userNoPW = new UserNoPassword{
+                Id = user.Id,
                 username = user.username,
                 email = user.email,
                 firstname = user.firstname,

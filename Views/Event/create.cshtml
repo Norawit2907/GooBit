@@ -1,4 +1,7 @@
 @model GooBitAPI.Models.User
+@{
+    Layout = "";
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Post</title>
     <link href="~/css/CreatePost.css" rel="stylesheet" media="all" />
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
 </head>
 
 <body>
+    <header class="header">
+        <a>Create your new event</a>
+        <input type="image" id="submitBtn" src="~/Icon/Tick.png" alt="createsubmitBtn" onclick="createsubmitForm()">
+        <input type="image" id="cancelBtn" src="~/Icon/Cancel.png" onclick="clearForm()" alt="cancleBtn">
+    </header>
     <form id="post-form" method="post" enctype="multipart/form-data" asp-controller="Event" asp-action="Create">
         <div class="split left">
             <div id="file-container">
@@ -21,43 +28,47 @@
             </div>
         </div>
         <div class="split right">
+            <div class="profile">
+                <img class=profileimg src="~/uploadFiles/@ViewBag.ProfileImg" alt="ProfileImg">
+                <div class=username>@ViewBag.UserName</div>
+            </div>
             <label for="title"></label>
             <textarea id="title" placeholder="Add Title..." name="title"></textarea>
             <div class="row">
                 <div class="col-left">
-                    <label for="end_date">Selection Ending Date and Time:</label>
+                    <label for="end_date" class="form-label">Selection Ending Date and Time:</label>
                 </div>
                 <div class="col-right">
-                    <input type="datetime-local" id="end_date" name="end_date">
+                    <input class="post-form-input" type="datetime-local" id="end_date" name="end_date">
                 </div>
             </div>
             <div class="row">
                 <div class="col-left">
-                    <label for="event_date">Selection event Date and Time:</label>
+                    <label for="event_date" class="form-label">Selection event Date and Time:</label>
                 </div>
                 <div class="col-right">
-                    <input type="datetime-local" id="event_date" name="event_date">
+                    <input class="post-form-input" type="datetime-local" id="event_date" name="event_date">
                 </div>
             </div>
             <div class="row">
                 <div class="col-left">
-                    <label for="max_member">Number of member:</label>
+                    <label for="max_member" class="form-label">Number of member:</label>
                 </div>
                 <div class="col-right">
-                    <input type="text" id="max_member" name="max_member">
+                    <input class="post-form-input" type="text" id="max_member" name="max_member">
                 </div>
             </div>
             <div class="row">
                 <div class="col-left">
-                    <label for="duration">Duration:</label>
+                    <label for="duration" class="form-label">Duration:</label>
                 </div>
                 <div class="col-right">
-                    <input type="text" id="duration" name="duration">
+                    <input class="post-form-input" type="text" id="duration" name="duration">
                 </div>
             </div>
             <div class="row">
                 <div class="col-left">
-                    <label for="category">Select Category: </label>
+                    <label for="category" class="form-label">Select Category: </label>
                 </div>
                 <div class="col-right">
                     <select id="category" name="category">
@@ -70,17 +81,15 @@
             </div>
             <label for="description"></label>
             <textarea id="description" name="description" placeholder="Add description..."></textarea>
-            <label for="locationInput">Location:</label>
-            <input type="text" id="locationInput" placeholder="Type location..." name="googlemap_location">
+            <label for="locationInput" class="form-label">Location:</label>
+            <input class="post-form-input" type="text" id="locationInput" placeholder="Type location..."
+                name="googlemap_location">
             <div id="map"></div>
 
 
             <input type="hidden" id="selectedLocation" name="selectedLocation">
             <input type="hidden" id="latitude" name="latitude">
             <input type="hidden" id="longitude" name="longitude">
-            
-            <input type="image" id="submitBtn" src="~/Icon/Tick.png" alt="Submit">
-            <input type="image" id="cancelBtn" src="~/Icon/Cancel.png" onclick=clearForm() alt="button">
 
         </div>
     </form>
