@@ -221,12 +221,41 @@ public class EventController : Controller
             Directory.CreateDirectory(uploadsFolder);
         }
 
-        Console.WriteLine(images.Count);
-        foreach (var file in images)
+        if (updatedEvent.submitted_user != null)
         {
-            Console.WriteLine(file.FileName);
+            List<string> sUserID = updatedEvent.submitted_user.Split(",").ToList();
+            foreach (string u in sUserID)
+            {
+                Participant? par = await _participantService.GetByEU(u,id);
+            }
         }
-
+        if (updatedEvent.status != "open")
+        {
+            List<Participant> participants = await _participantService.GetByEvent(id);
+            foreach (Participant p in participants)
+            {
+                if (p.status == "submitted")
+                {
+                    Notification noti = new Notification{
+                        user_id = p.user_id,
+                        event_id = p.event_id,
+                        body = "submitted"
+                    };
+                    await _notificationService.CreateAsync(noti);
+                } else if (p.status == "rejected" || p.status == "pending") {
+                    Notification noti = new Notification{
+                        user_id = p.user_id,
+                        event_id = p.event_id,
+                        body = "rejected"
+                    };
+                    await _notificationService.CreateAsync(noti);
+                    if (p.status == "pending"){
+                        p.status = "rejected";
+                        if (p.Id != null){await _participantService.UpdateAsync(p.Id,p);}
+                    }
+                }
+            }
+        }
         return Ok();
     } 
 
@@ -242,7 +271,7 @@ public class EventController : Controller
         {
             return BadRequest("What do you looking for");
         }
-        if (user_id != _event.user_id)
+        if (user_id == _event.user_id)
         {
             return BadRequest("What do you looking for");
         }

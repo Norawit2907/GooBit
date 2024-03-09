@@ -110,7 +110,7 @@ namespace GooBitAPI.Models
         public string status { get; set; } = null!;
         public decimal? latitude { get; set; } = 0!;
         public decimal? longitude { get; set; } = 0!;
-        public List<string> submitted_user { get; set; } = [];
+        public string? submitted_user { get; set; }
     }
 
 }
