@@ -4,6 +4,7 @@
 }
 
 <link rel="stylesheet" href="~/css/postpage.css"/>
+<script src="~/js/Home/EventPost.js"></script>
 <script src="~/js/Home/EventMap.js" defer></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
 
@@ -64,13 +65,13 @@
                         <div class="create-comment">
                             <img id="create-comment-image" src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image"/>
                             <input id="create-comment-text"type="text" placeholder="Add comment">
-                            <button id="create-icon" type="submit" onclick="CreateComment()">
+                            <button id="create-icon" type="submit" onclick="CreateComment('@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@ViewBag.EventDisplay.firstname', '@ViewBag.EventDisplay.lastname', '@ViewBag.EventDisplay.Id')">
                                 <img src="~/Icon/Icon.png"/>
                             </button>
                         </div>
                     </div>
                     <div class="comment-container">
-                        <p id="comment_num">X comments</p>
+                        <p id="comment_num">@ViewBag.EventDisplay.comments.Count comments</p>
                         
                         <div class="list-comment">
                             @foreach(var _comment in ViewBag.EventDisplay.comments){
@@ -78,7 +79,7 @@
                                     <div class="comment-header">
                                         <img  id="header-comment-image" src="~/uploadFiles/UserProfile/@_comment.user_image"/>
                                         <div class="header-text">
-                                            <p id="uname">Kitton Sudmilor</p>
+                                            <p id="uname">@_comment.firstname @_comment.lastname</p>
                                             <p id="date">@_comment.create_time</p>
                                         </div>
                                         <button>
@@ -87,11 +88,20 @@
                                     </div>
                                     <div class="comment-body">
                                         <p>@_comment.text</p>
+                                        @foreach(var _reply in _comment.replies){
+                                            <div class="reply-body">
+                                                <img src="~/uploadFiles/UserProfile/@_reply.user_image">
+                                                <div id="reply-text">
+                                                    <p id="name">@_reply.firstname @_reply.lastname</p>
+                                                    <p id="text">@_reply.text</p>
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
-                                    <div class="creat-comment-body">
-                                        <img  id="uimg"src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image"/>
-                                        <input type="text" placeholder="Add comment">
-                                        <button type="submit">
+                                    <div class="create-reply-container">
+                                        <img  id="reply-image" src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image"/>
+                                        <input id="@_comment.Id" type="text" placeholder="Add comment">
+                                        <button id="reply-button" type="submit" onclick="CreateReply('@_comment.Id', '@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@_comment.firstname', '@_comment.lastname')">
                                             <img src="~/Icon/Icon.png"/>
                                         </button>
                                     </div>
@@ -105,64 +115,3 @@
         </div> 
     </div>
 </div>
-<script>
-    function CreateComment()
-    {
-        const user_id = "@ViewBag.user_id"
-        const user_image ="@ViewBag.EventDisplay.user_image"
-        const event_id = "@ViewBag.EventDisplay.Id"
-        const text = document.getElementById("create-comment-text").value
-        const create_time = new Date();
-
-        let new_comment = {
-            user_id: user_id,
-            user_image: user_image,
-            event_id: event_id,
-            text: text,
-            create_time: create_time
-        }
-        let post = JSON.stringify(new_comment)
-        const url = "http://localhost:5075/Home/CreateComment"
-        let xhr = new XMLHttpRequest()
-        
-        xhr.open('POST', url, true)
-        xhr.setRequestHeader('content-type', 'application/json; charset=UTF-8')
-        xhr.send(post)
-
-        xhr.onload = function () {
-            if(xhr.status === 200) {
-                window.alert("Comment Created Successfully")
-            }
-        }
-    }
-
-    function CreateReply()
-    {
-        const user_id = "@ViewBag.user_id"
-        const user_image ="@ViewBag.EventDisplay.user_image"
-        const event_id = "@ViewBag.EventDisplay.Id"
-        const text = document.getElementById("create-comment-text").value
-        const create_time = new Date();
-
-        let new_comment = {
-            user_id: user_id,
-            user_image: user_image,
-            event_id: event_id,
-            text: text,
-            create_time: create_time
-        }
-        let post = JSON.stringify(new_comment)
-        const url = "http://localhost:5075/Home/CreateComment"
-        let xhr = new XMLHttpRequest()
-        
-        xhr.open('POST', url, true)
-        xhr.setRequestHeader('content-type', 'application/json; charset=UTF-8')
-        xhr.send(post)
-
-        xhr.onload = function () {
-            if(xhr.status === 200) {
-                window.alert("Comment Created Successfully")
-            }
-        }
-    }
-</script>

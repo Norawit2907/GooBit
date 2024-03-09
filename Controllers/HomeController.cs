@@ -73,7 +73,6 @@ public class HomeController : Controller
     public async Task<IActionResult> Post(string id)
     {
         string? user_id = HttpContext.Session.GetString("userID");
-        Console.WriteLine(id);
         Event? _event = await _eventService.GetById(id);
         if(_event == null || _event.Id == null)     {   return NotFound();}
 
@@ -85,26 +84,19 @@ public class HomeController : Controller
         List<Participant>? _participants = await _participantService.GetByEventId(_event.Id);
         if (_participants == null)                  {   return NotFound();}
 
-        List<Reply> _replies = new List<Reply>{};
+        List<ShowComment> _showcomments = new List<ShowComment>{};
         foreach(Comment _comment in _comments)
         {
             if (_comment.Id != null)
             {
-                var onecommentreply = await _replyService.GetRepliesAsyncByCommentId(_comment.Id);
-                if (onecommentreply != null)
-                {
-                    foreach (Reply _replyincomment in onecommentreply)
-                    {
-                        _replies.Add(_replyincomment);
-                    }
-                }
-            
+                List<Reply> _replies = await _replyService.GetRepliesAsyncByCommentId(_comment.Id);
+                
+                ShowComment SC = _commentService.MakeSComment(_comment, _comment.firstname, _comment.lastname, _replies);
+                _showcomments.Add(SC);
             }
         }
-        EventDisplay _eventdisplay = _eventService.MakeEventDisplay(_event, _user, _comments, _participants, _replies);
+        EventDisplay _eventdisplay = _eventService.MakeEventDisplay(_event, _user, _showcomments, _participants);
         if (_eventdisplay == null)  {   return NotFound();}
-        Console.WriteLine(_eventdisplay.title);
-
         ViewBag.EventDisplay = _eventdisplay;
         ViewBag.user_id = user_id;
         return View();

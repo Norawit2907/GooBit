@@ -244,7 +244,7 @@ body{
     height: 25px;   
 }
 
-.creat-comment-body{
+.create-reply-container{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -253,13 +253,13 @@ body{
     border-radius: 20px;
 }
 
-.creat-comment-body #uimg{
+.create-reply-container #reply-image{
     width: 60px;
     height: 60px;
     border-radius: 90px;
 }
 
-.creat-comment-body input{
+.create-reply-container input{
     background-color: #cdcdcd;
     border-radius: 20px;
     border: none;
@@ -268,9 +268,35 @@ body{
     padding-left: 20px;
 }
 
-.creat-comment-body button{
+.create-reply-container button{
     background-color: #d9d9d9;
     border: none;
+}
+
+.reply-body{
+    display: flex;
+    align-items: center;
+    background-color: #d9d9d9;
+    border-radius: 20px;
+    padding: 10px 10px;
+}
+
+.reply-body img{
+    width: 50px;
+    height: 50px;
+}
+
+.reply-body #reply-text{
+    padding: 10px 0px;
+}
+
+.reply-body #name{
+    font-weight: bold;    
+    margin: 0px 0px;
+}
+
+.reply-body #text{
+    margin: 0px 0px;
 }
 
 .comment-body{

@@ -73,9 +73,8 @@ namespace GooBitAPI.Models
         public string? user_image {get; set;} = null!;
         public decimal? latitude {get; set;} = 0!;
         public decimal? longitude {get; set;} = 0!;
-        public List<Comment> comments {get; set;} = [];
+        public List<ShowComment> comments {get; set;} = [];
         public List<Participant> participants {get; set;} = [];
-        public List<Reply> replies {get; set;} = [];
     }
 
     public class EditEventDisplay
