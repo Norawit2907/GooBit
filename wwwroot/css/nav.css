@@ -1,0 +1,88 @@
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+/* Dropdown Button */
+
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  body{
+    min-height: 100vh;
+    background: gray;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .container{
+    background-position: center;
+  }
+  
+  .header{
+    width: 100%;
+    padding: 20px 30px;
+    background: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+  }
+  
+  .lo{
+    font-size: 32px;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    margin-right: 0.5px;
+  }
+  
+  .go{
+    font-size: 32px;
+    color: black;
+    text-decoration: none;
+    font-weight: 800;
+    margin-right: auto;
+    padding: 0px 5px;
+    
+    border-radius: 5px; 
+    background-color: orange;
+  }
+  
+  .right{
+    display: flex;
+    align-items: center;
+  }
+  
+  .right button{
+    background-color: black;
+    border: none;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+  
+  .navbar a{
+    position: relative;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 40px;
+    max-width: 300px;
+  }
+  
+  .navbar a::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: .3s;
+  }
+  
+  .navbar a:hover::before{
+    width: 100%;
+  }

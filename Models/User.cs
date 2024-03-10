@@ -22,7 +22,7 @@ namespace GooBitAPI.Models
         [Required(ErrorMessage = "Please enter last name.")]
         public string lastname { get; set; } = null!;
         public string? description { get; set; } = null!;
-        public string? profile_img { get; set; } = null!;
+        public string? profile_img { get; set; } = "default_img.png";
 
     }
 
@@ -63,13 +63,21 @@ namespace GooBitAPI.Models
         public string? profile_img { get; set; } = null!;
     }
 
+    public class UserStatus
+    {
+        public string? Id { get; set; }
+        public string firstname { get; set; } = null!;
+        public string lastname { get; set; } = null!;
+        public string status { get; set;} = null!;
+    }
+
     public class UserProfile
     {   
         public string email { get; set; } = null!;
         public string firstname { get; set; } = null!;
         public string lastname { get; set; } = null!;
         public string? description { get; set; } = null!;
-        public string? profile_img { get; set; } = null!;
+        public string profile_img { get; set; } = null!;
         public List<ShortEventDisplay> owned_event { get; set;} = null!;
         public List<ShortEventDisplay> joined_event { get; set;} = null!;
     }
