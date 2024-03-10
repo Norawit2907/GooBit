@@ -22,7 +22,7 @@ namespace GooBitAPI.Models
         [Required(ErrorMessage = "Please enter last name.")]
         public string lastname { get; set; } = null!;
         public string? description { get; set; } = null!;
-        public string? profile_img { get; set; } = null!;
+        public string? profile_img { get; set; } = "default_img.png";
 
     }
 
