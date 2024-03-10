@@ -50,13 +50,13 @@
                         </div>
                         <img src="~/Icon/Union.png"/>
                     </div>
-                    <div class="joined">
+                    <button class="joined">
                         <div>
                             <p>joined</p>
                             <p id="parti"> @ViewBag.EventDisplay.total_member/@ViewBag.EventDisplay.max_member </p>
                         </div>
                         <img src="~/Icon/Vector.png"/>
-                    </div>
+                    </button>
                 </div>
 
                 <div class="post-middle">
@@ -103,6 +103,28 @@
                 
             </div>
         </div> 
+    </div>
+</div>
+<div class="popup-container">
+    <div class="popup-box">
+        <div class="box-header">
+            <button class="close-btn">
+                <img  src="~/Icon/Union.png"/>
+            </button>
+            <h1>participant</h1>
+            <div></div>
+        </div>
+        <div class="box-body">
+            <div class="list-parti">
+                @for(int i = 0; i< 10 ;i++){
+                <div class="show-parti">
+                    <img id="user-image"src="~/uploadFiles/1a193173-7cbe-4dc8-ab98-fbb0b112d88f.jpg"/>
+                    <p>Kitton Sudmilor want to antipated your event at SUKI party KMITL  </p>
+                    <img src="~/uploadFiles/not.png">
+                </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -164,5 +186,15 @@
                 window.alert("Comment Created Successfully")
             }
         }
+    }
+
+    const showPopup = document.querySelector('.joined');
+    const popupContainer = document.querySelector('.popup-container');
+    const closeBtn = document.querySelector('.close-btn');
+    showPopup.onclick = () => {
+        popupContainer.classList.add('active');
+    }
+    closeBtn.onclick = () => {
+        popupContainer.classList.remove('active');
     }
 </script>
