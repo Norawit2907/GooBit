@@ -52,7 +52,7 @@ namespace GooBitAPI.Services
             return ShEvD;
         }
 
-        public EventDisplay MakeEventDisplay(Event _event, User _user , List<ShowComment> _comments, List<Participant> _participants)
+        public EventDisplay MakeEventDisplay(Event _event, User _user , List<ShowComment> _comments, List<ShowParticipant> _participants)
         {
             EventDisplay ED = new EventDisplay{
                 Id = _event.Id,

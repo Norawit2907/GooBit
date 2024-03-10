@@ -108,8 +108,6 @@ public class HomeController : Controller
 
         List<Comment>? _comments = await _commentService.GetByEventId(_event.Id);
         if (_comments == null)                      {   return NotFound();}
-        List<Participant>? _participants = await _participantService.GetByEventId(_event.Id);
-        if (_participants == null)                  {   return NotFound();}
 
         List<ShowComment> _showcomments = new List<ShowComment>{};
         foreach(Comment _comment in _comments)
@@ -122,7 +120,25 @@ public class HomeController : Controller
                 _showcomments.Add(SC);
             }
         }
-        EventDisplay _eventdisplay = _eventService.MakeEventDisplay(_event, _user, _showcomments, _participants);
+
+        List<Participant>? _participants = await _participantService.GetByEventId(_event.Id);
+        if (_participants == null)                  {   return NotFound();}
+        List<ShowParticipant> _showparticipants = new List<ShowParticipant>{};
+        foreach(var _part in _participants)
+        {
+            
+            User? _PU = await _userService.GetById(_part.user_id);
+            if (_PU != null && _PU.profile_img != null)
+            {
+                ShowParticipant SP = _participantService.MakeShowParticipant(_part, _PU.firstname, _PU.lastname, _PU.profile_img);
+                _showparticipants.Add(SP);
+            }
+        }
+        foreach(var s in _showparticipants)
+        {
+            Console.WriteLine(s);
+        }
+        EventDisplay _eventdisplay = _eventService.MakeEventDisplay(_event, _user, _showcomments, _showparticipants);
         if (_eventdisplay == null)  {   return NotFound();}
         ViewBag.EventDisplay = _eventdisplay;
         ViewBag.user_id = user_id;

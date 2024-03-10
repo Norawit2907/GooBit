@@ -75,7 +75,7 @@ namespace GooBitAPI.Models
         public decimal? latitude {get; set;} = 0!;
         public decimal? longitude {get; set;} = 0!;
         public List<ShowComment> comments {get; set;} = [];
-        public List<Participant> participants {get; set;} = [];
+        public List<ShowParticipant> participants {get; set;} = [];
     }
 
     public class EditEventDisplay

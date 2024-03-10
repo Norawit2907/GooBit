@@ -127,11 +127,22 @@
         </div>
         <div class="box-body">
             <div class="list-parti">
-                @for(int i = 0; i< 10 ;i++){
+                @foreach(var _participant in @ViewBag.EventDisplay.participants){
                 <div class="show-parti">
-                    <img id="user-image"src="~/uploadFiles/1a193173-7cbe-4dc8-ab98-fbb0b112d88f.jpg"/>
-                    <p>Kitton Sudmilor want to antipated your event at SUKI party KMITL  </p>
-                    <img src="~/uploadFiles/not.png">
+                    <img id="user-image"src="~/uploadFiles/UserProfile/@_participant.user_image"/>
+                    <p>@_participant.firstname @_participant.lastname want to antipated your event at @ViewBag.EventDisplay.googlemap_location  </p>
+                    @if(_participant.status == "pending")
+                    {
+                        <img src="~/Icon/question.png">
+                    }
+                    else if(_participant.status == "submited")
+                    {
+                        <img src="~/Icon/Tick.png">
+                    }
+                    else
+                    {
+                        <img src="~/Icon/Union.png">
+                    }
                 </div>
                 }
             </div>
