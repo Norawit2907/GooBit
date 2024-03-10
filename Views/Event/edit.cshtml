@@ -1,6 +1,6 @@
 @model GooBitAPI.Models.EditEventDisplay
 @{
-    Layout = "";    
+    Layout = "";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -23,13 +23,18 @@
     <form id="edit-form" method="post" enctype="multipart/form-data" asp-controller="Event" asp-action="Edit">
         <div class="split left">
             <div id="file-container">
-                <label for="image-input" class="file-label">Choose Images</label>
+                <label for="image-input" class="file-label">Change Images</label>
                 <input type="file" id="image-input" name="images" accept="image/*" multiple required>
-                <div id="selected-images"></div>
+                <input type="hidden" id="previous_image" name="previous_image" value="@Model.event_img">
+                <div id="image-preview"></div>
             </div>
         </div>
         <div class="split right">
             <input type="image" id="deleteBtn" src="~/Icon/Bin.png" onclick="clearForm()" alt="deleteBtn">
+            <div class="profile">
+                <img class=profileimg src="~/uploadFiles/UserProfile/@ViewBag.ProfileImg" alt="ProfileImg">
+                <div class=username>@ViewBag.UserName</div>
+            </div>
             <label for="title"></label>
             <textarea id="title" placeholder="Add Title..." name="title">@Model.title</textarea>
             <div class="row">
@@ -140,12 +145,13 @@
             </div>
     </form>
     <script>
-        var availableUser = "@Html.Raw(Json.Serialize(Model.available_user))";
-        var eventImages = "@Html.Raw(Json.Serialize(Model.event_img))";
-        var participants = "@Html.Raw(Json.Serialize(Model.participants))";
-        var submitted_users = "@Html.Raw(Json.Serialize(Model.submitted_user))";
-        var oldlatitude = "@Html.Raw(Json.Serialize(Model.latitude))";
-        var oldlongitude = "@Html.Raw(Json.Serialize(Model.longitude))";
+        var basePath = '@Url.Content("~/uploadFiles/EventImage/")';
+        var availableUser = @Html.Raw(Json.Serialize(Model.available_user));
+        var participants = @Html.Raw(Json.Serialize(Model.participants));
+        var oldimg = @Html.Raw(Json.Serialize(Model.event_img));
+        var submitted_users = @Html.Raw(Json.Serialize(Model.submitted_user));
+        var oldlatitude = @Html.Raw(Json.Serialize(Model.latitude));
+        var oldlongitude = @Html.Raw(Json.Serialize(Model.longitude));
     </script>
     <script src="~/js/EditPost.js" defer></script>
 </body>

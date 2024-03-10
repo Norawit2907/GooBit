@@ -1,3 +1,4 @@
+create.css
 
 body {
     font-family: 'Arial', sans-serif;
@@ -129,9 +130,17 @@ body {
   right: 10px;
 }
 
-.input-container {
-    margin-right: 10px;
+.image-preview {
+    margin-top: 10px;
   }
+
+.preview-image {
+    max-width: 100%;
+    max-height: 100px;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+}
 
 #map {
     height: 150px;

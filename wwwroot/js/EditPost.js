@@ -1,80 +1,40 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const fileInput = document.getElementById('image-input');
-    const selectedImagesContainer = document.getElementById('selected-images');
+function handleImagePreview(input) {
+    const previewContainer = document.getElementById('image-preview');
+    previewContainer.innerHTML = '';
 
-    // Check if there are previously selected images in local storage
-    const storedImages = JSON.parse(localStorage.getItem('selectedImages')) || [];
+    const files = input.files;
 
-    // Display previously selected images
-    storedImages.forEach(imageData => {
-        displaySelectedImage(imageData);
-    });
-
-    eventImages.forEach(imageUrl => {
-        const eventData = {
-            name: 'event-image.jpg',
-            dataUrl: `/uploadFiles/${imageUrl}`
-        };
-        displaySelectedImage(eventData);
-        console.log(imageUrl)
-    });
-
-    fileInput.addEventListener('change', handleFileSelect);
-
-    function handleFileSelect(event) {
-        const files = event.target.files;
-        for (const file of files) {
+    if (files && files.length > 0) {
+        Array.from(files).forEach(file => {
             const reader = new FileReader();
 
             reader.onload = function (e) {
-                const imageData = {
-                    name: file.name,
-                    dataUrl: e.target.result
-                };
-
-                displaySelectedImage(imageData);
-
-                // Store the selected image data in local storage
-                // storedImages.push(imageData);
-                // localStorage.setItem('selectedImages', JSON.stringify(storedImages));
+                const image = document.createElement('img');
+                image.src = e.target.result;
+                image.classList.add('preview-image');
+                previewContainer.appendChild(image);
             };
 
             reader.readAsDataURL(file);
-        }
-    }
-
-    function displaySelectedImage(imageData) {
-        const imgContainer = document.createElement('div');
-        imgContainer.classList.add('selected-image-container');
-
-        const imgElement = document.createElement('img');
-        imgElement.src = imageData.dataUrl;
-        imgElement.alt = imageData.name;
-        imgElement.classList.add('selected-image');
-        imgContainer.appendChild(imgElement);
-
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Remove';
-        deleteButton.classList.add('delete-button');
-        deleteButton.addEventListener('click', function () {
-            removeSelectedImage(imgContainer, imageData);
         });
-        imgContainer.appendChild(deleteButton);
-
-        selectedImagesContainer.appendChild(imgContainer);
+    } else if (oldimg) {
+        oldimg.forEach(imgUrl => {
+            console.log(imgUrl);
+            const oldImagePreview = document.createElement('img');
+            oldImagePreview.src = basePath+imgUrl
+            console.log(oldImagePreview);
+            oldImagePreview.classList.add('preview-image');
+            previewContainer.appendChild(oldImagePreview);
+        });
     }
+}
 
-    function removeSelectedImage(container, imageData) {
-        // Remove the image container from the display
-        container.remove();
+window.onload = function () {
+    handleImagePreview(document.getElementById('image-input'));
+};
 
-        // Remove the image data from the stored images
-        const index = storedImages.findIndex(img => img.name === imageData.name);
-        if (index !== -1) {
-            storedImages.splice(index, 1);
-            localStorage.setItem('selectedImages', JSON.stringify(storedImages));
-        }
-    }
+document.getElementById('image-input').addEventListener('change', function () {
+    handleImagePreview(this);
 });
 
 let map, marker;
@@ -139,18 +99,20 @@ let map, marker;
 
 function clearForm() {
     document.getElementById("edit-form").reset();
+    const previewContainer = document.getElementById('image-preview');
+    previewContainer.innerHTML = '';
 }
 
 function editsubmitForm() {
     document.getElementById("tags").value = document.querySelector(".tags_input").value;
     document.getElementById("edit-form").submit();
-    const formData = new FormData(document.getElementById("edit-form"));
-    for (const [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-    }
-    setTimeout(function() {
-        document.getElementById("edit-form").reset();
-    }, 100);
+    setTimeout(() => {
+        // const formData = new FormData(document.getElementById("edit-form"));
+        // for (const [key, value] of formData.entries()) {
+        //     console.log(`${key}: ${value}`);
+        // }
+        clearForm();
+    }, 1000); 
 }
 
 document.addEventListener("DOMContentLoaded", function(){

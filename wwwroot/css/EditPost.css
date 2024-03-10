@@ -1,3 +1,4 @@
+edit.css
 
 body {
     font-family: 'Arial', sans-serif;
@@ -18,7 +19,7 @@ body {
     left: 0;
     background-color: rgb(55, 55, 55);
     width: 60%;
-    margin-top: 80px;
+    margin-top: 70px;
   }
   
 .right {
@@ -26,7 +27,7 @@ body {
     background-color: rgb(255, 255, 255);
     width: 40%;
     padding: 0px;
-    margin-top: 80px;
+    margin-top: 70px;
   }
 
 #edit-form {
@@ -135,9 +136,17 @@ body {
   right: 10px;
 }
 
-.input-container {
-    margin-right: 10px;
-  }
+.image-preview {
+  margin-top: 10px;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 100px;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding-top: 10px;
+}
 
 #map {
     height: 150px;

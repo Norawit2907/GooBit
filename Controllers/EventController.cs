@@ -175,6 +175,9 @@ public class EventController : Controller
             submitted_user = submittedUser,
             participants = allparticipant
         };
+        var hostuser = await _userService.GetById(user_id);
+        ViewBag.UserName = $"{hostuser.firstname} {hostuser.lastname}";
+        ViewBag.ProfileImg = $"{hostuser.profile_img}";
         return View(editEvent);
     }
 

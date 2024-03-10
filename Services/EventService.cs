@@ -52,7 +52,7 @@ namespace GooBitAPI.Services
             return ShEvD;
         }
 
-        public EventDisplay MakeEventDisplay(Event _event, User _user , List<Comment> _comments, List<Participant> _participants, List<Reply> _replies)
+        public EventDisplay MakeEventDisplay(Event _event, User _user , List<ShowComment> _comments, List<Participant> _participants)
         {
             EventDisplay ED = new EventDisplay{
                 Id = _event.Id,
@@ -74,7 +74,6 @@ namespace GooBitAPI.Services
                 longitude = _event.longitude,
                 comments = _comments,
                 participants = _participants,
-                replies = _replies
             };
             return ED;
         }

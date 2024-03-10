@@ -35,7 +35,8 @@ namespace GooBitAPI.Services
                 lastname = lastname,
                 event_id = _comment.event_id,
                 text = _comment.text,
-                create_time = _comment.create_time
+                create_time = _comment.create_time,
+                replies = _replies
             };
             return SC;
         }
@@ -51,5 +52,4 @@ namespace GooBitAPI.Services
         
     }
 }
-
 
