@@ -1,0 +1,23 @@
+.myform {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.left{
+    grid-column: 1/2;
+}
+
+.right{
+    grid-column: 2/3;
+    grid-row: 1/7;
+}
+
+@media screen and (max-width: 900px) {
+    .myform{
+        grid-template-columns: 1fr;
+    }
+    .right{
+        grid-column: 1/2;
+        grid-row: 2/3;
+    }
+}

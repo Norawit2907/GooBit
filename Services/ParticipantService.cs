@@ -20,16 +20,39 @@ namespace GooBitAPI.Services
         public async Task<List<Participant>> GetAsync() =>
             await _participantCollection.Find(_ => true).ToListAsync();
 
-        public async Task<Participant?> GetAsync(string id) =>
+        public async Task<Participant?> GetAsyncById(string id) =>
             await _participantCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public async Task<List<Participant>> GetByEvent(string id) =>
+        public async Task<List<Participant>> GetByEventId(string id) =>
             await _participantCollection.Find(x => x.event_id == id).ToListAsync();
-        
-        public async Task<List<Participant>> GetByUser(string id) =>
-            await _participantCollection.Find(x => x.user_id == id).ToListAsync();
-        
 
+        public async Task<List<Participant>> GetByUserId(string id) =>
+            await _participantCollection.Find(x => x.user_id == id).ToListAsync();
+
+        public async Task<Participant?> GetByEU(string user_id, string event_id)
+        {
+            var filterBuilder = Builders<Participant>.Filter;
+            var filter = filterBuilder.And(
+                filterBuilder.Eq("user_id", user_id),
+                filterBuilder.Eq("event_id", event_id)
+            );
+            Participant? participant = await _participantCollection.Find(filter).FirstOrDefaultAsync();
+            return participant;
+        }
+
+        public ShowParticipant MakeShowParticipant(Participant _participant, string firstname, string lastname, string user_image)
+        {
+            ShowParticipant SP = new ShowParticipant{
+                Id = _participant.Id,
+                event_id = _participant.event_id,
+                user_id = _participant.user_id,
+                firstname = firstname,
+                lastname = lastname,
+                user_image = user_image,
+                status = _participant.status
+            };
+            return SP;
+        }
         public async Task CreateAsync(Participant newParticipant) =>
             await _participantCollection.InsertOneAsync(newParticipant);
 
@@ -40,5 +63,3 @@ namespace GooBitAPI.Services
             await _participantCollection.DeleteOneAsync(x => x.Id == id);
     }
 }
-
-

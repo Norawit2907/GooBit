@@ -10,6 +10,31 @@
 </head>
 <body>
 
+    <header class="header">
+        <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">
+                All
+                <img src="~/uploadFiles/drop.png"/>
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+                @for(int i = 0; i< 10 ;i++){
+                    <a href="#">Link 1</a>
+                }
+            </div>
+        </div> 
+        <div class="logo">
+            <a class="lo" href="/Home/index">Goo</a>
+            <a class="go" href="/Home/index">bit</a>
+        </div>
+        <div class="right">
+            <div class="navbar">
+                <a href="#">KITTON SUDLOR</a>
+            </div>
+            <button>
+                <img src="~/uploadFiles/noti.png"/>
+            </button>
+        </div>
+    </header>
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -21,6 +46,7 @@
     @await RenderSectionAsync("Scripts", required: false)
 
     <script>
+
         // JavaScript for page navigation
         document.addEventListener("DOMContentLoaded", function() {
             const navLinks = document.querySelectorAll('.nav-link');

@@ -20,8 +20,11 @@ namespace GooBitAPI.Services
         public async Task<List<Reply>> GetAsync() =>
             await _replyCollection.Find(_ => true).ToListAsync();
 
-        public async Task<Reply?> GetAsync(string id) =>
+        public async Task<Reply?> GetAsyncById(string id) =>
             await _replyCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+
+        public async Task<List<Reply>> GetRepliesAsyncByCommentId(string id) =>
+            await _replyCollection.Find(x => x.comment_id == id).ToListAsync();
 
         public async Task CreateAsync(Reply newReply) =>
             await _replyCollection.InsertOneAsync(newReply);
@@ -33,5 +36,4 @@ namespace GooBitAPI.Services
             await _replyCollection.DeleteOneAsync(x => x.Id == id);
     }
 }
-
 

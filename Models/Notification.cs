@@ -11,6 +11,5 @@ namespace GooBitAPI.Models
         public string user_id { get; set; } = null!;
         public string event_id {get; set;} = null!;
         public string body {get; set;} = null!;
-
     }
 }
