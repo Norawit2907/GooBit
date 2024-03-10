@@ -89,6 +89,25 @@ namespace GooBitAPI.Services
             return sEvent;
         }
 
+        public async Task<List<Event>> UpdateCloseEvent()
+        {
+            List<Event> _events = await _eventCollection.Find(_ => true).ToListAsync();
+            List<Event> closedEvents = [];
+            foreach (Event _event in _events)
+            {
+                if (_event.end_date.CompareTo(DateTime.UtcNow) <= 0 && _event.status)
+                {
+                    _event.status = false;
+                    if (_event.Id != null)
+                    {
+                        await _eventCollection.ReplaceOneAsync(x => x.Id == _event.Id, _event);
+                    }
+                    closedEvents.Add(_event);
+                }
+            }
+            return closedEvents;
+        }
+
         public async Task CreateAsync(Event newEvent) =>
             await _eventCollection.InsertOneAsync(newEvent);
 

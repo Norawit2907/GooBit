@@ -14,17 +14,44 @@ public class HomeController : Controller
     private readonly CommentService _commentService;
     private readonly ParticipantService _participantService;
     private readonly ReplyService _replyService;
-    public HomeController(EventService eventService, UserService userService, CommentService commentService, ParticipantService participantService, ReplyService replyService)
+    private readonly NotificationService _notificationService;
+    public HomeController(EventService eventService, UserService userService, CommentService commentService, ParticipantService participantService, ReplyService replyService, NotificationService notificationService)
     {
         _eventService = eventService;
         _userService = userService;
         _commentService = commentService;
         _participantService = participantService;
         _replyService = replyService;
+        _notificationService = notificationService;
     }
 
     public async Task<IActionResult> Index(string category="all")
     {
+        //Update event status
+        List<Event> closedEvents = await _eventService.UpdateCloseEvent();
+        foreach (Event closeEvent in closedEvents)
+        {
+            if(closeEvent.Id != null)
+            {
+                List<Participant> participants = await _participantService.GetByEventId(closeEvent.Id);
+                foreach (Participant p in participants)
+                {
+                    if (p.status == "submitted")
+                    { await _notificationService.CreateNoti(p.user_id,p.event_id,"submitted"); } 
+                    else if (p.status == "rejected" || p.status == "pending") 
+                    {
+                        await _notificationService.CreateNoti(p.user_id,p.event_id,"rejected");
+                        if (p.status == "pending")
+                        {
+                            p.status = "rejected";
+                            if (p.Id != null){await _participantService.UpdateAsync(p.Id,p);}
+                        }
+                    }
+                }
+                await _notificationService.CreateNoti(closeEvent.user_id,closeEvent.Id,"Closed");
+            }
+        }
+
         var allEvent = new List<ShortEventDisplay>{};
 
         // get category from service

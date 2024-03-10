@@ -118,7 +118,7 @@ public class EventController : Controller
         {
             return BadRequest("What do you looking for");
         }
-        List<Participant> participants = await _participantService.GetByEvent(id);
+        List<Participant> participants = await _participantService.GetByEventId(id);
         List<UserStatus> submittedUser = [];
         List<UserStatus> allparticipant = [];
         int submited_user = 0;
@@ -231,30 +231,22 @@ public class EventController : Controller
         }
         if (updatedEvent.status != "open")
         {
-            List<Participant> participants = await _participantService.GetByEvent(id);
+            List<Participant> participants = await _participantService.GetByEventId(id);
             foreach (Participant p in participants)
             {
                 if (p.status == "submitted")
+                { await _notificationService.CreateNoti(p.user_id,p.event_id,"submitted"); } 
+                else if (p.status == "rejected" || p.status == "pending") 
                 {
-                    Notification noti = new Notification{
-                        user_id = p.user_id,
-                        event_id = p.event_id,
-                        body = "submitted"
-                    };
-                    await _notificationService.CreateAsync(noti);
-                } else if (p.status == "rejected" || p.status == "pending") {
-                    Notification noti = new Notification{
-                        user_id = p.user_id,
-                        event_id = p.event_id,
-                        body = "rejected"
-                    };
-                    await _notificationService.CreateAsync(noti);
-                    if (p.status == "pending"){
+                    await _notificationService.CreateNoti(p.user_id,p.event_id,"rejected");
+                    if (p.status == "pending")
+                    {
                         p.status = "rejected";
                         if (p.Id != null){await _participantService.UpdateAsync(p.Id,p);}
                     }
                 }
             }
+            await _notificationService.CreateNoti(user_id,id,"Closed");
         }
         return Ok();
     } 
