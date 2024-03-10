@@ -253,38 +253,4 @@ public class EventController : Controller
         }
         return Ok();
     } 
-
-    public async Task<IActionResult> JoinedEvent(string id)
-    {
-        string? user_id = HttpContext.Session.GetString("userID");
-        if (user_id == null)
-        {
-            return RedirectToAction("Login","User");
-        }
-        Event? _event = await _eventService.GetById(id);
-        if (_event == null)
-        {
-            return BadRequest("What do you looking for");
-        }
-        if (user_id == _event.user_id)
-        {
-            return BadRequest("What do you looking for");
-        }
-        Participant? check_p = await _participantService.GetByEU(user_id,id);
-        if (check_p != null || _event.status == false)
-        {
-            return BadRequest("Can not do it");
-        }
-        _event.total_member ++;
-        await _eventService.UpdateAsync(id,_event);
-        Participant participant = new Participant{
-            event_id = id,
-            user_id = user_id,
-            status = "pending"
-        };
-        await _participantService.CreateAsync(participant);
-        return Ok();
-
-    }
-
 }

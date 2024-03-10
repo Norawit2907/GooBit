@@ -56,6 +56,7 @@ namespace GooBitAPI.Services
         {
             EventDisplay ED = new EventDisplay{
                 Id = _event.Id,
+                creator_Id = _event.user_id,
                 title = _event.title,
                 description = _event.description,
                 total_member = _event.total_member,
