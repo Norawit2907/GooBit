@@ -2,76 +2,12 @@ body {
   margin: 0;
   line-height: normal;
  }
- 
- .goo,
- .navbar-item {
-  position: relative;
-  z-index: 1;
- }
- .navbar-item {
-  height: 94px;
-  width: 1440px;
-  background-color: #000;
-  display: none;
-  max-width: 100%;
- }
- .goo {
-  margin: 0;
-  height: 45.4px;
-  width: 117px;
-  font-size: inherit;
-  font-weight: 700;
-  font-family: inherit;
-  white-space: pre-wrap;
-  display: inline-block;
-  flex-shrink: 0;
- }
- .first-name-frame-child {
-  position: absolute;
-  top: 5px;
-  left: 0;
-  border-radius: 5px;
-  width: 63.3px;
-  height: 48px;
-  z-index: 1;
- }
- .bit {
-  margin: 0;
-  position: absolute;
-  top: 0;
-  left: 4px;
-  font-size: inherit;
-  font-weight: 700;
-  font-family: inherit;
-  display: inline-block;
-  width: 59px;
-  height: 46px;
-  z-index: 2;
- }
  .first-name-frame {
   height: 53px;
   width: 63px;
   position: relative;
   margin-left: -30px;
   color: #000;
- }
- .navbar {
-  align-self: stretch;
-  background-color: #000;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 17px 32px 24px;
-  box-sizing: border-box;
-  top: 0;
-  z-index: 99;
-  position: sticky;
-  max-width: 100%;
-  text-align: left;
-  font-size: 40px;
-  color: #fff;
-  font-family: Poppins;
  }
  .edit-profile {
   margin: 0;
@@ -84,18 +20,6 @@ body {
   max-width: 100%;
  }
  .edit-profile,
- .first-name-header {
-  position: relative;
-  font-weight: 600;
- }
- .name-box {
-  height: 70px;
-  width: 405px;
-  position: relative;
-  border-radius: 5px;
-  display: none;
-  max-width: 100%;
- }
  .first-name {
   width: 100%;
   height: 72px;
@@ -112,13 +36,13 @@ body {
   z-index: 1;
   margin-left: 21px;
  }
- .first-name-box,
- .first-name-container {
+ .first-info-box,
+ .name-container {
   display: flex;
   justify-content: flex-start;
   max-width: 100%;
  }
- .first-name-box {
+ .info-box {
   align-self: stretch;
   border-radius: 5px;
   background-color: #595959;
@@ -129,16 +53,12 @@ body {
   height: 72px;
   width: 375px;
  }
- .first-name-container {
+ .name-container {
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px 0;
   min-width: 263px;
- }
- .last-name-header {
-  position: relative;
-  font-weight: 600;
  }
  .last-name {
   width: 100%;
@@ -156,35 +76,12 @@ body {
   z-index: 1;
   margin-left: 21px;
  }
- .last-name-box {
-  align-self: stretch;
-  border-radius: 5px;
-  background-color: #595959;
-  border: 0 solid #595959;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  height: 72px;
-  width: 375px;
-  max-width: 100%;
- }
- .description-frame,
- .name-container,
- .last-name-container {
+ .name-container {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   max-width: 100%;
  }
- .last-name-container {
-  flex: 1;
-  flex-direction: column;
-  gap: 8px 0;
-  min-width: 263px;
- }
- .description-frame,
  .name-container {
   align-self: stretch;
  }
@@ -194,11 +91,7 @@ body {
   font-size: 26px;
   font-family: Roboto;
  }
- .description-frame {
-  flex-direction: column;
-  gap: 40px 0;
- }
- .email-header {
+ .header {
   width: 278.8px;
   position: relative;
   font-weight: 600;
@@ -229,14 +122,14 @@ body {
   margin-left: 27px;
   margin-top: 23;
  }
- .email-box,
- .email-container {
+ .input-box,
+ .info-container {
   align-self: stretch;
   display: flex;
   justify-content: flex-start;
   max-width: 100%;
  }
- .email-box {
+ .input-box {
   border-radius: 5px;
   background-color: #595959;
   border: 0 solid #595959;
@@ -246,18 +139,12 @@ body {
   height: 74px;
   width: 700px;
  }
- .email-container {
+ .info-container {
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
  }
- .description-header {
-  width: 278.8px;
-  position: relative;
-  font-weight: 600;
-  display: inline-block;
- }
- 
+
  .description {
   width: 100%;
   height: 74px;
@@ -274,35 +161,6 @@ body {
   z-index: 1;
   margin-left: 27px;
  }
- .description-container,
- .description-box {
-  align-self: stretch;
-  flex: 1;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  max-width: 100%;
- }
- .description-box {
-  border-radius: 5px;
-  background-color: #595959;
-  border: 0 solid #595959;
-  box-sizing: border-box;
-  flex-direction: row;
-  height: 74px;
-  width: 700px;
- }
- .description-container {
-  flex-direction: column;
-  gap: 8px;
- }
- .password-header {
-  width: 278.8px;
-  position: relative;
-  font-weight: 600;
-  display: inline-block;
- }
- 
  .password {
   width: 100%;
   height: 74px;
@@ -319,36 +177,7 @@ body {
   z-index: 1;
   margin-left: 27px;
  }
- .password,
- .password-box {
-  align-self: stretch;
-  display: flex;
-  justify-content: flex-start;
-  box-sizing: border-box;
-  max-width: 100%;
- }
- .password-box {
-  border-radius: 5px;
-  background-color: #595959;
-  border: 0 solid #595959;
-  flex-direction: row;
-  align-items: center;
-  height: 74px;
-  width: 700px;
- }
- .password-container {
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0 0 1px;
-  gap: 8px;
- }
- .confirm-password-header {
-  width: 278.8px;
-  position: relative;
-  font-weight: 600;
-  display: inline-block;
- }
- 
+
  .confirm-password {
   width: 100%;
   height: 74px;
@@ -365,24 +194,7 @@ body {
   z-index: 1;
   margin-left: 27px;
  }
- .confirm-password-box {
-  align-self: stretch;
-  border-radius: 5px;
-  background-color: #595959;
-  border: 0 solid #595959;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  height: 74px;
-  width: 700px;
- }
- .confirm-password-container {
-  padding: 0 0 1px;
-  box-sizing: border-box;
-  gap: 8px;
- }
+
  .edit-frame,
  .info,
  .confirm-password-container {
@@ -436,14 +248,6 @@ body {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border: 1px solid #000;
   box-sizing: border-box;
- }
- .save-child {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: none;
  }
  .save1 {
   position: absolute;
@@ -507,7 +311,7 @@ body {
  }
  .profile-pic:hover {
   transform: scale(1.1);
-  transition: transform 0.3s ease, background-color 0.2s ease-in-out; /* Combined transition properties */
+  transition: transform 0.3s ease, background-color 0.2s ease-in-out; 
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 10000;
  }
@@ -536,8 +340,8 @@ body {
   font-weight: 600;
   font-size: 26px;
   font-family: Roboto;
-  display: flex; /* Use flexbox for centering */
-  align-items: center; /* Center items vertically */
+  display: flex; 
+  align-items: center; 
  }
  
  .change-profile-picture a {
@@ -672,37 +476,6 @@ body {
   border-radius: 4px;
   background-color: #ffffff;
  }
- .list {
-  width: 100%;
-  margin: 1em 0px 1em 0px;
-  display: block;
-  padding: 0px 0px 0px 1.5rem;
-  list-style-type: none;
-  list-style-position: outside;
- }
- .list-item {
-  display: list-item;
- }
- .teleport-show {
-  display: flex !important;
-  transform: none !important;
- }
- .Content {
-  font-size: 16px;
-  font-family: Inter;
-  font-weight: 400;
-  line-height: 1.15;
-  text-transform: none;
-  text-decoration: none;
- }
- .Heading {
-  font-size: 32px;
-  font-family: Inter;
-  font-weight: 700;
-  line-height: 1.15;
-  text-transform: none;
-  text-decoration: none;
- }
  
  @media screen and (max-width: 900px) {
   .edit-profile {
@@ -725,14 +498,11 @@ body {
   .edit-profile {
    font-size: 27px;
   }
-  .first-name-header {
+  .header {
    font-size: 21px;
   }
   .first-name {
    font-size: 19px;
-  }
-  .last-name-header {
-   font-size: 21px;
   }
   .last-name {
    font-size: 19px;
@@ -743,26 +513,14 @@ body {
   .description-frame {
    gap: 40px 0;
   }
-  .email-header {
-   font-size: 21px;
-  }
   .email {
    font-size: 19px;
-  }
-  .description-header {
-   font-size: 21px;
   }
   .description {
    font-size: 19px;
   }
-  .password-header {
-   font-size: 21px;
-  }
   .password {
    font-size: 19px;
-  }
-  .confirm-password-header {
-   font-size: 21px;
   }
   .confirm-password {
    font-size: 19px;
