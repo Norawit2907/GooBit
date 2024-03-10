@@ -10,7 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Post</title>
     <link href="~/css/CreatePost.css" rel="stylesheet" media="all" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
 </head>
 
 <body>
@@ -24,12 +25,12 @@
             <div id="file-container">
                 <label for="image-input" class="file-label">Choose Images</label>
                 <input type="file" id="image-input" name="images" accept="image/*" multiple required>
-                <div id="selected-images"></div>
+                <div id="image-preview"></div>
             </div>
         </div>
         <div class="split right">
             <div class="profile">
-                <img class=profileimg src="~/uploadFiles/@ViewBag.ProfileImg" alt="ProfileImg">
+                <img class=profileimg src="~/uploadFiles/UserProfile/@ViewBag.ProfileImg" alt="ProfileImg">
                 <div class=username>@ViewBag.UserName</div>
             </div>
             <label for="title"></label>
