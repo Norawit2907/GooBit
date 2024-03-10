@@ -133,7 +133,8 @@ public class EventController : Controller
                 User? user = await _userService.GetById(participant.user_id);
                 if (user != null)
                 {
-                    UserStatus u = new UserStatus{
+                    UserStatus u = new UserStatus
+                    {
                         Id = user.Id,
                         firstname = user.firstname,
                         lastname = user.lastname,
@@ -141,13 +142,14 @@ public class EventController : Controller
                     };
                     submittedUser.Add(u);
                 }
-            } 
+            }
             if (participant.status != null)
             {
                 User? user = await _userService.GetById(participant.user_id);
                 if (user != null)
                 {
-                    UserStatus u = new UserStatus{
+                    UserStatus u = new UserStatus
+                    {
                         Id = user.Id,
                         firstname = user.firstname,
                         lastname = user.lastname,
@@ -201,7 +203,8 @@ public class EventController : Controller
         {
             return BadRequest("What do you looking for");
         }
-        Event newEvent = new Event{
+        Event newEvent = new Event
+        {
             Id = id,
             title = updatedEvent.title,
             description = updatedEvent.description,
@@ -231,7 +234,7 @@ public class EventController : Controller
             List<string> sUserID = updatedEvent.submitted_user.Split(",").ToList();
             foreach (string u in sUserID)
             {
-                Participant? par = await _participantService.GetByEU(u,id);
+                Participant? par = await _participantService.GetByEU(u, id);
             }
         }
         if (updatedEvent.status != "open")
@@ -247,7 +250,7 @@ public class EventController : Controller
                     if (p.status == "pending")
                     {
                         p.status = "rejected";
-                        if (p.Id != null){await _participantService.UpdateAsync(p.Id,p);}
+                        if (p.Id != null) { await _participantService.UpdateAsync(p.Id, p); }
                     }
                 }
             }
