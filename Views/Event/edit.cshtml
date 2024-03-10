@@ -23,9 +23,10 @@
     <form id="edit-form" method="post" enctype="multipart/form-data" asp-controller="Event" asp-action="Edit">
         <div class="split left">
             <div id="file-container">
-                <label for="image-input" class="file-label">Choose Images</label>
+                <label for="image-input" class="file-label">Change Images</label>
                 <input type="file" id="image-input" name="images" accept="image/*" multiple required>
-                <div id="selected-images"></div>
+                <input type="hidden" id = "previous_image" name="previous_image" value="@Model.event_img">
+                <div id="image-preview"></div>
             </div>
         </div>
         <div class="split right">
