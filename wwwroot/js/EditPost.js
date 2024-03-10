@@ -4,7 +4,7 @@ function handleImagePreview(input) {
 
     const files = input.files;
 
-    if (files) {
+    if (files && files.length > 0) {
         Array.from(files).forEach(file => {
             const reader = new FileReader();
 
@@ -17,12 +17,26 @@ function handleImagePreview(input) {
 
             reader.readAsDataURL(file);
         });
+    } else if (oldimg) {
+        oldimg.forEach(imgUrl => {
+            console.log(imgUrl);
+            const oldImagePreview = document.createElement('img');
+            oldImagePreview.src = basePath+imgUrl
+            console.log(oldImagePreview);
+            oldImagePreview.classList.add('preview-image');
+            previewContainer.appendChild(oldImagePreview);
+        });
     }
 }
+
+window.onload = function () {
+    handleImagePreview(document.getElementById('image-input'));
+};
 
 document.getElementById('image-input').addEventListener('change', function () {
     handleImagePreview(this);
 });
+
 let map, marker;
 
         function initMap() {

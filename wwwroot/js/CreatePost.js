@@ -80,7 +80,6 @@ let map, marker;
         document.addEventListener('DOMContentLoaded', function () {
             initMap();
         });
-        google.maps.event.addDomListener(window, "load", initMap);
 
 function clearForm() {
     document.getElementById("post-form").reset();

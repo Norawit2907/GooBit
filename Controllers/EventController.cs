@@ -118,7 +118,7 @@ public class EventController : Controller
         {
             return BadRequest("What do you looking for");
         }
-        List<Participant> participants = await _participantService.GetByEvent(id);
+        List<Participant> participants = await _participantService.GetByEventId(id);
         List<UserStatus> submittedUser = [];
         List<UserStatus> allparticipant = [];
         int submited_user = 0;
@@ -175,6 +175,9 @@ public class EventController : Controller
             submitted_user = submittedUser,
             participants = allparticipant
         };
+        var hostuser = await _userService.GetById(user_id);
+        ViewBag.UserName = $"{hostuser.firstname} {hostuser.lastname}";
+        ViewBag.ProfileImg = $"{hostuser.profile_img}";
         return View(editEvent);
     }
 
@@ -231,7 +234,7 @@ public class EventController : Controller
         }
         if (updatedEvent.status != "open")
         {
-            List<Participant> participants = await _participantService.GetByEvent(id);
+            List<Participant> participants = await _participantService.GetByEventId(id);
             foreach (Participant p in participants)
             {
                 if (p.status == "submitted")
