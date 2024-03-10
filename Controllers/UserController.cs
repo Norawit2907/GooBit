@@ -51,7 +51,7 @@ public class UserController : Controller
             return RedirectToAction("Login","User");
         }
         UserNoPassword userData = await _userService.userProfile(id);
-        List<Participant> participants = await _participantService.GetByUser(id);
+        List<Participant> participants = await _participantService.GetByUserId(id);
         List<ShortEventDisplay> joinedEvent = new List<ShortEventDisplay>();
         foreach (Participant participant in participants)
         {
@@ -59,24 +59,32 @@ public class UserController : Controller
             if (_event != null && _event.user_id != null)
             {
                 var host_user = await _userService.GetById(_event.user_id);
-                if (host_user != null)
+                if (host_user != null && host_user.profile_img != null)
                 {
-                    ShortEventDisplay sEvent = _eventService.MakeSEvent(_event,host_user.firstname,host_user.lastname);
+                    ShortEventDisplay sEvent = _eventService.MakeSEvent(_event,host_user.firstname,host_user.lastname, host_user.profile_img);
                     joinedEvent.Add(sEvent);
                 }
             }
         }
-        List<ShortEventDisplay> ownedEvent = await _eventService.GetByCreateUser(id, userData.firstname, userData.lastname);
-        UserProfile userProfile = new UserProfile{
-            email = userData.email,
-            firstname = userData.firstname,
-            lastname = userData.lastname,
-            description = userData.description,
-            profile_img = userData.profile_img,
-            owned_event = ownedEvent,
-            joined_event = joinedEvent
-        };
-        return Ok(userProfile);
+        if (userData.profile_img != null)
+        {
+            List<ShortEventDisplay> ownedEvent = await _eventService.GetByCreateUser(id, userData.firstname, userData.lastname, userData.profile_img);
+            UserProfile userProfile = new UserProfile{
+                email = userData.email,
+                firstname = userData.firstname,
+                lastname = userData.lastname,
+                description = userData.description,
+                profile_img = userData.profile_img,
+                owned_event = ownedEvent,
+                joined_event = joinedEvent
+            };
+            return Ok(userProfile);
+        }
+        else
+        {
+            Console.WriteLine("user profile image is null");
+            return BadRequest();
+        }
     }
 
     public IActionResult Register()
@@ -90,6 +98,10 @@ public class UserController : Controller
     {
         if (ModelState.IsValid)
         {
+            if (newUser.profile_img == null)
+            {
+                newUser.profile_img = "default_img.png";
+            }
             await _userService.CreateAsync(newUser);
             return RedirectToAction("Login","User");
         }

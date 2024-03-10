@@ -37,7 +37,6 @@ namespace GooBitAPI.Services
             }
             return user.Id;
         }
-
         public async Task CreateAsync(User newUser) =>
             await _userCollection.InsertOneAsync(newUser);
 

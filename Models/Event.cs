@@ -36,43 +36,45 @@ namespace GooBitAPI.Models
     {
 
         public string? Id { get; set; }
-        public string title { get; set; } = null!;
-        public string description { get; set; } = null!;
-        public int total_member { get; set; } = 0;
-        public int max_member { get; set; } = 0!;
-        public DateTime end_date { get; set; }
-        public DateTime event_date { get; set; }
-        public string duration { get; set; } = null!;
-        public string? googlemap_location { get; set; } = null!;
-        public List<string> event_img { get; set; } = null!;
-        public string category { get; set; } = null!;
-        public bool status { get; set; } = true;
-        public string firstname { get; set; } = null!;
-        public string lastname { get; set; } = null!;
-        public decimal? latitude { get; set; } = 0!;
-        public decimal? longitude { get; set; } = 0!;
+        public string title {get; set;} = null!;
+        public string description {get; set;} = null!;
+        public int total_member {get; set;} = 0;
+        public int max_member {get; set;} = 0!;
+        public DateTime end_date {get; set;}
+        public DateTime event_date {get; set;}
+        public string duration {get; set;} = null!;
+        public string? googlemap_location {get; set;} = null!;
+        public List<string> event_img {get; set;} = null!;
+        public string category {get; set;} = null!;
+        public bool status {get; set;} = true;
+        public string firstname {get; set;} = null!;
+        public string lastname {get; set;} = null!;
+        public string user_image {get; set;} = "default_img.png";
+        public decimal? latitude {get; set;} = 0!;
+        public decimal? longitude {get; set;} = 0!;
     }
 
     public class EventDisplay
     {
-
         public string? Id { get; set; }
-        public string title { get; set; } = null!;
-        public string description { get; set; } = null!;
-        public int total_member { get; set; } = 0;
-        public int max_member { get; set; } = 0!;
-        public DateTime end_date { get; set; }
-        public DateTime event_date { get; set; }
-        public string duration { get; set; } = null!;
-        public string? googlemap_location { get; set; } = null!;
-        public List<string> event_img { get; set; } = null!;
-        public string category { get; set; } = null!;
-        public bool status { get; set; } = true;
-        public string firstname { get; set; } = null!;
-        public string lastname { get; set; } = null!;
-        public decimal? latitude { get; set; } = 0!;
-        public decimal? longitude { get; set; } = 0!;
-        public List<Comment> comments { get; set; } = [];
+        public string title {get; set;} = null!;
+        public string description {get; set;} = null!;
+        public int total_member {get; set;} = 0;
+        public int max_member {get; set;} = 0!;
+        public DateTime end_date {get; set;}
+        public DateTime event_date {get; set;}
+        public string duration {get; set;} = null!;
+        public string? googlemap_location {get; set;} = null!;
+        public List<string> event_img {get; set;} = null!;
+        public string category {get; set;} = null!;
+        public bool status {get; set;} = true;
+        public string firstname {get; set;} = null!;
+        public string lastname {get; set;} = null!;
+        public string? user_image {get; set;} = null!;
+        public decimal? latitude {get; set;} = 0!;
+        public decimal? longitude {get; set;} = 0!;
+        public List<ShowComment> comments {get; set;} = [];
+        public List<Participant> participants {get; set;} = [];
     }
 
     public class EditEventDisplay
@@ -110,7 +112,7 @@ namespace GooBitAPI.Models
         public string status { get; set; } = null!;
         public decimal? latitude { get; set; } = 0!;
         public decimal? longitude { get; set; } = 0!;
-        public List<string> submitted_user { get; set; } = [];
+        public string? submitted_user { get; set; }
     }
 
 }

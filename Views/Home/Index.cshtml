@@ -48,9 +48,9 @@
     <div class="post__list">
         @foreach(var evnt in ViewBag.ShortEventDisplay)
         {
-            <a class='post__container' asp-area="" asp-controller="Home" asp-action="Post">
+            <a class='post__container' asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@evnt.Id">
                 <div class='post__container-header'>
-                    <img src="~/uploadFiles/1a193173-7cbe-4dc8-ab98-fbb0b112d88f.jpg"/>
+                    <img src="~/uploadFiles/UserProfile/@evnt.user_image"/>
                     <div>
                         <p class="post__container-header-name"> @evnt.firstname @evnt.lastname</p>
                         <p class="post__container-header-end_date @evnt.Id" id="@evnt.Id">-</p>
@@ -61,7 +61,7 @@
                 
                 <div class='post__container-body'>
                     <div class="img-container">
-                        <img src="~/uploadFiles/9756b08b-e987-4a9a-b054-9b831d368b3d.jpg"/>
+                        <img src="~/uploadFiles/EventImage/@evnt.event_img[0]"/>
                     </div>
                 </div>
                 <div class='post__container-footer'>

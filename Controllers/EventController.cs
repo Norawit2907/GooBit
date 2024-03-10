@@ -73,7 +73,7 @@ public class EventController : Controller
         }
 
         // store image to /wwwroot/uploadFiles
-        var folderName = Path.Combine("wwwroot", "uploadFiles");
+        var folderName = Path.Combine("wwwroot", "uploadFiles/EventImage");
         string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
         if (!Directory.Exists(uploadsFolder))
@@ -89,7 +89,6 @@ public class EventController : Controller
             newfilename = newuuid.ToString() + ext;
             newEvent.event_img.Add(newfilename);
             string fileSavePath = Path.Combine(uploadsFolder, newfilename);
-
 
             using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
             {
@@ -131,8 +130,7 @@ public class EventController : Controller
                 User? user = await _userService.GetById(participant.user_id);
                 if (user != null)
                 {
-                    UserStatus u = new UserStatus
-                    {
+                    UserStatus u = new UserStatus{
                         Id = user.Id,
                         firstname = user.firstname,
                         lastname = user.lastname,
@@ -140,14 +138,13 @@ public class EventController : Controller
                     };
                     submittedUser.Add(u);
                 }
-            }
+            } 
             if (participant.status != null)
             {
                 User? user = await _userService.GetById(participant.user_id);
                 if (user != null)
                 {
-                    UserStatus u = new UserStatus
-                    {
+                    UserStatus u = new UserStatus{
                         Id = user.Id,
                         firstname = user.firstname,
                         lastname = user.lastname,
@@ -199,8 +196,7 @@ public class EventController : Controller
         {
             return BadRequest("What do you looking for");
         }
-        Event newEvent = new Event
-        {
+        Event newEvent = new Event{
             Id = id,
             title = updatedEvent.title,
             description = updatedEvent.description,
@@ -220,46 +216,73 @@ public class EventController : Controller
 
         var folderName = Path.Combine("wwwroot", "uploadFiles");
         string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-        Console.WriteLine(images);
         if (!Directory.Exists(uploadsFolder))
         {
             Directory.CreateDirectory(uploadsFolder);
         }
 
-        Console.WriteLine(images.Count);
-        foreach (var file in images)
+        if (updatedEvent.submitted_user != null)
         {
-            Console.WriteLine(file.FileName);
+            List<string> sUserID = updatedEvent.submitted_user.Split(",").ToList();
+            foreach (string u in sUserID)
+            {
+                Participant? par = await _participantService.GetByEU(u,id);
+            }
         }
-
+        if (updatedEvent.status != "open")
+        {
+            List<Participant> participants = await _participantService.GetByEvent(id);
+            foreach (Participant p in participants)
+            {
+                if (p.status == "submitted")
+                {
+                    Notification noti = new Notification{
+                        user_id = p.user_id,
+                        event_id = p.event_id,
+                        body = "submitted"
+                    };
+                    await _notificationService.CreateAsync(noti);
+                } else if (p.status == "rejected" || p.status == "pending") {
+                    Notification noti = new Notification{
+                        user_id = p.user_id,
+                        event_id = p.event_id,
+                        body = "rejected"
+                    };
+                    await _notificationService.CreateAsync(noti);
+                    if (p.status == "pending"){
+                        p.status = "rejected";
+                        if (p.Id != null){await _participantService.UpdateAsync(p.Id,p);}
+                    }
+                }
+            }
+        }
         return Ok();
-    }
+    } 
 
     public async Task<IActionResult> JoinedEvent(string id)
     {
         string? user_id = HttpContext.Session.GetString("userID");
         if (user_id == null)
         {
-            return RedirectToAction("Login", "User");
+            return RedirectToAction("Login","User");
         }
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
         {
             return BadRequest("What do you looking for");
         }
-        if (user_id != _event.user_id)
+        if (user_id == _event.user_id)
         {
             return BadRequest("What do you looking for");
         }
-        Participant? check_p = await _participantService.GetByEU(user_id, id);
+        Participant? check_p = await _participantService.GetByEU(user_id,id);
         if (check_p != null || _event.status == false)
         {
             return BadRequest("Can not do it");
         }
-        _event.total_member++;
-        await _eventService.UpdateAsync(id, _event);
-        Participant participant = new Participant
-        {
+        _event.total_member ++;
+        await _eventService.UpdateAsync(id,_event);
+        Participant participant = new Participant{
             event_id = id,
             user_id = user_id,
             status = "pending"
