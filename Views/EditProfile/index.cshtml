@@ -75,28 +75,26 @@
                     </form>
                 </div>
                 </div>
-            <div class="button-container">
-              <button class="button save">SAVE</button>
-              <button class="button cancel">CANCEL</button>
-            </div>
+                <div class="button-container">
+                    <button class="button save">SAVE</button>
+                    <button class="button cancel">CANCEL</button>
+                </div>
           </div>
           <div class="user-image-frame">
             <div class="change-picture-frame">
-              <div class="user-image-ellipse">
-                <label for="profile-picture-input">
-                  <img class="profile-pic-icon1" id="output" alt="Selected Image" src="~/Icon/assets/profile-pic@2x.png" />
-                  <div class="frame-info">
-                    <div class="email-description-frame"></div>
-                  </div>
+                <label for="profile-picture-input" class="user-image-ellipse">
+                    <img class="profile-pic-icon1" id="output" alt="Selected Image" src="~/Icon/assets/profile-pic@2x.png" />
+                    <div class="frame-info">
+                        <div class="email-description-frame"></div>
+                    </div>
                 </label>
                 <input type="file" id="profile-picture-input" accept="image/*" style="display: none;" onchange="displaySelectedImage(this)" />
-              </div>
-              <div class="change-profile-picture" onclick="document.getElementById('profile-picture-input').click()">
-                <a>Change Profile Picture</a>
-                <input type="file" id="profile-picture-input" style="display: none;" />
-              </div>
             </div>
-          </div>
+            <div class="change-profile-picture" onclick="document.getElementById('profile-picture-input').click()">
+                <a>Change Profile Picture</a>
+            </div>
+         </div>
+
         </section>
       </main>
     </div>
