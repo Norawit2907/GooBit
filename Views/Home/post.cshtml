@@ -37,7 +37,8 @@
                     }
                     <div id="pagemap"></div>
                     <div class="join-bt">
-                        <button class="join-bt">I want to anticipate in this event </button>
+                        <button class="join-bt" onclick="CreateParticipant('@ViewBag.EventDisplay.Id', '@ViewBag.EventDisplay.creator_Id', '@ViewBag.user_id')">I want to anticipate in this event </button>
+                    
                 </div>
             </div>
             </div>
@@ -51,13 +52,13 @@
                         </div>
                         <img src="~/Icon/Union.png"/>
                     </div>
-                    <div class="joined">
+                    <button class="joined">
                         <div>
                             <p>joined</p>
                             <p id="parti"> @ViewBag.EventDisplay.total_member/@ViewBag.EventDisplay.max_member </p>
                         </div>
                         <img src="~/Icon/Vector.png"/>
-                    </div>
+                    </button>
                 </div>
 
                 <div class="post-middle">
@@ -115,3 +116,48 @@
         </div> 
     </div>
 </div>
+<div class="popup-container">
+    <div class="popup-box">
+        <div class="box-header">
+            <button class="close-btn">
+                <img  src="~/Icon/Union.png"/>
+            </button>
+            <h1>participant</h1>
+            <div></div>
+        </div>
+        <div class="box-body">
+            <div class="list-parti">
+                @foreach(var _participant in @ViewBag.EventDisplay.participants){
+                <div class="show-parti">
+                    <img id="user-image"src="~/uploadFiles/UserProfile/@_participant.user_image"/>
+                    <p>@_participant.firstname @_participant.lastname want to antipated your event at @ViewBag.EventDisplay.googlemap_location  </p>
+                    @if(_participant.status == "pending")
+                    {
+                        <img src="~/Icon/question.png">
+                    }
+                    else if(_participant.status == "submited")
+                    {
+                        <img src="~/Icon/Tick.png">
+                    }
+                    else
+                    {
+                        <img src="~/Icon/Union.png">
+                    }
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const showPopup = document.querySelector('.joined');
+    const popupContainer = document.querySelector('.popup-container');
+    const closeBtn = document.querySelector('.close-btn');
+    showPopup.onclick = () => {
+        popupContainer.classList.add('active');
+    }
+    closeBtn.onclick = () => {
+        popupContainer.classList.remove('active');
+    }
+</script>
+

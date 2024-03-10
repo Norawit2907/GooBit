@@ -39,6 +39,20 @@ namespace GooBitAPI.Services
             Participant? participant = await _participantCollection.Find(filter).FirstOrDefaultAsync();
             return participant;
         }
+
+        public ShowParticipant MakeShowParticipant(Participant _participant, string firstname, string lastname, string user_image)
+        {
+            ShowParticipant SP = new ShowParticipant{
+                Id = _participant.Id,
+                event_id = _participant.event_id,
+                user_id = _participant.user_id,
+                firstname = firstname,
+                lastname = lastname,
+                user_image = user_image,
+                status = _participant.status
+            };
+            return SP;
+        }
         public async Task CreateAsync(Participant newParticipant) =>
             await _participantCollection.InsertOneAsync(newParticipant);
 

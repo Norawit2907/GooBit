@@ -71,9 +71,6 @@ body{
 }
 
 .header{
-  position:fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   padding: 20px 30px;
   background: black;
@@ -84,8 +81,7 @@ body{
 }
 
 .logo{
-  position: fixed;
-  right: 46%;
+  justify-self: center;
 }
 
 .lo{
