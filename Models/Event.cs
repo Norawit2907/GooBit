@@ -57,6 +57,7 @@ namespace GooBitAPI.Models
     public class EventDisplay
     {
         public string? Id { get; set; }
+        public string creator_Id {get; set;} = null!;
         public string title {get; set;} = null!;
         public string description {get; set;} = null!;
         public int total_member {get; set;} = 0;
