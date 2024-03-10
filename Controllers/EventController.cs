@@ -1,3 +1,4 @@
+using DnsClient.Protocol;
 using GooBitAPI.Models;
 using GooBitAPI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -109,6 +110,8 @@ public class EventController : Controller
             return RedirectToAction("Login", "User");
 
         }
+        User? hostuser = await _userService.GetById(user_id);
+        if (hostuser == null){return RedirectToAction("Login", "User");}
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
         {
@@ -175,7 +178,6 @@ public class EventController : Controller
             submitted_user = submittedUser,
             participants = allparticipant
         };
-        var hostuser = await _userService.GetById(user_id);
         ViewBag.UserName = $"{hostuser.firstname} {hostuser.lastname}";
         ViewBag.ProfileImg = $"{hostuser.profile_img}";
         return View(editEvent);
