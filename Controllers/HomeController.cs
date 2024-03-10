@@ -14,17 +14,44 @@ public class HomeController : Controller
     private readonly CommentService _commentService;
     private readonly ParticipantService _participantService;
     private readonly ReplyService _replyService;
-    public HomeController(EventService eventService, UserService userService, CommentService commentService, ParticipantService participantService, ReplyService replyService)
+    private readonly NotificationService _notificationService;
+    public HomeController(EventService eventService, UserService userService, CommentService commentService, ParticipantService participantService, ReplyService replyService, NotificationService notificationService)
     {
         _eventService = eventService;
         _userService = userService;
         _commentService = commentService;
         _participantService = participantService;
         _replyService = replyService;
+        _notificationService = notificationService;
     }
 
     public async Task<IActionResult> Index(string category="all")
     {
+        //Update event status
+        List<Event> closedEvents = await _eventService.UpdateCloseEvent();
+        foreach (Event closeEvent in closedEvents)
+        {
+            if(closeEvent.Id != null)
+            {
+                List<Participant> participants = await _participantService.GetByEventId(closeEvent.Id);
+                foreach (Participant p in participants)
+                {
+                    if (p.status == "submitted")
+                    { await _notificationService.CreateNoti(p.user_id,p.event_id,"submitted"); } 
+                    else if (p.status == "rejected" || p.status == "pending") 
+                    {
+                        await _notificationService.CreateNoti(p.user_id,p.event_id,"rejected");
+                        if (p.status == "pending")
+                        {
+                            p.status = "rejected";
+                            if (p.Id != null){await _participantService.UpdateAsync(p.Id,p);}
+                        }
+                    }
+                }
+                await _notificationService.CreateNoti(closeEvent.user_id,closeEvent.Id,"Closed");
+            }
+        }
+
         var allEvent = new List<ShortEventDisplay>{};
 
         // get category from service
@@ -81,8 +108,6 @@ public class HomeController : Controller
 
         List<Comment>? _comments = await _commentService.GetByEventId(_event.Id);
         if (_comments == null)                      {   return NotFound();}
-        List<Participant>? _participants = await _participantService.GetByEventId(_event.Id);
-        if (_participants == null)                  {   return NotFound();}
 
         List<ShowComment> _showcomments = new List<ShowComment>{};
         foreach(Comment _comment in _comments)
@@ -95,7 +120,25 @@ public class HomeController : Controller
                 _showcomments.Add(SC);
             }
         }
-        EventDisplay _eventdisplay = _eventService.MakeEventDisplay(_event, _user, _showcomments, _participants);
+
+        List<Participant>? _participants = await _participantService.GetByEventId(_event.Id);
+        if (_participants == null)                  {   return NotFound();}
+        List<ShowParticipant> _showparticipants = new List<ShowParticipant>{};
+        foreach(var _part in _participants)
+        {
+            
+            User? _PU = await _userService.GetById(_part.user_id);
+            if (_PU != null && _PU.profile_img != null)
+            {
+                ShowParticipant SP = _participantService.MakeShowParticipant(_part, _PU.firstname, _PU.lastname, _PU.profile_img);
+                _showparticipants.Add(SP);
+            }
+        }
+        foreach(var s in _showparticipants)
+        {
+            Console.WriteLine(s);
+        }
+        EventDisplay _eventdisplay = _eventService.MakeEventDisplay(_event, _user, _showcomments, _showparticipants);
         if (_eventdisplay == null)  {   return NotFound();}
         ViewBag.EventDisplay = _eventdisplay;
         ViewBag.user_id = user_id;
@@ -117,6 +160,41 @@ public class HomeController : Controller
         await _replyService.CreateAsync(newReply);
         
         return ViewData["Replies"] = "Sucess";
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateParticipant([FromBody]Event_Id event_id)
+    {
+        string id = event_id.Id;
+        string? user_id = HttpContext.Session.GetString("userID");
+        if (user_id == null)
+        {
+            return RedirectToAction("Login","User");
+        }
+        Event? _event = await _eventService.GetById(id);
+        if (_event == null)
+        {
+            return BadRequest("What do you looking for");
+        }
+        if (user_id == _event.user_id)
+        {
+            return BadRequest("What do you looking for");
+        }
+        Participant? check_p = await _participantService.GetByEU(user_id,id);
+        if (check_p != null || _event.status == false)
+        {
+            return BadRequest("Can not do it");
+        }
+        _event.total_member ++;
+        await _eventService.UpdateAsync(id,_event);
+        Participant participant = new Participant{
+            event_id = id,
+            user_id = user_id,
+            status = "pending"
+        };
+        await _participantService.CreateAsync(participant);
+        return Ok();
+
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,3 +1,4 @@
+using DnsClient.Protocol;
 using GooBitAPI.Models;
 using GooBitAPI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -109,6 +110,8 @@ public class EventController : Controller
             return RedirectToAction("Login", "User");
 
         }
+        User? hostuser = await _userService.GetById(user_id);
+        if (hostuser == null){return RedirectToAction("Login", "User");}
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
         {
@@ -177,8 +180,6 @@ public class EventController : Controller
             submitted_user = submittedUser,
             participants = allparticipant
         };
-        var hostuser = await _userService.GetById(user_id);
-        if (hostuser == null){BadRequest();}
         ViewBag.UserName = $"{hostuser.firstname} {hostuser.lastname}";
         ViewBag.ProfileImg = $"{hostuser.profile_img}";
         return View(editEvent);
@@ -242,24 +243,10 @@ public class EventController : Controller
             foreach (Participant p in participants)
             {
                 if (p.status == "submitted")
+                { await _notificationService.CreateNoti(p.user_id,p.event_id,"submitted"); } 
+                else if (p.status == "rejected" || p.status == "pending") 
                 {
-                    Notification noti = new Notification
-                    {
-                        user_id = p.user_id,
-                        event_id = p.event_id,
-                        body = "submitted"
-                    };
-                    await _notificationService.CreateAsync(noti);
-                }
-                else if (p.status == "rejected" || p.status == "pending")
-                {
-                    Notification noti = new Notification
-                    {
-                        user_id = p.user_id,
-                        event_id = p.event_id,
-                        body = "rejected"
-                    };
-                    await _notificationService.CreateAsync(noti);
+                    await _notificationService.CreateNoti(p.user_id,p.event_id,"rejected");
                     if (p.status == "pending")
                     {
                         p.status = "rejected";
@@ -267,42 +254,8 @@ public class EventController : Controller
                     }
                 }
             }
+            await _notificationService.CreateNoti(user_id,id,"Closed");
         }
         return Ok();
-    }
-
-    public async Task<IActionResult> JoinedEvent(string id)
-    {
-        string? user_id = HttpContext.Session.GetString("userID");
-        if (user_id == null)
-        {
-            return RedirectToAction("Login", "User");
-        }
-        Event? _event = await _eventService.GetById(id);
-        if (_event == null)
-        {
-            return BadRequest("What do you looking for");
-        }
-        if (user_id == _event.user_id)
-        {
-            return BadRequest("What do you looking for");
-        }
-        Participant? check_p = await _participantService.GetByEU(user_id, id);
-        if (check_p != null || _event.status == false)
-        {
-            return BadRequest("Can not do it");
-        }
-        _event.total_member++;
-        await _eventService.UpdateAsync(id, _event);
-        Participant participant = new Participant
-        {
-            event_id = id,
-            user_id = user_id,
-            status = "pending"
-        };
-        await _participantService.CreateAsync(participant);
-        return Ok();
-
-    }
-
+    } 
 }

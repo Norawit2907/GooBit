@@ -157,7 +157,7 @@ public class UserController : Controller
             return BadRequest();
         }
 
-        var folderName = Path.Combine("wwwroot","profileImage");
+        var folderName = Path.Combine("wwwroot","uploadFiles/UserProfile");
         string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(),folderName);
 
         if (!Directory.Exists(uploadsFolder))

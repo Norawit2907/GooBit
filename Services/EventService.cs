@@ -52,10 +52,11 @@ namespace GooBitAPI.Services
             return ShEvD;
         }
 
-        public EventDisplay MakeEventDisplay(Event _event, User _user , List<ShowComment> _comments, List<Participant> _participants)
+        public EventDisplay MakeEventDisplay(Event _event, User _user , List<ShowComment> _comments, List<ShowParticipant> _participants)
         {
             EventDisplay ED = new EventDisplay{
                 Id = _event.Id,
+                creator_Id = _event.user_id,
                 title = _event.title,
                 description = _event.description,
                 total_member = _event.total_member,
@@ -87,6 +88,25 @@ namespace GooBitAPI.Services
                 sEvent.Add(MakeSEvent(_event,firstname,lastname, user_image));
             }
             return sEvent;
+        }
+
+        public async Task<List<Event>> UpdateCloseEvent()
+        {
+            List<Event> _events = await _eventCollection.Find(_ => true).ToListAsync();
+            List<Event> closedEvents = [];
+            foreach (Event _event in _events)
+            {
+                if (_event.end_date.CompareTo(DateTime.UtcNow) <= 0 && _event.status)
+                {
+                    _event.status = false;
+                    if (_event.Id != null)
+                    {
+                        await _eventCollection.ReplaceOneAsync(x => x.Id == _event.Id, _event);
+                    }
+                    closedEvents.Add(_event);
+                }
+            }
+            return closedEvents;
         }
 
         public async Task CreateAsync(Event newEvent) =>
