@@ -25,8 +25,9 @@
             <div id="file-container">
                 <label for="image-input" class="file-label">Change Images</label>
                 <input type="file" id="image-input" name="images" accept="image/*" multiple required>
-                <input type="hidden" id="previous_image" name="previous_image" value="@Model.event_img">
-                <div id="image-preview"></div>
+                <input type="hidden" id="previous_image" name="previous_image">
+                <div id="image-preview">
+                </div>
             </div>
         </div>
         <div class="split right">
@@ -94,6 +95,7 @@
                     <div class="custom-select">
                         <div class="select-box">
                             <input type="text" class="tags_input" id="tags" name="submitted_user" hidden />
+                            <input type="hidden" id="previous_submitted_user" name="previous_submitted_user">
                             <div class="selected-options">
                             </div>
                             <div class="arrow">
