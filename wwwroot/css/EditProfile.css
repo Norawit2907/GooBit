@@ -81,11 +81,7 @@ body {
   align-items: flex-start;
   justify-content: flex-start;
   max-width: 100%;
- }
- .name-container {
   align-self: stretch;
- }
- .name-container {
   flex-direction: row;
   gap: 0 72px;
   font-size: 26px;
@@ -303,18 +299,6 @@ body {
   max-height: 100%;
   object-fit: cover;
  }
- .profile-pic {
-  background-color: rgba(183, 183, 183, 0.5);
-  border: 0 solid #fffcfc;
-  box-sizing: border-box;
-  z-index: 1;
- }
- .profile-pic:hover {
-  transform: scale(1.1);
-  transition: transform 0.3s ease, background-color 0.2s ease-in-out; 
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 10000;
- }
  .email-description-frame {
   height: 215px;
   flex: 1;
@@ -462,15 +446,6 @@ body {
   color: #000000;
   cursor: auto;
   padding: 0.5rem 1rem;
-  border-color: #000000;
-  border-width: 1px;
-  border-radius: 4px;
-  background-color: #ffffff;
- }
- .textarea {
-  color: #000000;
-  cursor: auto;
-  padding: 0.5rem;
   border-color: #000000;
   border-width: 1px;
   border-radius: 4px;
