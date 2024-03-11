@@ -67,7 +67,7 @@
                         <div class="create-comment">
                             <img id="create-comment-image" src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image"/>
                             <input id="create-comment-text"type="text" placeholder="Add comment">
-                            <button id="create-icon" type="submit" onclick="CreateComment('@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@ViewBag.EventDisplay.firstname', '@ViewBag.EventDisplay.lastname', '@ViewBag.EventDisplay.Id')">
+                            <button id="create-icon" type="submit" onclick="CreateComment('@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@ViewBag.user_firstname', '@ViewBag.user_lastname', '@ViewBag.EventDisplay.Id')">
                                 <img src="~/Icon/Icon.png"/>
                             </button>
                         </div>
@@ -84,7 +84,7 @@
                                             <p id="uname">@_comment.firstname @_comment.lastname</p>
                                             <p id="date">@_comment.create_time</p>
                                         </div>
-                                        <button>
+                                        <button onclick="DeleteComment('@_comment.Id')">
                                             <img id="del" src="~/Icon/delete.png"/>
                                         </button>
                                     </div>
@@ -103,7 +103,7 @@
                                     <div class="create-reply-container">
                                         <img  id="reply-image" src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image"/>
                                         <input id="@_comment.Id" type="text" placeholder="Add comment">
-                                        <button id="reply-button" type="submit" onclick="CreateReply('@_comment.Id', '@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@_comment.firstname', '@_comment.lastname')">
+                                        <button id="reply-button" type="submit" onclick="CreateReply('@_comment.Id', '@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@ViewBag.user_firstname', '@ViewBag.user_lastname')">
                                             <img src="~/Icon/Icon.png"/>
                                         </button>
                                     </div>

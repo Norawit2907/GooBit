@@ -129,6 +129,10 @@ public class HomeController : Controller
     {
         string? user_id = HttpContext.Session.GetString("userID");
         Event? _event = await _eventService.GetById(id);
+        if(user_id == null)
+        {
+            return RedirectToAction("Login","User");
+        }
         if(_event == null || _event.Id == null)     {   return NotFound();}
 
         User? _user = await _userService.GetById(_event.user_id);
@@ -168,8 +172,15 @@ public class HomeController : Controller
         }
         EventDisplay _eventdisplay = _eventService.MakeEventDisplay(_event, _user, _showcomments, _showparticipants);
         if (_eventdisplay == null)  {   return NotFound();}
+        User? cur_user = await _userService.GetById(user_id);
+        if (cur_user == null)
+        {
+            return RedirectToAction("Login","User");
+        }
         ViewBag.EventDisplay = _eventdisplay;
         ViewBag.user_id = user_id;
+        ViewBag.user_firstname = cur_user.firstname;
+        ViewBag.user_lastname = cur_user.lastname;
         return View();
     }
 
@@ -223,6 +234,25 @@ public class HomeController : Controller
         await _participantService.CreateAsync(participant);
         return Ok();
 
+    }
+
+    public async Task<IActionResult> DeleteComment(string id)
+    {   
+        Comment? _comment = await _commentService.GetAsync(id);
+        if (_comment == null)
+        {
+            return BadRequest();
+        }
+        List<Reply>? _replies = await _replyService.GetRepliesAsyncByCommentId(id);
+        foreach(var r in _replies)
+        {
+            if (r != null && r.Id != null)
+            {
+            await _replyService.RemoveAsync(r.Id);
+            }
+        }
+        await _commentService.RemoveAsync(id);
+        return Ok();
     }
 
     
