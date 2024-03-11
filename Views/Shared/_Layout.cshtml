@@ -13,13 +13,15 @@
     <header class="header">
         <div class="dropdown">
             <button onclick="myFunction()" class="dropbtn">
-                All
+                @ViewBag.showcategory
                 <img src="~/uploadFiles/drop.png"/>
             </button>
             <div id="myDropdown" class="dropdown-content">
-                @for(int i = 0; i< 10 ;i++){
-                    <a href="#">Link 1</a>
-                }
+                    <a href="/Home/Index">All</a>
+                    <a href="/Home/Index?category=Eating">Eating</a>
+                    <a href="/Home/Index?category=Fitness">Fitness</a>
+                    <a href="/Home/Index?category=Trip">Trip</a>
+                    <a href="/Home/Index?category=Study">Study</a>
             </div>
         </div> 
         <div class="logo">

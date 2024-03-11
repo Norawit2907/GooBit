@@ -52,7 +52,7 @@ public class HomeController : Controller
         return View();
     }
     
-    public async Task<IActionResult> Index(string category="all")
+    public async Task<IActionResult> Index(string category="All")
     {
         //Update event status
         List<Event> closedEvents = await _eventService.UpdateCloseEvent();
@@ -83,9 +83,9 @@ public class HomeController : Controller
 
         // get category from service
         List<Event> _events;
-        if (category == "all")
+        if (category == "All")
         {
-            Console.WriteLine("all");
+            Console.WriteLine("All");
             _events = await _eventService.GetAsync();
         }
         else
@@ -115,6 +115,7 @@ public class HomeController : Controller
                 }
             }
         }
+        ViewBag.showcategory = category;
         ViewBag.ShortEventDisplay = allEvent;
         return View();
     }
