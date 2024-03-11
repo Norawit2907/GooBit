@@ -17,32 +17,21 @@ body {
   font-family: Roboto;
   font-size: 24px;
   background-color: transparent;
-  position: relative;
   color: #858585;
   text-align: left;
-  display: inline-block;
   z-index: 1;
   margin-left: 21px;
  }
- .name-container {
-  display: flex;
-  justify-content: flex-start;
-  max-width: 100%;
- }
  .info-box {
-  align-self: stretch;
   border-radius: 5px;
   background-color: #595959;
   border: 0 solid #595959;
-  box-sizing: border-box;
   flex-direction: row;
-  align-items: center;
   height: 72px;
   width: 375px;
  }
  .name-container {
   flex: 1;
-  flex-direction: column;
   align-items: flex-start;
   gap: 8px 0;
   min-width: 263px;
@@ -50,7 +39,6 @@ body {
   align-items: flex-start;
   justify-content: flex-start;
   max-width: 100%;
-  align-self: stretch;
   flex-direction: row;
   gap: 0 72px;
   font-size: 26px;
@@ -299,6 +287,7 @@ body {
    gap: 0 118px;
   }
  }
+
  @media screen and (max-width: 450px) {
    .input-box{
       width: 100%;
@@ -306,10 +295,10 @@ body {
   .edit-profile {
    font-size: 27px;
   }
-  .header {
+  .header,.change-profile-picture {
    font-size: 21px;
   }
-  .first-name, .last-name{
+  .first-name, .last-name,.email,.description, .password, .confirm-password{
    font-size: 19px;
   }
   .name-container {
@@ -318,18 +307,11 @@ body {
   .description-frame {
    gap: 40px 0;
   }
-  .email,.description, .password, .confirm-password{
-   font-size: 19px;
-  }
-
   .info {
    gap: 32px 0;
   }
   .edit-profile-field {
    gap: 39px 0;
-  }
-  .change-profile-picture {
-   font-size: 21px;
   }
   .profile-picture-frame {
    gap: 0 118px;
