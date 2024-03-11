@@ -222,21 +222,42 @@ public class EventController : Controller
             longitude = updatedEvent.longitude
         };
 
-        var folderName = Path.Combine("wwwroot", "uploadFiles");
-        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-        if (!Directory.Exists(uploadsFolder))
+        if (images == null || images.Count == 0)
         {
-            Directory.CreateDirectory(uploadsFolder);
-        }
-
-        if (updatedEvent.submitted_user != null)
+            List<string> oImg = updatedEvent.previous_image.Split(",").ToList();
+            newEvent.event_img = oImg;
+        } else 
         {
-            List<string> sUserID = updatedEvent.submitted_user.Split(",").ToList();
-            foreach (string u in sUserID)
+            var folderName = Path.Combine("wwwroot", "uploadFiles");
+            string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            if (!Directory.Exists(uploadsFolder))
             {
-                Participant? par = await _participantService.GetByEU(u, id);
+                Directory.CreateDirectory(uploadsFolder);
+            }
+            foreach (var file in images)
+            {
+                Guid newuuid = Guid.NewGuid();
+                string newfilename = newuuid.ToString();
+                string ext = System.IO.Path.GetExtension(file.FileName);
+                newfilename = newuuid.ToString() + ext;
+                newEvent.event_img.Add(newfilename);
+                string fileSavePath = Path.Combine(uploadsFolder, newfilename);
+
+                using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
             }
         }
+
+        if (updatedEvent.submitted_user != null || updatedEvent.previous_submitted_user != null)
+        {
+            int rejected_user = await _participantService.statusChanger(id,updatedEvent.previous_submitted_user,updatedEvent.submitted_user);
+            newEvent.total_member -= rejected_user;
+        }
+
+        await _eventService.UpdateAsync(id,newEvent);
+
         if (updatedEvent.status != "open")
         {
             List<Participant> participants = await _participantService.GetByEventId(id);
