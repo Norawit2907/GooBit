@@ -35,6 +35,9 @@ body {
     background-color: black;
 }
 
+form {
+    width: 360px;
+}
 
 .login-context {
     display: flex;
