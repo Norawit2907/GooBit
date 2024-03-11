@@ -26,12 +26,14 @@ namespace GooBitAPI.Services
         public async Task CreateAsync(Notification newNotification) =>
             await _notificationCollection.InsertOneAsync(newNotification);
 
-        public async Task CreateNoti(string user_id, string event_id, string body)
+        public async Task CreateNoti(string user_id, string event_id, string body,string event_title = null,string event_owner = null)
         {
             Notification noti = new Notification{
                 user_id = user_id,
                 event_id = event_id,
-                body = body
+                body = body,
+                event_title = event_title,
+                event_owner = event_owner
             };
             await _notificationCollection.InsertOneAsync(noti);
         }
