@@ -82,6 +82,7 @@ body{
 
 .logo{
   justify-self: center;
+  padding-left: 20px;
 }
 
 .lo{
@@ -109,7 +110,7 @@ body{
   align-items: center;
 }
 
-.right button{
+.right .to-noti{
   background-color: black;
   border: none;
   margin-left: 20px;

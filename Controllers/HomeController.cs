@@ -25,6 +25,13 @@ public class HomeController : Controller
         _notificationService = notificationService;
     }
 
+    public async Task<IActionResult> Noti()
+    {
+        List<Notification> noti = await _notificationService.GetAsync();
+        ViewBag.allnoti = noti;
+        return View();
+    }
+    
     public async Task<IActionResult> Index(string category="all")
     {
         //Update event status
@@ -196,6 +203,9 @@ public class HomeController : Controller
         return Ok();
 
     }
+
+    
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
