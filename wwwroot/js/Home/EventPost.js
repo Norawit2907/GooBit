@@ -85,10 +85,15 @@ function CreateComment(_user_id, _user_image, _firstname, _lastname, _event_id)
         xhr.open('POST', url, true)
         xhr.setRequestHeader('content-type', 'application/json; charset=UTF-8')
         xhr.send(post)
+        
 
         xhr.onload = function () {
             if(xhr.status === 200) {
                 window.alert("Participant Created Successfully")
+            }
+            if(xhr.status != 200)
+            {
+                alert('Fail to create Participant')
             }
         }
     }
