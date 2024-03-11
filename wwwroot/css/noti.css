@@ -18,6 +18,7 @@ body{
 }
 
 .noti-container h1{
+    margin: 20px;
     align-self: flex-start;
     margin-left: 20px;
     border-bottom: solid black 3px;
