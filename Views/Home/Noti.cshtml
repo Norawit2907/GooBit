@@ -9,20 +9,24 @@
     foreach(var noti in ViewBag.allnoti){
         if(noti.body == "Closed"){
             <div class="noti">
-                <p>@noti.event_owner</p>
+                <img src="~/uploadFiles/UserProfile/@noti.user_image">
+                <p>@noti.firstname @noti.lastname</p>
                 <p>Your Event : @noti.event_title has been close</p>
+                <p>CLOSED</p>
             </div>
         }
         else if(noti.body == "submitted"){
             <div class="noti">
-                <p>@noti.event_owner</p>
+                <img src="~/uploadFiles/UserProfile/@noti.user_image">
+                <p>@noti.firstname @noti.lastname</p>
                 <p>Have accepted you to join in Event : @noti.event_title</p>
                 <p class="accept">Accept</p>
             </div>
         }
         else if(noti.body == "rejected"){
             <div class="noti">
-                <p>@noti.event_owner</p>
+                <img src="~/uploadFiles/UserProfile/@noti.user_image">
+                <p>@noti.firstname @noti.lastname</p>
                 <p>Have rejected you to join in Event : @noti.event_title</p>
                 <p class="reject">Reject</p>
             </div>

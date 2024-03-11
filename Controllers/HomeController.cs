@@ -4,6 +4,7 @@ using GooBit.Models;
 using GooBitAPI.Services;
 using GooBitAPI.Models;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
+using System.Net;
 
 namespace GooBitAPI.Controllers;
 
@@ -27,8 +28,27 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Noti()
     {
-        List<Notification> noti = await _notificationService.GetAsync();
-        ViewBag.allnoti = noti;
+        string? user_id = HttpContext.Session.GetString("userID");
+        if (user_id == null)
+        {
+            return RedirectToAction("Login","User");
+        }
+        List<Notification>? Notification = await _notificationService.GetAsyncByUserId(user_id);
+        List<ShowNotification> _ShowNoti = new List<ShowNotification>{};
+        if (Notification != null)
+        {
+            foreach(var _noti in Notification)
+            {
+                User? user = await _userService.GetById(_noti.user_id);
+                Event? evnt = await _eventService.GetById(_noti.event_id);
+                if (user != null && evnt != null && user.profile_img != null)
+                {
+                    ShowNotification newshownoti = _notificationService.MakeSNotification(_noti, user.firstname, user.lastname, evnt.title, user.profile_img);
+                    _ShowNoti.Add(newshownoti);
+                }
+            }
+        }
+        ViewBag.allnoti = _ShowNoti ;
         return View();
     }
     

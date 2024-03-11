@@ -11,7 +11,17 @@ namespace GooBitAPI.Models
         public string user_id { get; set; } = null!;
         public string event_id {get; set;} = null!;
         public string body {get; set;} = null!;
+    }
+
+    public class ShowNotification
+    {
+        public string? Id { get; set;}
+        public string user_id {get; set;} = null!;
+        public string user_image {get; set;} = null!;
+        public string event_id {get; set;} = null!;
+        public string body {get; set;} = null!;
         public string event_title {get; set;} = null!;
-        public string event_owner {get; set;} = null!;
+        public string firstname {get; set;} = null!;
+        public string lastname {get; set;} = null!;
     }
 }
