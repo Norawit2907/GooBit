@@ -1,7 +1,7 @@
 function handleImagePreview(input) {
     const previewContainer = document.getElementById('image-preview');
     previewContainer.innerHTML = '';
-
+    let oldimglist = [];
     const files = input.files;
 
     if (files && files.length > 0) {
@@ -20,6 +20,7 @@ function handleImagePreview(input) {
     } else if (oldimg) {
         oldimg.forEach(imgUrl => {
             console.log(imgUrl);
+            oldimglist.push(imgUrl);
             const oldImagePreview = document.createElement('img');
             oldImagePreview.src = basePath+imgUrl
             console.log(oldImagePreview);
@@ -27,6 +28,7 @@ function handleImagePreview(input) {
             previewContainer.appendChild(oldImagePreview);
         });
     }
+    document.getElementById('previous_image').value = oldimglist;
 }
 
 window.onload = function () {
@@ -114,6 +116,13 @@ function editsubmitForm() {
         clearForm();
     }, 1000); 
 }
+let oldsubmitteduser=[]
+if(submitted_users){
+    submitted_users.forEach(user =>{
+        oldsubmitteduser.push(user.id);
+    });
+}
+document.getElementById('previous_submitted_user').value = oldsubmitteduser;
 
 document.addEventListener("DOMContentLoaded", function(){
     const customSelects = document.querySelectorAll(".custom-select");
