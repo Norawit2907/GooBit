@@ -1,13 +1,13 @@
-
 @{
     ViewData["Title"] = "Post";
     Layout = "_layoutlogoleft";
 }
 
-<link rel="stylesheet" href="~/css/postpage.css"/>
+<link rel="stylesheet" href="~/css/postpage.css" />
 <script src="~/js/Home/EventPost.js"></script>
 <script src="~/js/Home/EventMap.js" defer></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
 
 <div class="post-page">
     <div class="post-banner">
@@ -27,38 +27,54 @@
         <div class="post-body">
             <div class="split-left">
                 <div class="post-info">
-                    <img id="profile-image" src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image"/>
+                    <img id="profile-image" src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image" />
                     <p id="author">by @ViewBag.EventDisplay.firstname @ViewBag.EventDisplay.lastname</p>
                     <p id="category">Category • @ViewBag.EventDisplay.category</p>
                     <p id="location">Location • @ViewBag.EventDisplay.googlemap_location</p>
                     <p id="description">@ViewBag.EventDisplay.description</p>
-                    @foreach(var img in ViewBag.EventDisplay.event_img)
-                    {
-                        <img src="~/uploadFiles/EventImage/@img"/>
-                    }
-                    <div id="pagemap"></div>
+                    <div class="slider_container">
+                        <div class="slider-wrapper">
+                            <div class="slider">
+                                @foreach (var img in ViewBag.EventDisplay.event_img)
+                                {
+                                    <div class="img_box">
+                                        <img id="slider_@img" src="~/uploadFiles/EventImage/@img" />    
+                                    </div>
+                                }
+                            </div>
+                            <div class="slider_nav">
+                                @foreach (var img in ViewBag.EventDisplay.event_img)
+                                {
+                                    <a href="#slider_@img"></a>
+                                }
+                            </div>
+                        </div>
+    
+                        <div id="pagemap"></div>
+
+                    </div>
                     <div class="join-bt">
-                        <button class="join-bt" onclick="CreateParticipant('@ViewBag.EventDisplay.Id', '@ViewBag.EventDisplay.creator_Id', '@ViewBag.user_id')">I want to anticipate in this event </button>
-                    
+                        <button class="join-bt"
+                            onclick="CreateParticipant('@ViewBag.EventDisplay.Id', '@ViewBag.EventDisplay.creator_Id', '@ViewBag.user_id')">I
+                            want to anticipate in this event </button>
+                    </div>
                 </div>
-            </div>
             </div>
             <div class="split-right">
                 <div class="post-status">
                     <div class="end-date">
                         <div>
-                            <p>End in</p>
+                            <h2>End in</h2>
                             <p id="date">@ViewBag.EventDisplay.end_date.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</p>
-                            
                         </div>
-                        <img src="~/Icon/Union.png"/>
+                        <img src="~/Icon/Union.png" />
                     </div>
                     <button class="joined">
                         <div>
-                            <p>joined</p>
+                            <h2>joined</h2>
                             <p id="parti"> @ViewBag.EventDisplay.total_member/@ViewBag.EventDisplay.max_member </p>
                         </div>
-                        <img src="~/Icon/Vector.png"/>
+                        <img src="~/Icon/Vector.png" />
                     </button>
                 </div>
 
@@ -74,12 +90,14 @@
                     </div>
                     <div class="comment-container">
                         <p id="comment_num">@ViewBag.EventDisplay.comments.Count comments</p>
-                        
+
                         <div class="list-comment">
-                            @foreach(var _comment in ViewBag.EventDisplay.comments){
+                            @foreach (var _comment in ViewBag.EventDisplay.comments)
+                            {
                                 <div class="comment">
                                     <div class="comment-header">
-                                        <img  id="header-comment-image" src="~/uploadFiles/UserProfile/@_comment.user_image"/>
+                                        <img id="header-comment-image"
+                                            src="~/uploadFiles/UserProfile/@_comment.user_image" />
                                         <div class="header-text">
                                             <p id="uname">@_comment.firstname @_comment.lastname</p>
                                             <p id="date">@_comment.create_time</p>
@@ -90,7 +108,8 @@
                                     </div>
                                     <div class="comment-body">
                                         <p>@_comment.text</p>
-                                        @foreach(var _reply in _comment.replies){
+                                        @foreach (var _reply in _comment.replies)
+                                        {
                                             <div class="reply-body">
                                                 <img src="~/uploadFiles/UserProfile/@_reply.user_image">
                                                 <div id="reply-text">
@@ -101,7 +120,8 @@
                                         }
                                     </div>
                                     <div class="create-reply-container">
-                                        <img  id="reply-image" src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image"/>
+                                        <img id="reply-image"
+                                            src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image" />
                                         <input id="@_comment.Id" type="text" placeholder="Add comment">
                                         <button id="reply-button" type="submit" onclick="CreateReply('@_comment.Id', '@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@ViewBag.user_firstname', '@ViewBag.user_lastname')">
                                             <img src="~/Icon/Icon.png"/>
@@ -110,55 +130,55 @@
                                 </div>
                             }
                         </div>
-                </div>
+                    </div>
 
-                
-            </div>
-        </div> 
-    </div>
-</div>
-<div class="popup-container">
-    <div class="popup-box">
-        <div class="box-header">
-            <button class="close-btn">
-                <img  src="~/Icon/Union.png"/>
-            </button>
-            <h1>participant</h1>
-            <div></div>
-        </div>
-        <div class="box-body">
-            <div class="list-parti">
-                @foreach(var _participant in @ViewBag.EventDisplay.participants){
-                <div class="show-parti">
-                    <img id="user-image"src="~/uploadFiles/UserProfile/@_participant.user_image"/>
-                    <p>@_participant.firstname @_participant.lastname want to antipated your event at @ViewBag.EventDisplay.googlemap_location  </p>
-                    @if(_participant.status == "pending")
-                    {
-                        <img src="~/Icon/question.png">
-                    }
-                    else if(_participant.status == "submited")
-                    {
-                        <img src="~/Icon/Tick.png">
-                    }
-                    else
-                    {
-                        <img src="~/Icon/Union.png">
-                    }
                 </div>
-                }
             </div>
         </div>
     </div>
-</div>
-<script>
-    const showPopup = document.querySelector('.joined');
-    const popupContainer = document.querySelector('.popup-container');
-    const closeBtn = document.querySelector('.close-btn');
-    showPopup.onclick = () => {
-        popupContainer.classList.add('active');
-    }
-    closeBtn.onclick = () => {
-        popupContainer.classList.remove('active');
-    }
-</script>
-
+    <div class="popup-container">
+        <div class="popup-box">
+            <div class="box-header">
+                <button class="close-btn">
+                    <img src="~/Icon/Union.png" />
+                </button>
+                <h1>participant</h1>
+                <div></div>
+            </div>
+            <div class="box-body">
+                <div class="list-parti">
+                    @foreach (var _participant in @ViewBag.EventDisplay.participants)
+                    {
+                        <div class="show-parti">
+                            <img id="user-image" src="~/uploadFiles/UserProfile/@_participant.user_image" />
+                            <p>@_participant.firstname @_participant.lastname want to antipated your event at
+                                @ViewBag.EventDisplay.googlemap_location </p>
+                            @if (_participant.status == "pending")
+                            {
+                                <img src="~/Icon/question.png">
+                            }
+                            else if (_participant.status == "submited")
+                            {
+                                <img src="~/Icon/Tick.png">
+                            }
+                            else
+                            {
+                                <img src="~/Icon/Union.png">
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const showPopup = document.querySelector('.joined');
+        const popupContainer = document.querySelector('.popup-container');
+        const closeBtn = document.querySelector('.close-btn');
+        showPopup.onclick = () => {
+            popupContainer.classList.add('active');
+        }
+        closeBtn.onclick = () => {
+            popupContainer.classList.remove('active');
+        }
+    </script>
