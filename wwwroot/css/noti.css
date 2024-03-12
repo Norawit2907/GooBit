@@ -1,8 +1,5 @@
 body{
     background-color: #181817;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .noti-container{
