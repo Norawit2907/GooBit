@@ -137,6 +137,7 @@ public class HomeController : Controller
         }
         ViewBag.first = unow.firstname;
         ViewBag.last = unow.lastname;
+        ViewBag.image = unow.profile_img;
         ViewBag.showcategory = category;
         ViewBag.ShortEventDisplay = allEvent;
         return View();
