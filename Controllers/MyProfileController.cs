@@ -89,6 +89,17 @@ namespace BasicASP.Controllers
                 }
             }
         }
+        string? userid = HttpContext.Session.GetString("userID");
+        if (userid == null)
+        {
+            return RedirectToAction("Login","User");
+        }
+        var unow = await _userService.GetById(userid);
+        if(unow == null){
+            return RedirectToAction("Login","User");
+        }
+        ViewBag.first = unow.firstname;
+        ViewBag.last = unow.lastname;
         ViewBag.showcategory = category;
         ViewBag.ShortEventDisplay = allEvent;
         return View();
