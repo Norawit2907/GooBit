@@ -110,6 +110,7 @@ public class UserController : Controller
 
     public IActionResult Login()
     {
+        HttpContext.Session.Clear();
         return View();
     }
 
@@ -133,51 +134,55 @@ public class UserController : Controller
         return Ok("Logout success");
     }
 
-    public IActionResult Edit()
-    {
-        return View();
-    }
-
-    // Edit user
-    [HttpPut]
-    public async Task<IActionResult> Edit([FromBody]UpdateUser updatedUser, IFormFile proImage)
+    public async Task<IActionResult> Edit()
     {
         var id = HttpContext.Session.GetString("userID");
         if (id == null)
         {
             return RedirectToAction("Login","User");
         }
+        UserNoPassword user = await _userService.userProfile(id);
+        return View(user);
+    }
+
+    // Edit user
+    [HttpPost, ActionName("Edit")]
+    public async Task<IActionResult> Edit(UpdateUser updatedUser, IFormFile proImage)
+    {
+        var id = HttpContext.Session.GetString("userID");
+        if (id == null)
+        {
+            return RedirectToAction("Login","User");
+        }
+        UserNoPassword user = await _userService.userProfile(id);
         if (updatedUser.password != updatedUser.confirm_password){
-            ModelState.AddModelError("PasswordValidate","Unmatch password.");
-            return BadRequest();
+            ModelState.AddModelError("PasswordValidate","*Unmatch password.");
+            return View(user);
         }
-        if (proImage == null)
+        if (proImage != null)
         {
-            ModelState.AddModelError("ImageValidate","Please select an image file to upload.");
-            return BadRequest();
+            var folderName = Path.Combine("wwwroot","uploadFiles/UserProfile");
+            string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(),folderName);
+
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            Guid newuuid = Guid.NewGuid();
+            string newfilename = newuuid.ToString();
+            string ext = System.IO.Path.GetExtension(proImage.FileName);
+            newfilename = newuuid.ToString() + ext;
+            updatedUser.profile_img = newfilename;
+            string fileSavePath = Path.Combine(uploadsFolder, newfilename);
+            using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
+            {
+                    await proImage.CopyToAsync(stream);
+            }
         }
 
-        var folderName = Path.Combine("wwwroot","uploadFiles/UserProfile");
-        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(),folderName);
-
-        if (!Directory.Exists(uploadsFolder))
-        {
-            Directory.CreateDirectory(uploadsFolder);
-        }
-
-        Guid newuuid = Guid.NewGuid();
-        string newfilename = newuuid.ToString();
-        string ext = System.IO.Path.GetExtension(proImage.FileName);
-        newfilename = newuuid.ToString() + ext;
-        updatedUser.profile_img = newfilename;
-        string fileSavePath = Path.Combine(uploadsFolder, newfilename);
-        using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
-        {
-                await proImage.CopyToAsync(stream);
-        }
-
-        var updateUser = await _userService.UpdateAsync(id,updatedUser);
-        return CreatedAtAction(nameof(Get),updateUser);
+        await _userService.UpdateAsync(id,updatedUser);
+        return RedirectToAction("Index","Home");
     }
 
     // [For Test][Not use] Delete user 
