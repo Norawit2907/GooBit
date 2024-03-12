@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Notification";
+    ViewData["ufirst"] = @ViewBag.first;
+    ViewData["ulast"] =@ViewBag.last;
+    Layout = "_layoutlogoleft";
+}
+
+<link rel="stylesheet" href="~/css/noti.css"/>
+<div class="noti-container">
+    <h1>Notifications</h1>
+    @{
+    foreach(var noti in ViewBag.allnoti){
+        if(noti.body == "Closed"){
+            <div class="noti">
+                <img src="~/uploadFiles/UserProfile/@noti.user_image">
+                <p>@noti.firstname @noti.lastname</p>
+                <p>Your Event : @noti.event_title has been close</p>
+                <p>CLOSED</p>
+            </div>
+        }
+        else if(noti.body == "submitted"){
+            <div class="noti">
+                <img src="~/uploadFiles/UserProfile/@noti.user_image">
+                <p>@noti.firstname @noti.lastname</p>
+                <p>Have accepted you to join in Event : @noti.event_title</p>
+                <p class="accept">Accept</p>
+            </div>
+        }
+        else if(noti.body == "rejected"){
+            <div class="noti">
+                <img src="~/uploadFiles/UserProfile/@noti.user_image">
+                <p>@noti.firstname @noti.lastname</p>
+                <p>Have rejected you to join in Event : @noti.event_title</p>
+                <p class="reject">Reject</p>
+            </div>
+        }
+    }
+}
+</div>
+
+
+
+

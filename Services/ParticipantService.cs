@@ -2,6 +2,7 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using GooBitAPI.Models;
 using Microsoft.Extensions.Options;
+using System.Data;
 
 namespace GooBitAPI.Services
 {
@@ -38,6 +39,40 @@ namespace GooBitAPI.Services
             );
             Participant? participant = await _participantCollection.Find(filter).FirstOrDefaultAsync();
             return participant;
+        }
+
+        public async Task<int> statusChanger(string event_id, string? prevUserS, string? UserS)
+        {
+            List<string> prevUserList = prevUserS == null? []:prevUserS.Split(",").ToList();
+            List<string> UserList = UserS == null? []:UserS.Split(",").ToList();
+            int rejected_user = 0;
+            foreach(string prev_user in prevUserList)
+            {
+                if (UserList.Contains(prev_user))
+                {
+                    UserList.Remove(prev_user);
+                } else
+                {
+                    Participant? participant = await GetByEU(prev_user,event_id);
+                    if (participant != null && participant.Id != null)
+                    {
+                        participant.status = "rejected";
+                        await UpdateAsync(participant.Id,participant);
+                        rejected_user ++;
+                    }
+                }
+            }
+            foreach(string user in UserList)
+            {
+                Participant? participant = await GetByEU(user,event_id);
+                if (participant != null && participant.Id != null)
+                {
+                    if (participant.status == "rejected"){rejected_user --;}
+                    participant.status = "submitted";
+                    await UpdateAsync(participant.Id,participant);
+                }
+            }
+            return rejected_user;
         }
 
         public ShowParticipant MakeShowParticipant(Participant _participant, string firstname, string lastname, string user_image)

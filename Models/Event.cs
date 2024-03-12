@@ -75,7 +75,7 @@ namespace GooBitAPI.Models
         public decimal? latitude {get; set;} = 0!;
         public decimal? longitude {get; set;} = 0!;
         public List<ShowComment> comments {get; set;} = [];
-        public List<Participant> participants {get; set;} = [];
+        public List<ShowParticipant> participants {get; set;} = [];
     }
 
     public class EditEventDisplay
@@ -114,7 +114,8 @@ namespace GooBitAPI.Models
         public decimal? latitude { get; set; } = 0!;
         public decimal? longitude { get; set; } = 0!;
         public string? submitted_user { get; set; }
-        public string previous_image {get; set;} = null!;
+        public string? previous_submitted_user {get; set;}
+        public string previous_image {get; set;} = "";
     }
 
 }
