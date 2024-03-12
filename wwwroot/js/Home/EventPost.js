@@ -41,7 +41,6 @@ function CreateComment(_user_id, _user_image, _firstname, _lastname, _event_id)
         const comment_id = _comment_id
         const create_time = new Date();
         const text = document.getElementById(_comment_id).value
-        
 
         let new_reply = {
             user_id: user_id,
@@ -85,10 +84,38 @@ function CreateComment(_user_id, _user_image, _firstname, _lastname, _event_id)
         xhr.open('POST', url, true)
         xhr.setRequestHeader('content-type', 'application/json; charset=UTF-8')
         xhr.send(post)
+        
 
         xhr.onload = function () {
             if(xhr.status === 200) {
                 window.alert("Participant Created Successfully")
             }
+            if(xhr.status != 200)
+            {
+                alert('Fail to create Participant')
+            }
+        }
+    }
+
+
+    function DeleteComment(id)
+    {
+        let xhr = new XMLHttpRequest()
+        const url = "http://localhost:5075/Home/DeleteComment/" + id
+        console.log(url)
+        xhr.open('GET', url, true)
+        xhr.send()
+
+        xhr.onload = function ()
+        {
+            if(xhr.status === 200)
+            {
+                window.alert("Comment Deleted Successfully")
+            }
+            else
+            {
+                window.alert("Fail to Delete Comment")
+            }
+
         }
     }

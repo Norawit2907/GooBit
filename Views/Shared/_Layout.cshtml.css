@@ -1,6 +1,7 @@
 ﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 /* Dropdown Button */
+
 .dropbtn {
   background-color: #E68C05;
   width: 200px;
@@ -38,6 +39,12 @@ for details on configuring this project to bundle and minify static web assets. 
   z-index: 1;
 }
 
+.dropdown-item {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+}
+
 /* Links inside the dropdown */
 .dropdown-content a {
   color: black;
@@ -47,20 +54,21 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {
+  background-color: #ddd;
+  border-radius: 20px;
+}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {display:block;}
-
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+.show {
+  display:flex;
+  flex-direction: column;
 }
+
 
 body{
   min-height: 100vh;
+  margin: 0px;
   background: gray;
   background-size: cover;
   background-position: center;
@@ -70,18 +78,18 @@ body{
   background-position: center;
 }
 
-.header{
+header{
   width: 100%;
   padding: 20px 30px;
   background: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 100;
 }
 
 .logo{
   justify-self: center;
+  padding-left: 20px;
 }
 
 .lo{
@@ -109,7 +117,7 @@ body{
   align-items: center;
 }
 
-.right button{
+.right .to-noti{
   background-color: black;
   border: none;
   margin-left: 20px;
@@ -139,4 +147,11 @@ body{
 
 .navbar a:hover::before{
   width: 100%;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }

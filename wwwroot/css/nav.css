@@ -20,7 +20,7 @@ for details on configuring this project to bundle and minify static web assets. 
     background-position: center;
   }
   
-  .header{
+  header{
     width: 100%;
     padding: 20px 30px;
     background: black;
@@ -45,7 +45,6 @@ for details on configuring this project to bundle and minify static web assets. 
     font-weight: 800;
     margin-right: auto;
     padding: 0px 5px;
-    
     border-radius: 5px; 
     background-color: orange;
   }
@@ -55,13 +54,12 @@ for details on configuring this project to bundle and minify static web assets. 
     align-items: center;
   }
   
-  .right button{
+  .right .to-noti{
     background-color: black;
     border: none;
     margin-left: 20px;
     cursor: pointer;
   }
-  
   .navbar a{
     position: relative;
     font-size: 18px;

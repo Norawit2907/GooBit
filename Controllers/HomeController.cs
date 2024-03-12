@@ -4,6 +4,7 @@ using GooBit.Models;
 using GooBitAPI.Services;
 using GooBitAPI.Models;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
+using System.Net;
 
 namespace GooBitAPI.Controllers;
 
@@ -25,7 +26,33 @@ public class HomeController : Controller
         _notificationService = notificationService;
     }
 
-    public async Task<IActionResult> Index(string category="all")
+    public async Task<IActionResult> Noti()
+    {
+        string? user_id = HttpContext.Session.GetString("userID");
+        if (user_id == null)
+        {
+            return RedirectToAction("Login","User");
+        }
+        List<Notification>? Notification = await _notificationService.GetAsyncByUserId(user_id);
+        List<ShowNotification> _ShowNoti = new List<ShowNotification>{};
+        if (Notification != null)
+        {
+            foreach(var _noti in Notification)
+            {
+                User? user = await _userService.GetById(_noti.user_id);
+                Event? evnt = await _eventService.GetById(_noti.event_id);
+                if (user != null && evnt != null && user.profile_img != null)
+                {
+                    ShowNotification newshownoti = _notificationService.MakeSNotification(_noti, user.firstname, user.lastname, evnt.title, user.profile_img);
+                    _ShowNoti.Add(newshownoti);
+                }
+            }
+        }
+        ViewBag.allnoti = _ShowNoti ;
+        return View();
+    }
+    
+    public async Task<IActionResult> Index(string category="All")
     {
         //Update event status
         List<Event> closedEvents = await _eventService.UpdateCloseEvent();
@@ -56,9 +83,9 @@ public class HomeController : Controller
 
         // get category from service
         List<Event> _events;
-        if (category == "all")
+        if (category == "All")
         {
-            Console.WriteLine("all");
+            Console.WriteLine("All");
             _events = await _eventService.GetAsync();
         }
         else
@@ -88,6 +115,7 @@ public class HomeController : Controller
                 }
             }
         }
+        ViewBag.showcategory = category;
         ViewBag.ShortEventDisplay = allEvent;
         return View();
     }
@@ -101,6 +129,10 @@ public class HomeController : Controller
     {
         string? user_id = HttpContext.Session.GetString("userID");
         Event? _event = await _eventService.GetById(id);
+        if(user_id == null)
+        {
+            return RedirectToAction("Login","User");
+        }
         if(_event == null || _event.Id == null)     {   return NotFound();}
 
         User? _user = await _userService.GetById(_event.user_id);
@@ -140,8 +172,15 @@ public class HomeController : Controller
         }
         EventDisplay _eventdisplay = _eventService.MakeEventDisplay(_event, _user, _showcomments, _showparticipants);
         if (_eventdisplay == null)  {   return NotFound();}
+        User? cur_user = await _userService.GetById(user_id);
+        if (cur_user == null)
+        {
+            return RedirectToAction("Login","User");
+        }
         ViewBag.EventDisplay = _eventdisplay;
         ViewBag.user_id = user_id;
+        ViewBag.user_firstname = cur_user.firstname;
+        ViewBag.user_lastname = cur_user.lastname;
         return View();
     }
 
@@ -196,6 +235,28 @@ public class HomeController : Controller
         return Ok();
 
     }
+
+    public async Task<IActionResult> DeleteComment(string id)
+    {   
+        Comment? _comment = await _commentService.GetAsync(id);
+        if (_comment == null)
+        {
+            return BadRequest();
+        }
+        List<Reply>? _replies = await _replyService.GetRepliesAsyncByCommentId(id);
+        foreach(var r in _replies)
+        {
+            if (r != null && r.Id != null)
+            {
+            await _replyService.RemoveAsync(r.Id);
+            }
+        }
+        await _commentService.RemoveAsync(id);
+        return Ok();
+    }
+
+    
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
