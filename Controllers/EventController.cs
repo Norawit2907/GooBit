@@ -1,3 +1,4 @@
+using DnsClient.Protocol;
 using GooBitAPI.Models;
 using GooBitAPI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -109,6 +110,8 @@ public class EventController : Controller
             return RedirectToAction("Login", "User");
 
         }
+        User? hostuser = await _userService.GetById(user_id);
+        if (hostuser == null){return RedirectToAction("Login", "User");}
         Event? _event = await _eventService.GetById(id);
         if (_event == null)
         {
@@ -118,7 +121,7 @@ public class EventController : Controller
         {
             return BadRequest("What do you looking for");
         }
-        List<Participant> participants = await _participantService.GetByEvent(id);
+        List<Participant> participants = await _participantService.GetByEventId(id);
         List<UserStatus> submittedUser = [];
         List<UserStatus> allparticipant = [];
         int submited_user = 0;
@@ -130,7 +133,8 @@ public class EventController : Controller
                 User? user = await _userService.GetById(participant.user_id);
                 if (user != null)
                 {
-                    UserStatus u = new UserStatus{
+                    UserStatus u = new UserStatus
+                    {
                         Id = user.Id,
                         firstname = user.firstname,
                         lastname = user.lastname,
@@ -138,13 +142,14 @@ public class EventController : Controller
                     };
                     submittedUser.Add(u);
                 }
-            } 
+            }
             if (participant.status != null)
             {
                 User? user = await _userService.GetById(participant.user_id);
                 if (user != null)
                 {
-                    UserStatus u = new UserStatus{
+                    UserStatus u = new UserStatus
+                    {
                         Id = user.Id,
                         firstname = user.firstname,
                         lastname = user.lastname,
@@ -175,6 +180,8 @@ public class EventController : Controller
             submitted_user = submittedUser,
             participants = allparticipant
         };
+        ViewBag.UserName = $"{hostuser.firstname} {hostuser.lastname}";
+        ViewBag.ProfileImg = $"{hostuser.profile_img}";
         return View(editEvent);
     }
 
@@ -196,7 +203,8 @@ public class EventController : Controller
         {
             return BadRequest("What do you looking for");
         }
-        Event newEvent = new Event{
+        Event newEvent = new Event
+        {
             Id = id,
             title = updatedEvent.title,
             description = updatedEvent.description,
@@ -214,82 +222,61 @@ public class EventController : Controller
             longitude = updatedEvent.longitude
         };
 
-        var folderName = Path.Combine("wwwroot", "uploadFiles");
-        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-        if (!Directory.Exists(uploadsFolder))
+        if (images == null || images.Count == 0)
         {
-            Directory.CreateDirectory(uploadsFolder);
-        }
-
-        if (updatedEvent.submitted_user != null)
+            List<string> oImg = updatedEvent.previous_image.Split(",").ToList();
+            newEvent.event_img = oImg;
+        } else 
         {
-            List<string> sUserID = updatedEvent.submitted_user.Split(",").ToList();
-            foreach (string u in sUserID)
+            var folderName = Path.Combine("wwwroot", "uploadFiles");
+            string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            if (!Directory.Exists(uploadsFolder))
             {
-                Participant? par = await _participantService.GetByEU(u,id);
+                Directory.CreateDirectory(uploadsFolder);
             }
-        }
-        if (updatedEvent.status != "open")
-        {
-            List<Participant> participants = await _participantService.GetByEvent(id);
-            foreach (Participant p in participants)
+            foreach (var file in images)
             {
-                if (p.status == "submitted")
+                Guid newuuid = Guid.NewGuid();
+                string newfilename = newuuid.ToString();
+                string ext = System.IO.Path.GetExtension(file.FileName);
+                newfilename = newuuid.ToString() + ext;
+                newEvent.event_img.Add(newfilename);
+                string fileSavePath = Path.Combine(uploadsFolder, newfilename);
+
+                using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
                 {
-                    Notification noti = new Notification{
-                        user_id = p.user_id,
-                        event_id = p.event_id,
-                        body = "submitted"
-                    };
-                    await _notificationService.CreateAsync(noti);
-                } else if (p.status == "rejected" || p.status == "pending") {
-                    Notification noti = new Notification{
-                        user_id = p.user_id,
-                        event_id = p.event_id,
-                        body = "rejected"
-                    };
-                    await _notificationService.CreateAsync(noti);
-                    if (p.status == "pending"){
-                        p.status = "rejected";
-                        if (p.Id != null){await _participantService.UpdateAsync(p.Id,p);}
-                    }
+                    await file.CopyToAsync(stream);
                 }
             }
         }
+
+        if (updatedEvent.submitted_user != null || updatedEvent.previous_submitted_user != null)
+        {
+            int rejected_user = await _participantService.statusChanger(id,updatedEvent.previous_submitted_user,updatedEvent.submitted_user);
+            newEvent.total_member -= rejected_user;
+        }
+
+        await _eventService.UpdateAsync(id,newEvent);
+
+        if (updatedEvent.status != "open")
+        {
+            List<Participant> participants = await _participantService.GetByEventId(id);
+            foreach (Participant p in participants)
+            {
+                if (p.status == "submitted")
+                { await _notificationService.CreateNoti(p.user_id,p.event_id,"submitted"); } 
+                else if (p.status == "rejected" || p.status == "pending") 
+                {
+                    await _notificationService.CreateNoti(p.user_id,p.event_id,"rejected");
+                    if (p.status == "pending")
+                    {
+                        p.status = "rejected";
+                        if (p.Id != null) { await _participantService.UpdateAsync(p.Id, p); }
+                    }
+                }
+            }
+            await _notificationService.CreateNoti(user_id,id,"Closed");
+        }
         return Ok();
     } 
-
-    public async Task<IActionResult> JoinedEvent(string id)
-    {
-        string? user_id = HttpContext.Session.GetString("userID");
-        if (user_id == null)
-        {
-            return RedirectToAction("Login","User");
-        }
-        Event? _event = await _eventService.GetById(id);
-        if (_event == null)
-        {
-            return BadRequest("What do you looking for");
-        }
-        if (user_id == _event.user_id)
-        {
-            return BadRequest("What do you looking for");
-        }
-        Participant? check_p = await _participantService.GetByEU(user_id,id);
-        if (check_p != null || _event.status == false)
-        {
-            return BadRequest("Can not do it");
-        }
-        _event.total_member ++;
-        await _eventService.UpdateAsync(id,_event);
-        Participant participant = new Participant{
-            event_id = id,
-            user_id = user_id,
-            status = "pending"
-        };
-        await _participantService.CreateAsync(participant);
-        return Ok();
-
-    }
-
 }

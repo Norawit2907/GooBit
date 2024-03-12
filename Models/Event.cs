@@ -57,6 +57,7 @@ namespace GooBitAPI.Models
     public class EventDisplay
     {
         public string? Id { get; set; }
+        public string creator_Id {get; set;} = null!;
         public string title {get; set;} = null!;
         public string description {get; set;} = null!;
         public int total_member {get; set;} = 0;
@@ -73,9 +74,8 @@ namespace GooBitAPI.Models
         public string? user_image {get; set;} = null!;
         public decimal? latitude {get; set;} = 0!;
         public decimal? longitude {get; set;} = 0!;
-        public List<Comment> comments {get; set;} = [];
-        public List<Participant> participants {get; set;} = [];
-        public List<Reply> replies {get; set;} = [];
+        public List<ShowComment> comments {get; set;} = [];
+        public List<ShowParticipant> participants {get; set;} = [];
     }
 
     public class EditEventDisplay
@@ -114,6 +114,8 @@ namespace GooBitAPI.Models
         public decimal? latitude { get; set; } = 0!;
         public decimal? longitude { get; set; } = 0!;
         public string? submitted_user { get; set; }
+        public string? previous_submitted_user {get; set;}
+        public string previous_image {get; set;} = "";
     }
 
 }

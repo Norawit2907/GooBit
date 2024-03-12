@@ -1,119 +1,89 @@
 <!DOCTYPE html>
 <html>
-
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
 
     <link rel="stylesheet" href="~/css/EditProfile.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;600&display=swap" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="edit-profile-dark">
-        <header class="navbar">
-            <div class="navbar-item"></div>
-            <h2 class="goo">Goo</h2>
-            <div class="first-name-frame">
-                <img class="first-name-frame-child" loading="lazy" alt="" src="./public/rectangle-5650.svg" />
-                <h2 class="bit">bit</h2>
-            </div>
-        </header>
-        <main class="mainbox">
-            <section class="profile-picture-frame">
-                <div class="edit-profile-field">
-                    <div class="edit-frame">
-                        <div class="description-frame">
-                            <h2 class="edit-profile">Edit profile</h2>
-                            <div class="name-container">
-                                <div class="first-name-container">
-                                    <div class="first-name-header">First Name</div>
-                                    <div class="first-name-box">
-                                        <img class="name-box" alt="" src="~/Icon/assets/rectangle-7.svg" />
-                                        <form class="first-name" action="#" method="post">
-                                            <input class="input-field" placeholder="First Name" type="text" />
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="last-name-container">
-                                    <div class="last-name-header">Last Name</div>
-                                    <div class="last-name-box">
-                                        <img class="name-box" alt="" src="~/Icon/assets/rectangle-7.svg" />
-                                        <form class="last-name" action="#" method="post">
-                                            <input class="input-field" placeholder="Last Name" type="text" />
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+      <main class="mainbox">
+        <section class="profile-picture-frame">
+          <div class="edit-profile-field">
+            <div class="edit-frame">
+                <div class="description-frame">
+                    <h2 class="edit-profile">Edit profile</h2>
+                    <form class="user-profile-form">
+                    <div class="name-container">
+                        <div class="first-name-container">
+                        <div class="header">First Name</div>
+                        <div class="info-box">
+                            <input class="first-name" placeholder="First Name" type="text" />
                         </div>
-                        <div class="info">
-                            <div class="email-container">
-                                <div class="email-header">Email</div>
-                                <div class="email-box">
-                                    <img class="text-box" alt="" src="~/Icon/assets/rectangle-7.svg" />
-                                    <form class="email" action="#" method="post">
-                                        <input class="input-field" placeholder="Email" type="text" />
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="description-container">
-                                <div class="description-header">Description</div>
-                                <div class="description-box">
-                                    <img class="text-box" alt="" src="~/Icon/assets/rectangle-7.svg" />
-                                    <form class="description" action="#" method="post">
-                                        <input class="input-field" placeholder="Description" type="text" />
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="password-container">
-                                <div class="password-header">Password</div>
-                                <div class="password-box">
-                                    <img class="text-box" alt="" src="~/Icon/assets/rectangle-7.svg" />
-                                    <form class="password" action="#" method="post">
-                                        <input class="input-field" placeholder="Password" type="text" />
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="confirm-password-container">
-                                <div class="confirm-password-header">Confirm Password</div>
-                                <div class="confirm-password-box">
-                                    <img class="text-box" alt="" src="~/Icon/assets/rectangle-7.svg" />
-                                    <form class="confirm-password" action="#" method="post">
-                                        <input class="input-field" placeholder="Password" type="text" />
-                                    </form>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="first-name-container">
+                        <div class="header">Last Name</div>
+                        <div class="info-box">
+                            <input class="last-name" placeholder="Last Name" type="text" />
+                        </div>
                         </div>
                     </div>
-                    <div class="button-container">
-                        <button class="button save">SAVE</button>
-                        <button class="button cancel">CANCEL</button>
+                    <div class="info">
+                        <div class="info-container">
+                        <div class="header">Email</div>
+                        <div class="input-box">
+                            <input class="email" placeholder="Email" type="text" />
+                        </div>
+                        </div>
+                        <div class="info-container">
+                        <div class="header">Description</div>
+                        <div class="input-box">
+                            <textarea class="description" type="text" rows="4" cols="50" />Description</textarea>
+                        </div>
+                        </div>
+                        <div class="info-container">
+                        <div class="header">Password</div>
+                        <div class="input-box">
+                            <input class="password" placeholder="Password" type="text" />
+                        </div>
+                        </div>
+                        <div class="confirm-password-container">
+                        <div class="header">Confirm Password</div>
+                        <div class="input-box">
+                            <input class="confirm-password" placeholder="Password" type="text" />
+                        </div>
+                        </div>
                     </div>
+                    </form>
                 </div>
+                </div>
+                <div class="button-container">
+                    <button class="button save">SAVE</button>
+                    <button class="button cancel">CANCEL</button>
+                </div>
+          </div>
                 <div class="user-image-frame">
                     <div class="change-picture-frame">
-                        <div class="user-image-ellipse">
-                            <label for="profile-picture-input">
-                                <img class="profile-pic-icon1"  id="output" alt="Selected Image" src="~/Icon/assets/profile-pic@2x.png" />
-                                <div class="frame-info">
-                                    <div class="email-description-frame">
-                                    </div>
-                                </div>
-                            </label>
-                            <input type="file" id="profile-picture-input" accept="image/*" style="display:none" onchange="displaySelectedImage(this)" />
-                        </div>
-                        <div class="change-profile-picture" onclick="document.getElementById('profile-picture-input').click()">
-                            <a>Change Profile Picture</a>
-                            <input type="file" id="profile-picture-input" style="display: none;" />
-                        </div>
+                        <label for="profile-picture-input" class="user-image-ellipse">
+                            <img class="profile-pic-icon1" id="output" alt="Selected Image" src="~/Icon/assets/profile-pic@2x.png" />
+                            <div class="frame-info">
+                                <div class="email-description-frame"></div>
+                            </div>
+                        </label>
+                        <input type="file" id="profile-picture-input" accept="image/*" style="display: none;" onchange="displaySelectedImage(this)" />
+                    </div>
+                    <div class="change-profile-picture" onclick="document.getElementById('profile-picture-input').click()">
+                        <a>Change Profile Picture</a>
                     </div>
                 </div>
-            </section>
-        </main>
+
+        </section>
+      </main>
     </div>
     <script src="~/js/EditProfile.js" defer></script>
-</body>
-
+  </body>
 </html>

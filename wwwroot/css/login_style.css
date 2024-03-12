@@ -39,13 +39,6 @@ form {
     width: 360px;
 }
 
-form h2 {
-    color: white;
-    font-size: 2.9rem;
-    text-transform: uppercase;
-    margin-bottom: 50px;
-}
-
 .login-context {
     display: flex;
     flex-direction: column;

@@ -10,7 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Post</title>
     <link href="~/css/CreatePost.css" rel="stylesheet" media="all" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU9Wcj-4Z3ikPd9dp75Z8Hxdu3WII9Wc&libraries=places"></script>
 </head>
 
 <body>
@@ -21,15 +22,15 @@
     </header>
     <form id="post-form" method="post" enctype="multipart/form-data" asp-controller="Event" asp-action="Create">
         <div class="split left">
-            <div id="file-container">
+            <div class="file-container">
                 <label for="image-input" class="file-label">Choose Images</label>
                 <input type="file" id="image-input" name="images" accept="image/*" multiple required>
-                <div id="selected-images"></div>
+                <div id="image-preview"></div>
             </div>
         </div>
         <div class="split right">
             <div class="profile">
-                <img class=profileimg src="~/uploadFiles/@ViewBag.ProfileImg" alt="ProfileImg">
+                <img class=profileimg src="~/uploadFiles/UserProfile/@ViewBag.ProfileImg" alt="ProfileImg">
                 <div class=username>@ViewBag.UserName</div>
             </div>
             <label for="title"></label>
@@ -71,12 +72,14 @@
                     <label for="category" class="form-label">Select Category: </label>
                 </div>
                 <div class="col-right">
-                    <select id="category" name="category">
-                        <option value="Eating">Eating</option>
-                        <option value="Fitness">Fitness</option>
-                        <option value="Trip">Trip</option>
-                        <option value="Study">Study</option>
-                    </select>
+                    <div class="select-dropdown">
+                        <select id="category" name="category">
+                            <option value="Eating">Eating</option>
+                            <option value="Fitness">Fitness</option>
+                            <option value="Trip">Trip</option>
+                            <option value="Study">Study</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <label for="description"></label>
