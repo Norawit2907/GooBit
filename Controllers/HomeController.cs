@@ -48,6 +48,17 @@ public class HomeController : Controller
                 }
             }
         }
+        string? userid = HttpContext.Session.GetString("userID");
+        if (userid == null)
+        {
+            return RedirectToAction("Login","User");
+        }
+        var unow = await _userService.GetById(userid);
+        if(unow == null){
+            return RedirectToAction("Login","User");
+        }
+        ViewBag.first = unow.firstname;
+        ViewBag.last = unow.lastname;
         ViewBag.allnoti = _ShowNoti ;
         return View();
     }
@@ -115,6 +126,18 @@ public class HomeController : Controller
                 }
             }
         }
+        string? userid = HttpContext.Session.GetString("userID");
+        if (userid == null)
+        {
+            return RedirectToAction("Login","User");
+        }
+        var unow = await _userService.GetById(userid);
+        if(unow == null){
+            return RedirectToAction("Login","User");
+        }
+        ViewBag.first = unow.firstname;
+        ViewBag.last = unow.lastname;
+        ViewBag.image = unow.profile_img;
         ViewBag.showcategory = category;
         ViewBag.ShortEventDisplay = allEvent;
         return View();
@@ -177,6 +200,17 @@ public class HomeController : Controller
         {
             return RedirectToAction("Login","User");
         }
+        string? userid = HttpContext.Session.GetString("userID");
+        if (userid == null)
+        {
+            return RedirectToAction("Login","User");
+        }
+        var unow = await _userService.GetById(userid);
+        if(unow == null){
+            return RedirectToAction("Login","User");
+        }
+        ViewBag.first = unow.firstname;
+        ViewBag.last = unow.lastname;
         ViewBag.EventDisplay = _eventdisplay;
         ViewBag.user_id = user_id;
         ViewBag.user_firstname = cur_user.firstname;
