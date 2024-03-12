@@ -22,6 +22,9 @@ namespace GooBitAPI.Services
         public async Task<Event?> GetById(string id) =>
             await _eventCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
+        public async Task<List<Event>> GetByUserId(string id) =>
+            await _eventCollection.Find(x => x.user_id == id).ToListAsync();
+
         public async Task<List<Event>> GetByCategory(string category)
         {
             List<Event> _events = await _eventCollection.Find(x => x.category == category).ToListAsync();

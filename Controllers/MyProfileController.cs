@@ -95,11 +95,21 @@ namespace BasicASP.Controllers
             return RedirectToAction("Login","User");
         }
         var unow = await _userService.GetById(userid);
-        if(unow == null){
+        if(unow == null || unow.Id == null){
             return RedirectToAction("Login","User");
         }
+
+        var hosted_counter = 0;
+        List<Event> countEvent = await _eventService.GetByUserId(unow.Id);
+        foreach(var cE in countEvent)
+        {hosted_counter++;}
+
         ViewBag.first = unow.firstname;
         ViewBag.last = unow.lastname;
+        ViewBag.mail = unow.email;
+        ViewBag.image = unow.profile_img;
+        ViewBag.description = unow.description;
+        ViewBag.Hosted_evented = hosted_counter;
         ViewBag.showcategory = category;
         ViewBag.ShortEventDisplay = allEvent;
         return View();
