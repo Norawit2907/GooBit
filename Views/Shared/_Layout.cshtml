@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GooBit</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/GooBit.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
     
 </head>
 <body>
@@ -30,9 +30,9 @@
         </div>
         <div class="right">
             <div class="navbar">
-                <img src="~/uploadFiles/UserProfile/@ViewBag.image">
-                <a href="/profile/index">@ViewData["ufirst"] @ViewData["ulast"]</a>
+                <a href="/profile/index"><img class="nav-img" src="~/uploadFiles/UserProfile/@ViewBag.image"></a>
             </div>
+            <a class="nav-uname" href="/profile/index">@ViewData["ufirst"] @ViewData["ulast"]</a>
             <a class="to-noti" href="/home/noti">
                 <img src="~/uploadFiles/noti.png"/>
             </a>
