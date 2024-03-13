@@ -30,7 +30,12 @@
     function CalPeoplePercent(totalpeople, maxpeople, elementName){
         var elements = document.getElementsByClassName(elementName);
         for (var i = 0; i < elements.length; i++) {
-            var percent = ((totalpeople / maxpeople) * 100).toString();
+            var percent = ((totalpeople / maxpeople) * 100);
+            if(percent >= 100)
+            {
+                percent = 100
+            }
+            percent = percent.toString();
             elements[i].style.width = percent.concat("%")
         }
         

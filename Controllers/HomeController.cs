@@ -6,6 +6,7 @@ using GooBitAPI.Models;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace GooBitAPI.Controllers;
 
@@ -368,6 +369,17 @@ public class HomeController : Controller
             }
         }
         await _commentService.RemoveAsync(id);
+        return Ok();
+    }
+
+    public async Task<IActionResult> DeleteReply( string id)
+    {
+        Reply? _reply = await _replyService.GetAsyncById(id);
+        if(_reply == null)
+        {
+            return BadRequest();
+        }
+        await _replyService.RemoveAsync(id);
         return Ok();
     }
 

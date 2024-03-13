@@ -122,10 +122,12 @@
                                             <p id="uname">@_comment.firstname @_comment.lastname</p>
                                             <p id="date">@_comment.create_time</p>
                                         </div>
-                                        <button onclick="DeleteComment('@_comment.Id')">
-                                            <img id="del" src="~/Icon/delete_white.png" />
-
-                                        </button>
+                                        @if(@_comment.user_id == @ViewBag.user_id)
+                                        {
+                                            <button onclick="DeleteComment('@_comment.Id')">
+                                                <img id="del" src="~/Icon/delete_white.png" />
+                                            </button>
+                                        }
                                     </div>
                                     <div class="comment-body">
                                         <p>@_comment.text</p>
@@ -137,6 +139,11 @@
                                                     <p id="name">@_reply.firstname @_reply.lastname</p>
                                                     <p id="text">@_reply.text</p>
                                                 </div>
+                                                @if(@_reply.user_id == @ViewBag.user_id){
+                                                <button onclick="DeleteReply('@_reply.Id')">
+                                                    <img id="del" src="~/Icon/delete_white.png">
+                                                </button>
+                                                }
                                             </div>
                                         }
                                     </div>
