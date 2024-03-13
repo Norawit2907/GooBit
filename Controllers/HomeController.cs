@@ -28,6 +28,31 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Noti()
     {
+        //Update event status
+        List<Event> closedEvents = await _eventService.UpdateCloseEvent();
+        foreach (Event closeEvent in closedEvents)
+        {
+            if(closeEvent.Id != null)
+            {
+                List<Participant> participants = await _participantService.GetByEventId(closeEvent.Id);
+                foreach (Participant p in participants)
+                {
+                    if (p.status == "submitted")
+                    { await _notificationService.CreateNoti(p.user_id,p.event_id,"submitted"); } 
+                    else if (p.status == "rejected" || p.status == "pending") 
+                    {
+                        await _notificationService.CreateNoti(p.user_id,p.event_id,"rejected");
+                        if (p.status == "pending")
+                        {
+                            p.status = "rejected";
+                            if (p.Id != null){await _participantService.UpdateAsync(p.Id,p);}
+                        }
+                    }
+                }
+                await _notificationService.CreateNoti(closeEvent.user_id,closeEvent.Id,"Closed");
+            }
+        }
+
         string? user_id = HttpContext.Session.GetString("userID");
         if (user_id == null)
         {
@@ -59,6 +84,7 @@ public class HomeController : Controller
         }
         ViewBag.first = unow.firstname;
         ViewBag.last = unow.lastname;
+        ViewBag.image = unow.profile_img;
         ViewBag.allnoti = _ShowNoti ;
         return View();
     }
@@ -150,6 +176,31 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Post(string id)
     {
+        //Update event status
+        List<Event> closedEvents = await _eventService.UpdateCloseEvent();
+        foreach (Event closeEvent in closedEvents)
+        {
+            if(closeEvent.Id != null)
+            {
+                List<Participant> participants = await _participantService.GetByEventId(closeEvent.Id);
+                foreach (Participant p in participants)
+                {
+                    if (p.status == "submitted")
+                    { await _notificationService.CreateNoti(p.user_id,p.event_id,"submitted"); } 
+                    else if (p.status == "rejected" || p.status == "pending") 
+                    {
+                        await _notificationService.CreateNoti(p.user_id,p.event_id,"rejected");
+                        if (p.status == "pending")
+                        {
+                            p.status = "rejected";
+                            if (p.Id != null){await _participantService.UpdateAsync(p.Id,p);}
+                        }
+                    }
+                }
+                await _notificationService.CreateNoti(closeEvent.user_id,closeEvent.Id,"Closed");
+            }
+        }
+        
         string? user_id = HttpContext.Session.GetString("userID");
         Event? _event = await _eventService.GetById(id);
         if(user_id == null)
