@@ -66,19 +66,19 @@ public class EventController : Controller
 
             }
         }
-        if (newEvent.latitude == null || newEvent.longitude == null || newEvent.googlemap_location == null || !ModelState.IsValid)
+        if (newEvent.latitude == null || newEvent.longitude == null || newEvent.googlemap_location == null)
         {
+            newEvent.user_id = user_id;
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
+            {
+                string name = descriptor.Name;
+                object? value = descriptor.GetValue(newEvent);
+                Console.WriteLine("{0}={1}", name, value);
+            }
             ViewBag.UserName = $"{user.firstname} {user.lastname}";
             ViewBag.ProfileImg = $"{user.profile_img}";
             ViewBag.validMessage = "Please enter all information.";
             return View();
-        }
-        newEvent.user_id = user_id;
-        foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
-        {
-            string name = descriptor.Name;
-            object? value = descriptor.GetValue(newEvent);
-            Console.WriteLine("{0}={1}", name, value);
         }
 
         if (images == null || images.Count == 0)
