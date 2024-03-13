@@ -23,7 +23,6 @@
     }
     // Loop through the elements and update their content
     for (var i = 0; i < elements.length; i++) {
-        
         elements[i].innerHTML = dayDifference.concat(" Days left");
     }
     }
@@ -57,9 +56,17 @@
             <a class='post__container' asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@evnt.Id">
                 <div class='post__container-header'>
                     <img src="~/uploadFiles/UserProfile/@evnt.user_image"/>
-                    <div>
+                    <div class="header">
                         <p class="post__container-header-name"> @evnt.firstname @evnt.lastname</p>
-                        <p class="post__container-header-end_date @evnt.Id" id="@evnt.Id">-</p>
+                        <div class="header-status">
+                            <p class="post__container-header-end_date @evnt.Id" id="@evnt.Id">-</p>
+                            @if(@evnt.status == true){
+                                <p id="status">- Open</p>
+                            }
+                            else{
+                                <p id="status">- Closed</p>
+                            }
+                        </div>
                         <script> CalEndDate("@evnt.end_date", "post__container-header-end_date @evnt.Id")</script>
                     </div>
                     
