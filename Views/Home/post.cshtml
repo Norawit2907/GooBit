@@ -31,7 +31,15 @@
                 <div class="post-info">
                     <img id="profile-image" src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image" />
                     <div class="title-author">
-                        <h1>@ViewBag.EventDisplay.title</h1>
+                        <div class="title-setter">
+                            <h1>@ViewBag.EventDisplay.title</h1>
+                            @if(@ViewBag.EventDisplay.creator_Id == @ViewBag.user_id)
+                            {
+                                <a href="/event/edit/@ViewBag.EventDisplay.Id">
+                                    <img id = "icon" src="~/icon/settings.png">
+                                </a>
+                            }
+                        </div>
                         <p id="author">by @ViewBag.EventDisplay.firstname @ViewBag.EventDisplay.lastname</p>
                     </div>
                     <div class="category-location">

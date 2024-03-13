@@ -18,7 +18,9 @@
     <header class="header">
         <a>Edit your event</a>
         <input type="image" class="editsubmitBtn" src="~/Icon/Tick.png" alt="editsubmitBtn" onclick="editsubmitForm()">
-        <input type="image" id="cancelBtn" src="~/Icon/Cancel.png" onclick="clearForm()" alt="cancleBtn">
+        <a href="/home/post/@ViewBag.Id">
+            <img id="cancelBtn" src="~/Icon/Cancel.png">
+        </a>
     </header>
     <form id="edit-form" method="post" enctype="multipart/form-data" asp-controller="Event" asp-action="Edit">
         <div class="split left">

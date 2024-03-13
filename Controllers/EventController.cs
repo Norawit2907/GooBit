@@ -185,6 +185,7 @@ public class EventController : Controller
         };
         ViewBag.UserName = $"{hostuser.firstname} {hostuser.lastname}";
         ViewBag.ProfileImg = $"{hostuser.profile_img}";
+        ViewBag.Id = editEvent.Id;
         return View(editEvent);
     }
 
