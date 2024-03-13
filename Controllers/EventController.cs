@@ -25,7 +25,6 @@ public class EventController : Controller
     }
 
     // Event/Create ---- Get method
-    [HttpGet, ActionName("Create")]
     public async Task<IActionResult> Create()
     {
         string? user_id = HttpContext.Session.GetString("userID");
@@ -49,8 +48,8 @@ public class EventController : Controller
     }
 
     // Event/Create ---- Post method
-    [HttpPost, ActionName("Create")]
-    public async Task<IActionResult> ConfirmedCreate(Event newEvent, List<IFormFile> images)
+    [HttpPost]
+    public async Task<IActionResult>Create(Event newEvent, List<IFormFile> images)
     {
         string? user_id = HttpContext.Session.GetString("userID");
         if (user_id == null)
@@ -98,6 +97,7 @@ public class EventController : Controller
         }
 
         await _eventService.CreateAsync(newEvent);
+        ViewBag.message = "Event Created Successfully";
         return View("Create");
     }
 

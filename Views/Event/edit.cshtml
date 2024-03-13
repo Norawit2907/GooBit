@@ -147,12 +147,12 @@
     </form>
     <script>
         var basePath = '@Url.Content("~/uploadFiles/EventImage/")';
-        var availableUser = @Html.Raw(Json.Serialize(Model.available_user));
-        var participants = @Html.Raw(Json.Serialize(Model.participants));
-        var oldimg = @Html.Raw(Json.Serialize(Model.event_img));
-        var submitted_users = @Html.Raw(Json.Serialize(Model.submitted_user));
-        var oldlatitude = @Html.Raw(Json.Serialize(Model.latitude));
-        var oldlongitude = @Html.Raw(Json.Serialize(Model.longitude));
+        var availableUser = '@Html.Raw(Json.Serialize(Model.available_user))';
+        var participants = '@Html.Raw(Json.Serialize(Model.participants))';
+        var oldimg = '@Html.Raw(Json.Serialize(Model.event_img))';
+        var submitted_users = '@Html.Raw(Json.Serialize(Model.submitted_user))';
+        var oldlatitude = '@Html.Raw(Json.Serialize(Model.latitude))';
+        var oldlongitude = '@Html.Raw(Json.Serialize(Model.longitude));'
     </script>
     <script src="~/js/EditPost.js" defer></script>
 </body>

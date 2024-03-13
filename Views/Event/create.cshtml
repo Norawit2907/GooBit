@@ -96,6 +96,14 @@
 
         </div>
     </form>
+    @if (ViewBag.message != null)  
+    {  
+        <script type="text/javascript">  
+            window.onload = function () {  
+                alert("@ViewBag.message");  
+            };  
+        </script>  
+    } 
     <script src="~/js/CreatePost.js" defer></script>
 </body>
 
