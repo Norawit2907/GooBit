@@ -68,11 +68,14 @@
                         <div id="pagemap"></div>
 
                     </div>
-                    <div class="join-bt">
-                        <button class="join-bt"
+                    @if (@ViewBag.user_id != @ViewBag.EventDisplay.creator_Id)
+                    {
+                        <div class="join-bt">
+                            <button class="join-bt"
                             onclick="CreateParticipant('@ViewBag.EventDisplay.Id', '@ViewBag.EventDisplay.creator_Id', '@ViewBag.user_id')">I
                             want to anticipate in this event </button>
-                    </div>
+                        </div>
+                    }
                 </div>
             </div>
             <div class="split-right">

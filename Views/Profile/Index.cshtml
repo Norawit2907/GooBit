@@ -43,55 +43,52 @@
 <link rel="stylesheet" href="~/css/Profile.css" />
 
 <div class="profile-page">
-
+  <div></div>
   <div class="split-left">
     <div class="profile-box">
-      <img id="user-profile" src="~/uploadFiles/UserProfile/default_img.png">
+      <img id="user-profile" src="~/uploadFiles/UserProfile/@ViewBag.image">
       <h1>@ViewBag.first @ViewBag.last</h1>
       <p id="profile-email">@ViewBag.mail</p>
       <p id="profile-description">@ViewBag.description</p>
-
         <div class="profile-stats-container">
-
-        <div class="profile-stats">
-          <div>
-            <h3>Participated</h3>
-            <p>@ViewBag.participated_counter</p>
+          <div class="profile-stats">
+            <div class="profile-stats-header">
+              <h3>Participated</h3>
+              @* <img src="~/icon/finish.png"> *@
+            </div>
+            <div class="profile-state-footer">
+              <p>@ViewBag.participated_counter</p>
+            </div>
           </div>
-          <img src="~/icon/finish.png">
-        </div>
-
-        <div class="profile-stats">
-          <div>
-            <h3>Hosted</h3>
+          <div class="profile-stats">
+            <div class="profile-stats-header">
+              <h3>Hosted</h3>
+              @* <img src="~/icon/host.png"> *@
+            </div>
             <p>@ViewBag.Hosted_evented</p>
           </div>
-          <img src="~/icon/host.png">
         </div>
-
-        </div>
-
       </div>
 
       <div class="setting-container">
-        <button class="setting" id="profile-setting">
+        <a class="setting" href="/user/edit">
           <p>Settings</p>
           <img src="~/icon/settings.png">
-        </button>
-        <button class="setting" id="Log out">
+        </a>
+        <a class="setting" href="/user/logout">
           <p>Log-out</p>
-        </button>
+        </a>
       </div>
     </div>
 
   <div class="split-right">
     <div class="create-event-container">
-      <div class="create-event-box">
-        <img src="~/uploadFiles/UserProfile/default_img.png">
+      <a class="create-event-box" href="/event/create">
+        <img src="~/uploadFiles/UserProfile/@ViewBag.image">
           <p>What event do you want to start?</p>
         <img src="~/icon/image-gallery.png">
         <img src="~/icon/location.png">
-      </div>
+      </a>
     </div>
 
     <div class="event-list-container">
@@ -142,4 +139,5 @@
             } 
       </div>
   </div>
+  <div></div>
 </div>
