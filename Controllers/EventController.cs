@@ -65,13 +65,14 @@ public class EventController : Controller
 
             }
         }
-        if (newEvent.latitude == null || newEvent.longitude == null || newEvent.googlemap_location == null || !ModelState.IsValid)
+        if (newEvent.latitude == null || newEvent.longitude == null || newEvent.googlemap_location == null)
         {
             ViewBag.UserName = $"{user.firstname} {user.lastname}";
             ViewBag.ProfileImg = $"{user.profile_img}";
             ViewBag.validMessage = "Please enter all information.";
             return View();
         }
+
         newEvent.user_id = user_id;
         foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
         {
