@@ -75,7 +75,7 @@ namespace GooBitAPI.Services
             return rejected_user;
         }
 
-        public ShowParticipant MakeShowParticipant(Participant _participant, string firstname, string lastname, string user_image)
+        public ShowParticipant MakeShowParticipant(Participant _participant, string firstname, string lastname, string user_image, string event_title)
         {
             ShowParticipant SP = new ShowParticipant{
                 Id = _participant.Id,
@@ -84,7 +84,8 @@ namespace GooBitAPI.Services
                 firstname = firstname,
                 lastname = lastname,
                 user_image = user_image,
-                status = _participant.status
+                status = _participant.status,
+                event_title = event_title
             };
             return SP;
         }

@@ -24,6 +24,7 @@ namespace GooBitAPI.Models
         public string firstname { get; set; } = null!;
         public string lastname { get; set; } = null!;
         public string user_image {get; set;} = null!;
+        public string event_title {get; set;} = null!;
         public string status {get; set;} = null!;
     }
 }
