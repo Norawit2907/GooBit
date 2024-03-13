@@ -292,6 +292,7 @@ public class EventController : Controller
         if (updatedEvent.status != "open")
         {
             List<Participant> participants = await _participantService.GetByEventId(id);
+            int rUser = 0;
             foreach (Participant p in participants)
             {
                 if (p.status == "submitted")
@@ -303,10 +304,18 @@ public class EventController : Controller
                     {
                         p.status = "rejected";
                         if (p.Id != null) { await _participantService.UpdateAsync(p.Id, p); }
+                        rUser ++;
                     }
                 }
             }
             await _notificationService.CreateNoti(user_id,id,"Closed");
+            Event? _Cevent = await _eventService.GetById(id);
+            if (_Cevent == null)
+            {
+                return BadRequest("What do you looking for");
+            }
+            _Cevent.total_member -= rUser;
+            await _eventService.UpdateAsync(id,_Cevent);
         }
         return RedirectToAction("Index", "Profile");;
     } 
