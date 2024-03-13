@@ -108,6 +108,7 @@ body {
   margin-left: 20px;
   border-radius: 45px;
   margin-top: 10px;
+  object-fit: cover;
 }
 #edit-form textarea {
     width: 100%;

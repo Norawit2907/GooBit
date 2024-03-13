@@ -84,7 +84,7 @@
   <div class="split-right">
     <div class="create-event-container">
       <a class="create-event-box" href="/event/create">
-        <img src="~/uploadFiles/UserProfile/@ViewBag.image">
+        <img id="profile-image"src="~/uploadFiles/UserProfile/@ViewBag.image">
           <p>What event do you want to start?</p>
         <img src="~/icon/image-gallery.png">
         <img src="~/icon/location.png">
@@ -101,7 +101,15 @@
                         <img src="~/uploadFiles/UserProfile/@evnt.user_image"/>
                         <div>
                             <p class="post__container-header-name"> @evnt.firstname @evnt.lastname</p>
-                            <p class="post__container-header-end_date @evnt.Id" id="@evnt.Id">-</p>
+                            <div class="header-status">
+                              <p class="post__container-header-end_date @evnt.Id" id="@evnt.Id">-</p>
+                              @if(@evnt.status == true){
+                                  <p id="status">- Open</p>
+                              }
+                              else{
+                                  <p id="status">- Closed</p>
+                              }
+                          </div>
                             <script> CalEndDate("@evnt.end_date", "post__container-header-end_date @evnt.Id")</script>
                         </div>
                         
@@ -120,6 +128,25 @@
                                 <img src="~/icon/location.png">
                                 <p id="location">@evnt.googlemap_location</p>
                             </div>
+                            <div class='post__containter-category'>
+                            @if(@evnt.category == "Study"){
+                                <img src="~/icon/reading-book.png">
+                                <p>@evnt.category</p>
+                            }
+                            else if(@evnt.category == "Eating"){
+                                <img src="~/icon/restaurant.png">
+                                <p>@evnt.category</p>
+                            }
+                            else if(@evnt.category == "Fitness"){
+                                <img src="~/icon/dumbbell.png">
+                                <p>@evnt.category</p>
+                            }
+                            else if(@evnt.category == "Trip"){
+                                <img src="~/icon/trip.png">
+                                <p>@evnt.category</p>
+                            }
+                        </div>
+
                             <div class='post__container-date'>
                                 <img src="~/icon/calendar.png">
                                 <p id="date">@evnt.event_date</p>

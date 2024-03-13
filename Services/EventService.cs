@@ -16,18 +16,33 @@ namespace GooBitAPI.Services
             _eventCollection = _mongoDBservice._eventCollection;
             _configuration = configuration;
         }
-        public async Task<List<Event>> GetAsync() =>
-            await _eventCollection.Find(_ => true).ToListAsync();
+        public async Task<List<Event>> GetAsync()
+        {
+            var sortDefinition = Builders<Event>.Sort.Ascending(x => x.event_date);
+            List<Event> _events = await _eventCollection.Find(_ => true)
+                                                            .Sort(sortDefinition)
+                                                            .ToListAsync();
+            return _events;
+        }
 
         public async Task<Event?> GetById(string id) =>
             await _eventCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public async Task<List<Event>> GetByUserId(string id) =>
-            await _eventCollection.Find(x => x.user_id == id).ToListAsync();
+        public async Task<List<Event>> GetByUserId(string id)
+        {
+            var sortDefinition = Builders<Event>.Sort.Ascending(x => x.event_date);
+            List<Event> _events = await _eventCollection.Find(x => x.user_id == id)
+                                                            .Sort(sortDefinition)
+                                                            .ToListAsync();
+            return _events;
+        }
 
         public async Task<List<Event>> GetByCategory(string category)
         {
-            List<Event> _events = await _eventCollection.Find(x => x.category == category).ToListAsync();
+            var sortDefinition = Builders<Event>.Sort.Ascending(x => x.event_date);
+            List<Event> _events = await _eventCollection.Find(x => x.category == category)
+                                                 .Sort(sortDefinition)
+                                                 .ToListAsync();
             return _events;
         }
 

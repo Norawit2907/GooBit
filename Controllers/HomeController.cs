@@ -6,6 +6,7 @@ using GooBitAPI.Models;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace GooBitAPI.Controllers;
 
@@ -250,8 +251,25 @@ public class HomeController : Controller
         {
             if (_comment.Id != null)
             {
+                User? _cu = await _userService.GetById(_comment.user_id);
+                if(_cu != null && _cu.profile_img != null)
+                {
+
+                    _comment.user_image = _cu.profile_img;
+                }
+
                 List<Reply> _replies = await _replyService.GetRepliesAsyncByCommentId(_comment.Id);
-                
+                foreach(var _r in _replies)
+                {
+                    if(_r != null)
+                    {
+                        User? _u = await _userService.GetById(_r.user_id);
+                        if(_u != null && _u.profile_img != null)
+                        {
+                            _r.user_image = _u.profile_img;
+                        }
+                    }
+                }
                 ShowComment SC = _commentService.MakeSComment(_comment, _comment.firstname, _comment.lastname, _replies);
                 _showcomments.Add(SC);
             }
@@ -368,6 +386,17 @@ public class HomeController : Controller
             }
         }
         await _commentService.RemoveAsync(id);
+        return Ok();
+    }
+
+    public async Task<IActionResult> DeleteReply( string id)
+    {
+        Reply? _reply = await _replyService.GetAsyncById(id);
+        if(_reply == null)
+        {
+            return BadRequest();
+        }
+        await _replyService.RemoveAsync(id);
         return Ok();
     }
 

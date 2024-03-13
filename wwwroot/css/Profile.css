@@ -30,9 +30,12 @@ body{
 }
 
 .profile-box #user-profile{
+  width: 120px;
+  height: 120px;
   margin-bottom: 10px;
-  border-radius: 50%;
+  border-radius: 90px;
   max-width: 128px;
+  object-fit: cover;
 }
 .profile-box #profile-email{
   margin-bottom: 20px;
@@ -178,7 +181,14 @@ body{
 
 .create-event-box img{
   height: 45px;
+  width: 45px;
   margin: 0px 5px;
+  object-fit: cover;
+}
+
+.create-event-box #profile-image{
+  object-fit: cover;
+  border-radius: 90px;
 }
 
 
@@ -220,7 +230,7 @@ body{
   align-items: center;
   padding: 10px;
   display: flex;
-  
+  object-fit: cover;
 }
 
 .post__container button{
@@ -228,6 +238,13 @@ body{
   background: none;
   cursor: pointer;
   margin-left: auto; 
+}
+.header-status{
+  display: flex;
+  color: dimgray;
+}
+#status{
+  margin: 0px 5px;
 }
 
 
@@ -320,6 +337,20 @@ body{
   
 }
 
+.post__containter-category{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin: 10px 15px;
+}
+
+.post__containter-category p{
+  margin: 0px 15px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
 .post__container-date{
   display: flex;
   flex-direction: row;
@@ -374,6 +405,7 @@ body{
   }
   .profile-box img{
     height: 80px;
+    width: 80px;
   }
 
   .profile-stats h3{
