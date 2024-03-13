@@ -1,4 +1,4 @@
-@model GooBitAPI.Models.User
+@model GooBitAPI.Models.Event
 @{
     Layout = "";
 }
@@ -110,7 +110,8 @@
     {  
         <script type="text/javascript">  
             window.onload = function () {  
-                alert("@ViewBag.message");  
+                alert("@ViewBag.message");
+                window.location.href = "/profile/index";  
             };  
         </script>  
     } 
