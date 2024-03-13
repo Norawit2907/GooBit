@@ -73,6 +73,14 @@ public class EventController : Controller
             return View();
         }
 
+        newEvent.user_id = user_id;
+        foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
+        {
+            string name = descriptor.Name;
+            object? value = descriptor.GetValue(newEvent);
+            Console.WriteLine("{0}={1}", name, value);
+        }
+
         if (images == null || images.Count == 0)
         {
             ViewBag.UserName = $"{user.firstname} {user.lastname}";
