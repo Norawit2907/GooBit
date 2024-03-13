@@ -409,7 +409,7 @@ body {
 
 .popup-box {
     width: 700px;
-    background-color: #373737;
+    background-color: #222224;
     border-radius: 20px;
     transform: scale(0);
 }
@@ -425,6 +425,7 @@ body {
     cursor: pointer;
     border: none;
     border-radius: 90px;
+    margin-left: 20px;
 }
 
 .box-header {
@@ -434,7 +435,6 @@ body {
     justify-content: space-between;
     background-color: black;
     color: white;
-    border-radius: 20px;
 }
 
 .box-header img {
@@ -449,8 +449,8 @@ body {
 .box-body {
     width: 700px;
     height: 500px;
-    background-color: #373737;
-    border-radius: 20px;
+    background-color: #131313;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -460,7 +460,7 @@ body {
     width: 620px;
     height: 475px;
     border-radius: 20px;
-    background-color: #D9D9D9;
+    background-color: #222224;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -470,19 +470,29 @@ body {
 .show-parti {
     width: 550px;
     border-radius: 20px;
-    background-color: #C9C9C9;
+    background-color: #131313;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     font-size: 15px;
     margin-top: 10px;
+    color: white
 }
 
 .show-parti #user-image {
     width: 70px;
     height: 70px;
     border-radius: 90px;
+    margin-right: 20px;
+    margin-left: 0px;
+}
+
+.show-parti img{
+    width: 60px;
+    height: 60px;
+    border-radius: 90px;
+    margin-left: 20px;
 }
 
 .slider_container {

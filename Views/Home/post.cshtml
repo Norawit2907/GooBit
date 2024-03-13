@@ -92,7 +92,7 @@
                                 src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image" />
                             <input id="create-comment-text" type="text" placeholder="Add comment">
                             <button id="create-icon" type="submit"
-                                onclick="CreateComment('@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@ViewBag.user_firstname', '@ViewBag.user_lastname', '@ViewBag.EventDisplay.Id')">
+                                onclick="CreateComment('@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@ViewBag.user_firstname', '@ViewBag.user_lastname', '@ViewBag.EventDisplay.Id')">                          
                                 <img src="~/Icon/send.png" width="23px" height="20px">
                             </button>
                         </div>
@@ -113,6 +113,7 @@
                                         </div>
                                         <button onclick="DeleteComment('@_comment.Id')">
                                             <img id="del" src="~/Icon/delete_white.png" />
+
                                         </button>
                                     </div>
                                     <div class="comment-body">
@@ -152,7 +153,7 @@
                 <button class="close-btn">
                     <img src="~/Icon/Union.png" />
                 </button>
-                <h1>participant</h1>
+                <h1>Participant</h1>
                 <div></div>
             </div>
             <div class="box-body">
@@ -161,19 +162,19 @@
                     {
                         <div class="show-parti">
                             <img id="user-image" src="~/uploadFiles/UserProfile/@_participant.user_image" />
-                            <p>@_participant.firstname @_participant.lastname want to antipated your event at
+                            <p>@_participant.firstname @_participant.lastname want to anticipated your event at
                                 @ViewBag.EventDisplay.googlemap_location </p>
                             @if (_participant.status == "pending")
                             {
-                                <img src="~/Icon/question.png">
+                                <img id="pending" src="~/Icon/question-mark.png">
                             }
-                            else if (_participant.status == "submited")
+                            else if (_participant.status == "submitted")
                             {
-                                <img src="~/Icon/Tick.png">
+                                <img id="submitted" src="~/Icon/submitted.png">
                             }
                             else
                             {
-                                <img src="~/Icon/Union.png">
+                                <img src="~/Icon/rejected.png">
                             }
                         </div>
                     }
