@@ -32,6 +32,22 @@ body {
     border-radius: 50%;
 }
 
+.title-setter{
+    display: flex;
+    
+}
+.title-setter img{
+    background-color: #131313;
+    border: none;
+    width: 30px;
+    margin: 0px 5px;
+}
+
+.title-setter a{
+    background-color: #131313;
+    border: none;
+}
+
 #pagemap {
     margin-top: 2em;
     width: 100%;
@@ -42,6 +58,7 @@ body {
 
 .title-author {
     margin: 1em 0px;
+    border: none;
 }
 
 .title-author h2 {
@@ -148,11 +165,15 @@ body {
 }
 
 .joined h2 {
+    display: flex;
+    justify-content: flex-start;
     font-size: 18px;
     color: white;
 }
 
 .joined p {
+    display: flex;
+    justify-content: flex-start;
     font-weight: bold;
     font-size: 16px;
 }
