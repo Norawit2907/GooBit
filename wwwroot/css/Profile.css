@@ -46,6 +46,7 @@ body{
   gap: 25px;
   display: flex;
   justify-content: space-around;
+  justify-content: space-around;
 }
 
 .profile-stats{
@@ -69,6 +70,9 @@ body{
 
 .profile-stats p{
   font-size: 24px;
+  font-weight: 500;
+  color: black;
+  font-family: Poppins;
   font-weight: 500;
   color: black;
   font-family: Poppins;
@@ -120,6 +124,7 @@ body{
 .create-event-box{
   display: flex;
   justify-content: space-around;
+  justify-content: space-around;
   align-items: center;
   padding: 10px;
   border-radius: 20px;
@@ -127,6 +132,8 @@ body{
   height: 60px;
 }
 .create-event-box p{
+  width: 500px;
+  height: 35px;
   width: 500px;
   height: 35px;
   padding: 10px;

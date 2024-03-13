@@ -2,13 +2,25 @@ body {
   margin: 0;
   line-height: normal;
  }
- .edit-profile-header {
-    width: 500px;
-    position: relative;
-    font-weight: 600;
-    display: inline-block;
+ .first-name-frame {
+  height: 53px;
+  width: 63px;
+  position: relative;
+  margin-left: -30px;
+  color: #000;
  }
- .first-name, .last-name{
+ .edit-profile {
+  margin: 0;
+  width: 495px;
+  height: 53px;
+  font-size: inherit;
+  font-family: inherit;
+  display: inline-block;
+  flex-shrink: 0;
+  max-width: 100%;
+ }
+ .edit-profile,
+ .first-name {
   width: 100%;
   height: 72px;
   border: 0;
@@ -17,28 +29,58 @@ body {
   font-family: Roboto;
   font-size: 24px;
   background-color: transparent;
+  position: relative;
   color: #858585;
   text-align: left;
+  display: inline-block;
   z-index: 1;
   margin-left: 21px;
  }
+ .name-container {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 100%;
+ }
  .info-box {
+  align-self: stretch;
   border-radius: 5px;
   background-color: #595959;
   border: 0 solid #595959;
+  box-sizing: border-box;
   flex-direction: row;
+  align-items: center;
   height: 72px;
   width: 375px;
  }
  .name-container {
   flex: 1;
+  flex-direction: column;
   align-items: flex-start;
   gap: 8px 0;
   min-width: 263px;
+ }
+ .last-name {
+  width: 100%;
+  height: 72px;
+  border: 0;
+  outline: 0;
+  font-weight: 500;
+  font-family: Roboto;
+  font-size: 24px;
+  background-color: transparent;
+  position: relative;
+  color: #858585;
+  text-align: left;
+  display: inline-block;
+  z-index: 1;
+  margin-left: 21px;
+ }
+ .name-container {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   max-width: 100%;
+  align-self: stretch;
   flex-direction: row;
   gap: 0 72px;
   font-size: 26px;
@@ -50,7 +92,7 @@ body {
   font-weight: 600;
   display: inline-block;
  }
- .email, .password ,.confirm-password ,.description {
+ .email {
   width: 100%;
   height: 74px;
   border: 0;
@@ -67,11 +109,14 @@ body {
   margin-left: 27px;
   margin-top: 23;
  }
- .input-box {
+ .input-box,
+ .info-container {
   align-self: stretch;
   display: flex;
   justify-content: flex-start;
   max-width: 100%;
+ }
+ .input-box {
   border-radius: 5px;
   background-color: #595959;
   border: 0 solid #595959;
@@ -81,8 +126,65 @@ body {
   height: 74px;
   width: 700px;
  }
- .edit-frame, .info,  .info-container {
-  flex: 50%;
+ .info-container {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+ }
+
+ .description {
+  width: 100%;
+  height: 74px;
+  border: 0;
+  outline: 0;
+  font-weight: 500;
+  font-family: Roboto;
+  font-size: 24px;
+  background-color: transparent;
+  position: relative;
+  color: #858585;
+  text-align: left;
+  display: inline-block;
+  z-index: 1;
+  margin-left: 27px;
+ }
+ .password {
+  width: 100%;
+  height: 74px;
+  border: 0;
+  outline: 0;
+  font-weight: 500;
+  font-family: Roboto;
+  font-size: 24px;
+  background-color: transparent;
+  position: relative;
+  color: #858585;
+  text-align: left;
+  display: inline-block;
+  z-index: 1;
+  margin-left: 27px;
+ }
+
+ .confirm-password {
+  width: 100%;
+  height: 74px;
+  border: 0;
+  outline: 0;
+  font-weight: 500;
+  font-family: Roboto;
+  font-size: 24px;
+  background-color: transparent;
+  position: relative;
+  color: #858585;
+  text-align: left;
+  display: inline-block;
+  z-index: 1;
+  margin-left: 27px;
+ }
+
+ .edit-frame,
+ .info,
+ .confirm-password-container {
   align-self: stretch;
   display: flex;
   flex-direction: column;
@@ -263,11 +365,18 @@ body {
   gap: 12px 0;
   letter-spacing: normal;
  }
-
+ 
+ .input {
+  color: #000000;
+  cursor: auto;
+  padding: 0.5rem 1rem;
+  border-color: #000000;
+  border-width: 1px;
+  border-radius: 4px;
+  background-color: #ffffff;
+ }
+ 
  @media screen and (max-width: 900px) {
-   .input-box{
-      width: 100%;
-   }
   .edit-profile {
    font-size: 36px;
   }
@@ -277,9 +386,6 @@ body {
   }
  }
  @media screen and (max-width: 675px) {
-   .input-box{
-      width: 100%;
-   }
   .edit-profile-field {
    min-width: 100%;
   }
@@ -287,18 +393,17 @@ body {
    gap: 0 118px;
   }
  }
-
  @media screen and (max-width: 450px) {
-   .input-box{
-      width: 100%;
-   }
   .edit-profile {
    font-size: 27px;
   }
-  .header,.change-profile-picture {
+  .header {
    font-size: 21px;
   }
-  .first-name, .last-name,.email,.description, .password, .confirm-password{
+  .first-name {
+   font-size: 19px;
+  }
+  .last-name {
    font-size: 19px;
   }
   .name-container {
@@ -307,11 +412,33 @@ body {
   .description-frame {
    gap: 40px 0;
   }
+  .email {
+   font-size: 19px;
+  }
+  .description {
+   font-size: 19px;
+  }
+  .password {
+   font-size: 19px;
+  }
+  .confirm-password {
+   font-size: 19px;
+  }
   .info {
    gap: 32px 0;
   }
+  .cancel1,
+  .save1 {
+   font-size: 19px;
+  }
+  .mainbox1 {
+   gap: 0 52px;
+  }
   .edit-profile-field {
    gap: 39px 0;
+  }
+  .change-profile-picture {
+   font-size: 21px;
   }
   .profile-picture-frame {
    gap: 0 118px;

@@ -123,17 +123,24 @@ header{
   cursor: pointer;
 }
 
-.navbar a{
+.nav-uname{
   position: relative;
   font-size: 18px;
   color: #fff;
   font-weight: 500;
   text-decoration: none;
-  margin-left: 40px;
+  margin-left: 5px;
   max-width: 300px;
 }
 
-.navbar a::before {
+.nav-img{
+  max-width: 50px;
+  max-height: 50px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.nav-uname::before {
   content: '';
   position: absolute;
   top: 100%;
@@ -144,7 +151,7 @@ header{
   transition: .3s;
 }
 
-.navbar a:hover::before{
+.nav-uname:hover::before{
   width: 100%;
 }
 
