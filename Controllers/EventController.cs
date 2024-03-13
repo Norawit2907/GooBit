@@ -121,6 +121,9 @@ public class EventController : Controller
         {
             return BadRequest("What do you looking for");
         }
+        if (!_event.status){
+            return BadRequest("Canot do it");
+        }
         List<Participant> participants = await _participantService.GetByEventId(id);
         List<UserStatus> submittedUser = [];
         List<UserStatus> allparticipant = [];

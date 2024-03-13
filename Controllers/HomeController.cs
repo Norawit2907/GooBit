@@ -211,6 +211,7 @@ public class HomeController : Controller
         }
         ViewBag.first = unow.firstname;
         ViewBag.last = unow.lastname;
+        ViewBag.image = unow.profile_img;
         ViewBag.EventDisplay = _eventdisplay;
         ViewBag.user_id = user_id;
         ViewBag.user_firstname = cur_user.firstname;
