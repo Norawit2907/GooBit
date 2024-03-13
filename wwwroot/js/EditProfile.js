@@ -42,5 +42,5 @@ function createsubmitForm() {
 
 function clearForm() {
     document.getElementById("post-form").reset();
-    window.location.href = "/home/index";
+    window.location.href = "/profile/index";
 }
