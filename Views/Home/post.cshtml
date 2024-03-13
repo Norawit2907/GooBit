@@ -31,7 +31,15 @@
                 <div class="post-info">
                     <img id="profile-image" src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image" />
                     <div class="title-author">
-                        <h1>@ViewBag.EventDisplay.title</h1>
+                        <div class="title-setter">
+                            <h1>@ViewBag.EventDisplay.title</h1>
+                            @if(@ViewBag.EventDisplay.creator_Id == @ViewBag.user_id)
+                            {
+                                <a href="/event/edit/@ViewBag.EventDisplay.Id">
+                                    <img id = "icon" src="~/icon/settings.png">
+                                </a>
+                            }
+                        </div>
                         <p id="author">by @ViewBag.EventDisplay.firstname @ViewBag.EventDisplay.lastname</p>
                     </div>
                     <div class="category-location">
@@ -60,11 +68,14 @@
                         <div id="pagemap"></div>
 
                     </div>
-                    <div class="join-bt">
-                        <button class="join-bt"
+                    @if (@ViewBag.user_id != @ViewBag.EventDisplay.creator_Id)
+                    {
+                        <div class="join-bt">
+                            <button class="join-bt"
                             onclick="CreateParticipant('@ViewBag.EventDisplay.Id', '@ViewBag.EventDisplay.creator_Id', '@ViewBag.user_id')">I
                             want to anticipate in this event </button>
-                    </div>
+                        </div>
+                    }
                 </div>
             </div>
             <div class="split-right">
@@ -111,10 +122,12 @@
                                             <p id="uname">@_comment.firstname @_comment.lastname</p>
                                             <p id="date">@_comment.create_time</p>
                                         </div>
-                                        <button onclick="DeleteComment('@_comment.Id')">
-                                            <img id="del" src="~/Icon/delete_white.png" />
-
-                                        </button>
+                                        @if(@_comment.user_id == @ViewBag.user_id)
+                                        {
+                                            <button onclick="DeleteComment('@_comment.Id')">
+                                                <img id="del" src="~/Icon/delete_white.png" />
+                                            </button>
+                                        }
                                     </div>
                                     <div class="comment-body">
                                         <p>@_comment.text</p>
@@ -126,6 +139,11 @@
                                                     <p id="name">@_reply.firstname @_reply.lastname</p>
                                                     <p id="text">@_reply.text</p>
                                                 </div>
+                                                @if(@_reply.user_id == @ViewBag.user_id){
+                                                <button onclick="DeleteReply('@_reply.Id')">
+                                                    <img id="del" src="~/Icon/delete_white.png">
+                                                </button>
+                                                }
                                             </div>
                                         }
                                     </div>

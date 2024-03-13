@@ -25,7 +25,6 @@ public class EventController : Controller
     }
 
     // Event/Create ---- Get method
-    [HttpGet, ActionName("Create")]
     public async Task<IActionResult> Create()
     {
         string? user_id = HttpContext.Session.GetString("userID");
@@ -49,15 +48,38 @@ public class EventController : Controller
     }
 
     // Event/Create ---- Post method
-    [HttpPost, ActionName("Create")]
-    public async Task<IActionResult> ConfirmedCreate(Event newEvent, List<IFormFile> images)
+    [HttpPost]
+    public async Task<IActionResult>Create(Event newEvent, List<IFormFile> images)
     {
         string? user_id = HttpContext.Session.GetString("userID");
         if (user_id == null)
         {
-
             return RedirectToAction("Login", "User");
         }
+        var user = await _userService.GetById(user_id);
+        {
+            if (user == null)
+            {
+
+                return RedirectToAction("Login", "User");
+
+            }
+        }
+        if (newEvent.latitude == null || 
+            newEvent.longitude == null || 
+            newEvent.googlemap_location == null || 
+            newEvent.title == null || 
+            newEvent.description == null ||
+            newEvent.max_member == 0 ||
+            newEvent.duration == null
+        )
+        {
+            ViewBag.UserName = $"{user.firstname} {user.lastname}";
+            ViewBag.ProfileImg = $"{user.profile_img}";
+            ViewBag.validMessage = "Please enter all information.";
+            return View();
+        }
+
         newEvent.user_id = user_id;
         foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
         {
@@ -68,7 +90,9 @@ public class EventController : Controller
 
         if (images == null || images.Count == 0)
         {
-            ModelState.AddModelError("imageFile", "Please select an image file to upload.");
+            ViewBag.UserName = $"{user.firstname} {user.lastname}";
+            ViewBag.ProfileImg = $"{user.profile_img}";
+            ViewBag.validMessage = "Please select an image file to upload.";
             Console.WriteLine("-----no images-----");
             return View();
         }
@@ -98,6 +122,9 @@ public class EventController : Controller
         }
 
         await _eventService.CreateAsync(newEvent);
+        ViewBag.UserName = $"{user.firstname} {user.lastname}";
+        ViewBag.ProfileImg = $"{user.profile_img}";
+        ViewBag.message = "Event Created Successfully";
         return View("Create");
     }
 
@@ -185,6 +212,7 @@ public class EventController : Controller
         };
         ViewBag.UserName = $"{hostuser.firstname} {hostuser.lastname}";
         ViewBag.ProfileImg = $"{hostuser.profile_img}";
+        ViewBag.Id = editEvent.Id;
         return View(editEvent);
     }
 
@@ -264,6 +292,7 @@ public class EventController : Controller
         if (updatedEvent.status != "open")
         {
             List<Participant> participants = await _participantService.GetByEventId(id);
+            int rUser = 0;
             foreach (Participant p in participants)
             {
                 if (p.status == "submitted")
@@ -275,11 +304,19 @@ public class EventController : Controller
                     {
                         p.status = "rejected";
                         if (p.Id != null) { await _participantService.UpdateAsync(p.Id, p); }
+                        rUser ++;
                     }
                 }
             }
             await _notificationService.CreateNoti(user_id,id,"Closed");
+            Event? _Cevent = await _eventService.GetById(id);
+            if (_Cevent == null)
+            {
+                return BadRequest("What do you looking for");
+            }
+            _Cevent.total_member -= rUser;
+            await _eventService.UpdateAsync(id,_Cevent);
         }
-        return Ok();
+        return RedirectToAction("Index", "Profile");;
     } 
 }

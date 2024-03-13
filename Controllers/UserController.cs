@@ -119,7 +119,11 @@ public class UserController : Controller
     public async Task<IActionResult> LogIn([FromForm]Login login)
     {
         string? id = await _userService.Login(login);
-        if (id == null)
+        if (id == null && login.password != null && login.email != null)
+        {
+            ModelState.AddModelError("loginValidate","Incorrect email or password.");
+            return View();
+        } else if (id == null)
         {
             return View();
         }
@@ -185,7 +189,7 @@ public class UserController : Controller
         }
 
         await _userService.UpdateAsync(id,updatedUser);
-        return RedirectToAction("Index","Home");
+        return RedirectToAction("Index","Profile");
     }
 
     // [For Test][Not use] Delete user 

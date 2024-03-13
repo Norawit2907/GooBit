@@ -119,3 +119,25 @@ function CreateComment(_user_id, _user_image, _firstname, _lastname, _event_id)
 
         }
     }
+
+    function DeleteReply(id)
+    {
+        let xhr = new XMLHttpRequest()
+        const url = "http://localhost:5075/Home/DeleteReply/" + id
+        console.log(url)
+        xhr.open('GET', url, true)
+        xhr.send()
+
+        xhr.onload = function ()
+        {
+            if(xhr.status === 200)
+            {
+                window.alert("Reply Deleted Successfully")
+            }
+            else
+            {
+                window.alert("Fail to Delete Reply")
+            }
+
+        }
+    }

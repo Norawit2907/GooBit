@@ -32,6 +32,22 @@ body {
     border-radius: 50%;
 }
 
+.title-setter{
+    display: flex;
+    
+}
+.title-setter img{
+    background-color: #131313;
+    border: none;
+    width: 30px;
+    margin: 0px 5px;
+}
+
+.title-setter a{
+    background-color: #131313;
+    border: none;
+}
+
 #pagemap {
     margin-top: 2em;
     width: 100%;
@@ -42,6 +58,7 @@ body {
 
 .title-author {
     margin: 1em 0px;
+    border: none;
 }
 
 .title-author h2 {
@@ -148,11 +165,15 @@ body {
 }
 
 .joined h2 {
+    display: flex;
+    justify-content: flex-start;
     font-size: 18px;
     color: white;
 }
 
 .joined p {
+    display: flex;
+    justify-content: flex-start;
     font-weight: bold;
     font-size: 16px;
 }
@@ -307,13 +328,15 @@ body {
     margin-right: 20px;
     justify-self: flex-end;
     border: none;
-    background-color: #131313;
+    background-color: #222224;
 }
 
 .comment-header #del {
     width: 20px;
     height: 25px;
 }
+
+
 
 .create-reply-container {
     display: flex;
@@ -355,11 +378,13 @@ body {
     gap: 10px;
 }
 
+
 .reply-body img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
 }
+
 
 .reply-body #reply-text {
     padding: 10px 0px;
@@ -379,6 +404,22 @@ body {
     margin-left: 15px;
     margin-right: 15px;
     margin-bottom: 30px;
+    border: none;  
+}
+
+.comment-body button {
+    width: 20px;
+    height: 25px;
+    margin-left: auto;
+    margin-right: 20px;
+    justify-self: flex-end;
+    border: none;
+    background-color: #222224;
+}
+
+.comment-body #del{
+    width: 20px;
+    height: 25px;
 }
 
 .list-comment {

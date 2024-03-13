@@ -1,4 +1,4 @@
-@model GooBitAPI.Models.User
+@model GooBitAPI.Models.Event
 @{
     Layout = "";
 }
@@ -18,7 +18,9 @@
     <header class="header">
         <a>Create your new event</a>
         <input type="image" id="submitBtn" src="~/Icon/Tick.png" alt="createsubmitBtn" onclick="createsubmitForm()">
-        <input type="image" id="cancelBtn" src="~/Icon/Cancel.png" onclick="clearForm()" alt="cancleBtn">
+        <a href="/home/index">
+            <img id="cancelBtn" src="~/Icon/Cancel.png">
+        </a>
     </header>
     <form id="post-form" method="post" enctype="multipart/form-data" asp-controller="Event" asp-action="Create">
         <div class="split left">
@@ -96,6 +98,23 @@
 
         </div>
     </form>
+    @if (ViewBag.validMessage != null)
+    {
+        <script type="text/javascript">
+            window.onload = function() {
+                alert("@ViewBag.validMessage");
+            };
+        </script>
+    }
+    @if (ViewBag.message != null)  
+    {  
+        <script type="text/javascript">  
+            window.onload = function () {  
+                alert("@ViewBag.message");
+                window.location.href = "/profile/index";  
+            };  
+        </script>  
+    } 
     <script src="~/js/CreatePost.js" defer></script>
 </body>
 

@@ -3,6 +3,7 @@
     ViewData["Title"] = "Profile";
     ViewData["ufirst"] = @ViewBag.first;
     ViewData["ulast"] =@ViewBag.last;
+    Layout = "_layoutlogoleft";
 }
 
 <script type="text/javascript">
@@ -42,55 +43,52 @@
 <link rel="stylesheet" href="~/css/Profile.css" />
 
 <div class="profile-page">
-
+  <div></div>
   <div class="split-left">
     <div class="profile-box">
-      <img id="user-profile" src="~/uploadFiles/UserProfile/default_img.png">
+      <img id="user-profile" src="~/uploadFiles/UserProfile/@ViewBag.image">
       <h1>@ViewBag.first @ViewBag.last</h1>
       <p id="profile-email">@ViewBag.mail</p>
       <p id="profile-description">@ViewBag.description</p>
-
         <div class="profile-stats-container">
-
-        <div class="profile-stats">
-          <div>
-            <h3>Participated</h3>
-            <p>@ViewBag.participated_counter</p>
+          <div class="profile-stats">
+            <div class="profile-stats-header">
+              <h3>Participated</h3>
+              @* <img src="~/icon/finish.png"> *@
+            </div>
+            <div class="profile-state-footer">
+              <p>@ViewBag.participated_counter</p>
+            </div>
           </div>
-          <img src="~/icon/finish.png">
-        </div>
-
-        <div class="profile-stats">
-          <div>
-            <h3>Hosted</h3>
+          <div class="profile-stats">
+            <div class="profile-stats-header">
+              <h3>Hosted</h3>
+              @* <img src="~/icon/host.png"> *@
+            </div>
             <p>@ViewBag.Hosted_evented</p>
           </div>
-          <img src="~/icon/host.png">
         </div>
-
-        </div>
-
       </div>
 
       <div class="setting-container">
-        <button class="setting" id="profile-setting">
+        <a class="setting" href="/user/edit">
           <p>Settings</p>
           <img src="~/icon/settings.png">
-        </button>
-        <button class="setting" id="Log-out">
+        </a>
+        <a class="setting" href="/user/logout">
           <p>Log-out</p>
-        </button>
+        </a>
       </div>
     </div>
 
   <div class="split-right">
     <div class="create-event-container">
-      <div class="create-event-box">
-        <img src="~/uploadFiles/UserProfile/default_img.png">
+      <a class="create-event-box" href="/event/create">
+        <img src="~/uploadFiles/UserProfile/@ViewBag.image">
           <p>What event do you want to start?</p>
         <img src="~/icon/image-gallery.png">
         <img src="~/icon/location.png">
-      </div>
+      </a>
     </div>
 
     <div class="event-list-container">
@@ -103,12 +101,17 @@
                         <img src="~/uploadFiles/UserProfile/@evnt.user_image"/>
                         <div>
                             <p class="post__container-header-name"> @evnt.firstname @evnt.lastname</p>
-                            <p class="post__container-header-end_date @evnt.Id" id="@evnt.Id">-</p>
+                            <div class="header-status">
+                              <p class="post__container-header-end_date @evnt.Id" id="@evnt.Id">-</p>
+                              @if(@evnt.status == true){
+                                  <p id="status">- Open</p>
+                              }
+                              else{
+                                  <p id="status">- Closed</p>
+                              }
+                          </div>
                             <script> CalEndDate("@evnt.end_date", "post__container-header-end_date @evnt.Id")</script>
                         </div>
-                      <button>
-                        <img id = "icon" src="~/icon/settings.png">
-                      </button>
                         
                     </div>
                     
@@ -125,6 +128,25 @@
                                 <img src="~/icon/location.png">
                                 <p id="location">@evnt.googlemap_location</p>
                             </div>
+                            <div class='post__containter-category'>
+                            @if(@evnt.category == "Study"){
+                                <img src="~/icon/reading-book.png">
+                                <p>@evnt.category</p>
+                            }
+                            else if(@evnt.category == "Eating"){
+                                <img src="~/icon/restaurant.png">
+                                <p>@evnt.category</p>
+                            }
+                            else if(@evnt.category == "Fitness"){
+                                <img src="~/icon/dumbbell.png">
+                                <p>@evnt.category</p>
+                            }
+                            else if(@evnt.category == "Trip"){
+                                <img src="~/icon/trip.png">
+                                <p>@evnt.category</p>
+                            }
+                        </div>
+
                             <div class='post__container-date'>
                                 <img src="~/icon/calendar.png">
                                 <p id="date">@evnt.event_date</p>
@@ -144,4 +166,5 @@
             } 
       </div>
   </div>
+  <div></div>
 </div>
