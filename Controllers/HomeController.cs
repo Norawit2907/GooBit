@@ -5,6 +5,7 @@ using GooBitAPI.Services;
 using GooBitAPI.Models;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using System.Net;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace GooBitAPI.Controllers;
 
@@ -57,9 +58,38 @@ public class HomeController : Controller
         if(unow == null){
             return RedirectToAction("Login","User");
         }
+        if(unow.Id == null)
+        {
+            return RedirectToAction("Login","User");
+        }
+
+        List<Event> events = await _eventService.GetByUserId(unow.Id);
+        Console.WriteLine(events);
+        List<ShowParticipant> showParts = new List<ShowParticipant>{};
+        foreach(var _event in events)
+        {
+            if (_event.status == true && _event.Id != null)
+            {
+                List<Participant> _parts = await _participantService.GetByEventId(_event.Id);
+                foreach(var _part in _parts)
+                {
+                    var partuser = await _userService.GetById(_part.user_id);
+                    if (partuser != null)
+                    {
+                        if(partuser.profile_img != null)
+                        {
+                            ShowParticipant SP = _participantService.MakeShowParticipant(_part, partuser.firstname, partuser.lastname, partuser.profile_img, _event.title);
+                            showParts.Add(SP);
+                        }
+                    }
+                }
+            }
+        }
+
         ViewBag.first = unow.firstname;
         ViewBag.last = unow.lastname;
         ViewBag.allnoti = _ShowNoti ;
+        ViewBag.allpart = showParts ;
         return View();
     }
     
@@ -181,12 +211,12 @@ public class HomeController : Controller
         List<ShowParticipant> _showparticipants = new List<ShowParticipant>{};
         foreach(var _part in _participants)
         {
-            
+            Event? ev = await _eventService.GetById(_part.event_id);
             User? _PU = await _userService.GetById(_part.user_id);
-            if (_PU != null && _PU.profile_img != null)
-            {
-                ShowParticipant SP = _participantService.MakeShowParticipant(_part, _PU.firstname, _PU.lastname, _PU.profile_img);
-                _showparticipants.Add(SP);
+            if (_PU != null && _PU.profile_img != null && ev != null)
+            {      
+                ShowParticipant SP = _participantService.MakeShowParticipant(_part, _PU.firstname, _PU.lastname, _PU.profile_img, ev.title);
+                _showparticipants.Add(SP);     
             }
         }
         foreach(var s in _showparticipants)
