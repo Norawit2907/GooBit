@@ -45,7 +45,6 @@ body{
   gap: 25px;
   display: flex;
   justify-content: space-around;
-  justify-content: space-around;
 }
 
 .profile-stats{
@@ -55,6 +54,8 @@ body{
   background-color: #f3a845;
   border-radius: 20px;
   height: 70px;
+  max-width: 100%; 
+  overflow: hidden; 
 }
 
 
@@ -78,8 +79,8 @@ body{
 }
 
 .profile-stats img{
-  height: 45px;
-  margin: 0px 0px 0px 20px;
+  height: 70%;
+  margin-left: 10px;
 }
 .setting-container{
   padding: 0px 20px;
@@ -109,7 +110,7 @@ body{
 }
 
 .setting img{
-  width: 50px;
+  width: 10%;
 }
 .split-right{
   width: 100%;
@@ -127,9 +128,10 @@ body{
   align-items: center;
   padding: 10px;
   gap: 5px;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: #222224;
   height: 60px;
+  margin-bottom: -15px;
 }
 .create-event-box p{
   width: 700px;
@@ -166,11 +168,11 @@ body{
   display: flex;
   flex-direction: column;
   margin: 10px 20px;
-  margin-top: -10px;
   border-radius: 10px;
   background: #222224;
   color: white;
   text-decoration: none;
+  margin-top: 15px;
   
 }
 
