@@ -107,6 +107,7 @@ margin: 0px 5px;
     font-size: 12px;
 }
 
+
 .post__container-body{
     /* border-top: solid #a4a4a4 2px; */
     display: flex;
@@ -168,6 +169,19 @@ margin: 0px 5px;
     justify-content: start;
     align-items: center;
     margin: 10px 15px;
+}
+.post__containter-category{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    margin: 10px 15px;
+}
+
+.post__containter-category p{
+    margin: 0px 15px;
+    font-size: 15px;
+    font-weight: 500;
 }
 .post__container-location img{
     width: auto;

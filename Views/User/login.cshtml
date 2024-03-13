@@ -35,6 +35,7 @@
                     <span asp-validation-for="password"></span>
                 </div>
             </div>
+            <span class="err">@Html.ValidationMessage("loginValidate")</span>
             <input class="btn" type="submit" value="Login">
             <div class="line"><span>or</span></div>
             <button class="btn" asp-controller="User" asp-action="register">Register</button>

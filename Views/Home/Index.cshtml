@@ -93,6 +93,24 @@
                             <img src="~/icon/location.png">
                             <p id="location">@evnt.googlemap_location</p>
                         </div>
+                        <div class='post__containter-category'>
+                            @if(@evnt.category == "Study"){
+                                <img src="~/icon/reading-book.png">
+                                <p>@evnt.category</p>
+                            }
+                            else if(@evnt.category == "Eating"){
+                                <img src="~/icon/restaurant.png">
+                                <p>@evnt.category</p>
+                            }
+                            else if(@evnt.category == "Fitness"){
+                                <img src="~/icon/dumbbell.png">
+                                <p>@evnt.category</p>
+                            }
+                            else if(@evnt.category == "Trip"){
+                                <img src="~/icon/trip.png">
+                                <p>@evnt.category</p>
+                            }
+                        </div>
                         <div class='post__container-date'>
                             <img src="~/icon/calendar.png">
                             <p id="date">@evnt.event_date</p>

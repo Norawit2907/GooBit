@@ -29,20 +29,20 @@
         <div class="name-info">
           <div class="name">
             <label for="firstname">Firstname</label>
-            <input type="text" id="firstname" name="firstname" placeholder="First name" class="short-input">
+            <input type="text" id="firstname" name="firstname" placeholder="First name" class="short-input" value="@Model.firstname">
           </div>
           <div class="name">
             <label for="lastname">Lastname</label>
-            <input type="text" id="lastname" name="lastname" placeholder="Last name" class="short-input">
+            <input type="text" id="lastname" name="lastname" placeholder="Last name" class="short-input" value="@Model.lastname">
           </div>
         </div>
         <div>
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="Email" class="long-input">
+          <input type="email" id="email" name="email" placeholder="Email" class="long-input" value="@Model.email">
         </div>
         <div>
           <label for="description">Description</label>
-          <textarea id="description" name="description" placeholder="Description" class="long-input"></textarea>
+          <textarea id="description" name="description" placeholder="Description" class="long-input">@Model.description</textarea>
         </div>
         <div>
           <label for="password" class="below-textarea">New Password</label>
