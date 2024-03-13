@@ -1,7 +1,7 @@
 @{
     ViewData["Title"] = "Post";
     ViewData["ufirst"] = @ViewBag.first;
-    ViewData["ulast"] =@ViewBag.last;
+    ViewData["ulast"] = @ViewBag.last;
     Layout = "_layoutlogoleft";
 }
 
@@ -30,17 +30,22 @@
             <div class="split-left">
                 <div class="post-info">
                     <img id="profile-image" src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image" />
-                    <p id="author">by @ViewBag.EventDisplay.firstname @ViewBag.EventDisplay.lastname</p>
-                    <p id="category">Category • @ViewBag.EventDisplay.category</p>
-                    <p id="location">Location • @ViewBag.EventDisplay.googlemap_location</p>
-                    <p id="description">@ViewBag.EventDisplay.description</p>
+                    <div class="title-author">
+                        <h1>TITLE YAI YAI</h1>
+                        <p id="author">by @ViewBag.EventDisplay.firstname @ViewBag.EventDisplay.lastname</p>
+                    </div>
+                    <div class="category-location">
+                        <p id="category">Category • @ViewBag.EventDisplay.category</p>
+                        <p id="location">Location • @ViewBag.EventDisplay.googlemap_location</p>
+                        <p id="description">@ViewBag.EventDisplay.description</p>
+                    </div>
                     <div class="slider_container">
                         <div class="slider-wrapper">
                             <div class="slider">
                                 @foreach (var img in ViewBag.EventDisplay.event_img)
                                 {
                                     <div class="img_box">
-                                        <img id="slider_@img" src="~/uploadFiles/EventImage/@img" />    
+                                        <img id="slider_@img" src="~/uploadFiles/EventImage/@img" />
                                     </div>
                                 }
                             </div>
@@ -51,7 +56,7 @@
                                 }
                             </div>
                         </div>
-    
+
                         <div id="pagemap"></div>
 
                     </div>
@@ -83,10 +88,12 @@
                 <div class="post-middle">
                     <div class="comment-section">
                         <div class="create-comment">
-                            <img id="create-comment-image" src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image"/>
-                            <input id="create-comment-text"type="text" placeholder="Add comment">
-                            <button id="create-icon" type="submit" onclick="CreateComment('@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@ViewBag.user_firstname', '@ViewBag.user_lastname', '@ViewBag.EventDisplay.Id')">
-                                <img src="~/Icon/Icon.png"/>
+                            <img id="create-comment-image"
+                                src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image" />
+                            <input id="create-comment-text" type="text" placeholder="Add comment">
+                            <button id="create-icon" type="submit"
+                                onclick="CreateComment('@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@ViewBag.user_firstname', '@ViewBag.user_lastname', '@ViewBag.EventDisplay.Id')">
+                                <img src="~/Icon/send.png" width="23px" height="20px">
                             </button>
                         </div>
                     </div>
@@ -105,7 +112,7 @@
                                             <p id="date">@_comment.create_time</p>
                                         </div>
                                         <button onclick="DeleteComment('@_comment.Id')">
-                                            <img id="del" src="~/Icon/delete.png"/>
+                                            <img id="del" src="~/Icon/delete_white.png" />
                                         </button>
                                     </div>
                                     <div class="comment-body">
@@ -125,8 +132,9 @@
                                         <img id="reply-image"
                                             src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image" />
                                         <input id="@_comment.Id" type="text" placeholder="Add comment">
-                                        <button id="reply-button" type="submit" onclick="CreateReply('@_comment.Id', '@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@ViewBag.user_firstname', '@ViewBag.user_lastname')">
-                                            <img src="~/Icon/Icon.png"/>
+                                        <button id="reply-button" type="submit"
+                                            onclick="CreateReply('@_comment.Id', '@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@ViewBag.user_firstname', '@ViewBag.user_lastname')">
+                                            <img src="~/Icon/send.png" width="23px" height="20px">
                                         </button>
                                     </div>
                                 </div>
