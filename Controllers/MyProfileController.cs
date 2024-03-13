@@ -26,7 +26,7 @@ namespace BasicASP.Controllers
             _notificationService = notificationService;
         }
 
-        public async Task<IActionResult> Index(string category="All")
+        public async Task<IActionResult> Index()
     {
         //Update event status
         List<Event> closedEvents = await _eventService.UpdateCloseEvent();
@@ -53,20 +53,19 @@ namespace BasicASP.Controllers
             }
         }
 
+        string? userid = HttpContext.Session.GetString("userID");
+        if (userid == null)
+        {
+            return RedirectToAction("Login","User");
+        }
+        var unow = await _userService.GetById(userid);
+        if(unow == null || unow.Id == null){
+            return RedirectToAction("Login","User");
+        }
+
         var allEvent = new List<ShortEventDisplay>{};
 
-        // get category from service
-        List<Event> _events;
-        if (category == "All")
-        {
-            Console.WriteLine("All");
-            _events = await _eventService.GetAsync();
-        }
-        else
-        {
-            Console.WriteLine(category);
-            _events = await _eventService.GetByCategory(category);
-        }
+        List<Event> _events = await _eventService.GetByUserId(unow.Id);
 
         if(_events == null)
         {
@@ -75,7 +74,6 @@ namespace BasicASP.Controllers
 
         foreach(Event _event in _events)
         {
-            Console.WriteLine(_event.title);
             var user_id = _event.user_id;
             if(user_id != null)
             {
@@ -89,18 +87,31 @@ namespace BasicASP.Controllers
                 }
             }
         }
-        string? userid = HttpContext.Session.GetString("userID");
-        if (userid == null)
+
+        var hosted_counter = 0;
+        List<Event> countEvent = await _eventService.GetByUserId(unow.Id);
+        foreach(var cE in countEvent)
+        {hosted_counter++;}
+
+        List<Participant> countParti = await _participantService.GetByUserId(unow.Id);
+        var participated_counter = 0;
+        foreach(var cP in countParti)
         {
-            return RedirectToAction("Login","User");
+            var Event = await _eventService.GetById(cP.event_id);
+            if (Event != null)
+            {
+            if(Event.status == false && Event != null)
+            {participated_counter++;}
+            }
         }
-        var unow = await _userService.GetById(userid);
-        if(unow == null){
-            return RedirectToAction("Login","User");
-        }
+
         ViewBag.first = unow.firstname;
         ViewBag.last = unow.lastname;
-        ViewBag.showcategory = category;
+        ViewBag.mail = unow.email;
+        ViewBag.image = unow.profile_img;
+        ViewBag.description = unow.description;
+        ViewBag.participated_counter = participated_counter;
+        ViewBag.Hosted_evented = hosted_counter;
         ViewBag.ShortEventDisplay = allEvent;
         return View();
     }

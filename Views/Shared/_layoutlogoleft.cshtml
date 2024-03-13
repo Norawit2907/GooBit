@@ -15,8 +15,9 @@
         </div>
         <div class="right">
             <div class="navbar">
-                <a href="#">@ViewData["ufirst"] @ViewData["ulast"]</a>
+                <a href="/profile/index"><img class="nav-img" src="~/uploadFiles/UserProfile/@ViewBag.image"></a>
             </div>
+            <a class="nav-uname" href="/profile/index">@ViewData["ufirst"] @ViewData["ulast"]</a>
             <a class="to-noti" href="/home/noti">
                 <img src="~/uploadFiles/noti.png"/>
             </a>

@@ -1,61 +1,67 @@
+@model GooBitAPI.Models.UserNoPassword
+@{
+    ViewData["Title"] = "Edit profile";
+    Layout = "_layoutlogoleft";
+    ViewData["ufirst"] = @ViewBag.first;
+    ViewData["ulast"] =@ViewBag.last;
+}
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
 
-    <link rel="stylesheet" href="~/css/Ton.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;600&display=swap"
-    />
+    <link rel="stylesheet" href="~/css/EditProfile.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;600&display=swap" />
   </head>
   <body>
-    <div class="edit-profile-dark">
-      <header class="navbar1">
-        <div class="navbar-item"></div>
-        <h2 class="goo1">Goo</h2>
-        <div class="first-name-frame">
-          <img
-            class="first-name-frame-child"
-            loading="lazy"
-            alt=""
-            src="./public/rectangle-5650.svg"
-          />
+    <div class="page">
+    <form id="post-form" method="post" enctype="multipart/form-data" asp-controller="User" asp-action="Edit">
+      <h1>Edit profile</h1>
+      <div class="user-right">
+        <label for="proImage" id="image-preview">
+        </label>
+        <input type="file" id="proImage" name="proImage" accept="image/*" style="display:none;">
+        <label for="proImage" class="img-text"><a>Change Profile Picture</a></label>
+      </div>
+      <div class="user-info">
+        <div class="name-info">
+          <div class="name">
+            <label for="firstname">Firstname</label>
+            <input type="text" id="firstname" name="firstname" placeholder="First name" class="short-input">
+          </div>
+          <div class="name">
+            <label for="lastname">Lastname</label>
+            <input type="text" id="lastname" name="lastname" placeholder="Last name" class="short-input">
+          </div>
         </div>
-      </header>
-      <form class="myform">
-        <div class="left">
-            <p>Edit profile</p>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Email" class="long-input">
         </div>
-        <div class="right">
-            <p>img</p>
+        <div>
+          <label for="description">Description</label>
+          <textarea id="description" name="description" placeholder="Description" class="long-input"></textarea>
         </div>
-        <div class="left">
-            <input type="text" placeholder="First name">
-            <input type="text" placeholder="last name">
+        <div>
+          <label for="password" class="below-textarea">New Password</label>
+          <input type="password" id="password" name="password" placeholder="Password" class="long-input">
         </div>
-        <div class="left">
-            <input type="text" placeholder="Email">
+        <div>
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm_password" name="confirm_password" placeholder="Password" class="long-input">
+          <span>@Html.ValidationMessage("PasswordValidate")</span>
         </div>
-        <div class="left">
-            <input type="text" placeholder="Description">
-        </div>
-        <div class="left">
-            <input type="text" placeholder="Password">
-        </div>
-        <div class="left">
-            <input type="text" placeholder="Comfirmed password">
-        </div>
-        <div class="left">
-            <input type="button" value="Submit">
-            <input type="button" value="Cancel">
-        </div>
-      </form>
+      </div>
+    </form>
+    <input type="button" value="Save" class="button one" onclick="createsubmitForm()">
+    <input type="button" value="Cancel" class="button two" asp-controller="Home" asp-action="Index" onclick="clearForm()">
     </div>
+    <script>
+      var basePath = '@Url.Content("~/uploadFiles/UserProfile/")';
+      var oldimg = @Html.Raw(Json.Serialize(Model.profile_img));
+    </script>
+    <script src="~/js/EditProfile.js" defer></script>
   </body>
 </html>

@@ -1,5 +1,4 @@
 @model GooBitAPI.Models.User
-
 @{
     ViewData["Title"] = "Profile";
 }
@@ -44,17 +43,17 @@
 
   <div class="split-left">
     <div class="profile-box">
-      <img id="user-profile" src="~/uploadFiles/UserProfile/default_img.png">
-      <h1>Kitton Sudlor</h1>
-      <p id="profile-email">kitton@gmila.com</p>
-      <p id="profile-description">Description</p>
+      <img id="user-profile" src="~/uploadFiles/UserProfile/@ViewBag.image">
+      <h1>@ViewBag.first @ViewBag.last</h1>
+      <p id="profile-email">@ViewBag.mail</p>
+      <p id="profile-description">@ViewBag.description</p>
 
       <div class="profile-stats-container">
 
         <div class="profile-stats">
           <div>
             <h3>Participated</h3>
-            <p>4</p>
+            <p>@ViewBag.participated_counter</p>
           </div>
           <img src="~/icon/finish.png">
         </div>
@@ -62,7 +61,7 @@
         <div class="profile-stats">
           <div>
             <h3>Hosted</h3>
-            <p>3</p>
+            <p>@ViewBag.Hosted_evented</p>
           </div>
           <img src="~/icon/host.png">
         </div>
