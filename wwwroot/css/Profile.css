@@ -10,78 +10,94 @@ body{
   width: 100%;
   height: 100px;
   display: grid;
-  grid-template-columns: 1fr 2fr;/
+  grid-template-columns: 0.5fr 1.25fr 3.75fr 0.5fr;/
   
 }
 
 .split-left{
   width: 90%;
   height: 100%;
-  
+  margin-left: 5%;
 }
+
 .profile-box{
   margin: 10px;
-  padding: 15px;
+  margin-top: 20px;
+  padding: 30px;
   background-color: #222224;
   border-radius: 20px;
   color: white;
 }
 
 .profile-box #user-profile{
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border-radius: 50%;
   max-width: 128px;
 
 }
 .profile-box #profile-email{
   margin-bottom: 20px;
-  text-decoration: underline;
 }
 .profile-box p{
   margin: 5px 0px;
+  margin-bottom: 20px;
 }
 
 .profile-stats-container{
-  gap: 25px;
-  display: flex;
-  justify-content: space-around;
+  gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .profile-stats{
-  padding: 10px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: #f3a845;
   border-radius: 20px;
+  padding-top: 6%;
   height: 70px;
   max-width: 100%; 
   overflow: hidden; 
 }
 
-
-.profile-stats div{
+/* .profile-stats div{
   display: flex;
   flex-direction: column;
-}
+} */
 
 .profile-stats h3{
-  font-weight: bold;
+  font-weight: 400;
+}
+
+.profile-stat-footer{
+  width: 100%;
+  background-color: white;
 }
 
 .profile-stats p{
+  text-align: center;
   font-size: 24px;
-  font-weight: 500;
-  color: black;
   font-family: Poppins;
   font-weight: 700;
   color: black;
   margin-top: -3px;
+  background-color: white;
+  padding-top: 3px;
+  padding-bottom: 5px;
 }
 
 .profile-stats img{
-  height: 70%;
-  margin-left: auto;
+  height: 20px;
+  margin-left: 5px;
 }
+
+.profile-stats-header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
 .setting-container{
   padding: 0px 20px;
   height: 100%;
@@ -99,7 +115,12 @@ body{
   margin-top: 15px;
 
 }
-.setting button{
+
+.setting{
+  text-decoration: none;
+}
+
+.setting a{
   height: 50px;
 }
 
@@ -110,8 +131,10 @@ body{
 }
 
 .setting img{
-  width: 10%;
+  margin-left: 5px;
+  width: 5%;
 }
+
 .split-right{
   width: 100%;
   height: 100%;
@@ -123,26 +146,28 @@ body{
 }
 
 .create-event-box{
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 0.5fr 7fr 0.5fr 0.5fr;
   align-items: center;
   padding: 10px;
   gap: 5px;
   border-radius: 10px;
   background-color: #222224;
-  height: 60px;
+  height: 65px;
   margin-bottom: -15px;
+  text-decoration: none;
 }
+
 .create-event-box p{
-  width: 700px;
-  height: 35px;
+  /* width: 700px;
+  height: 35px; */
+  margin-right: 20px;
   padding: 10px;
   display: flex;
   align-items: center;
   border-radius: 10px;
   background-color: #181817;
   color: gray;
-
 }
 
 .create-event-box:hover{
@@ -364,7 +389,6 @@ body{
   .profile-box{
     width: 50%;
     margin-left: 25%;
-
   }
   .split-left{
     justify-self: center;

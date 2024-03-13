@@ -54,8 +54,23 @@ public class EventController : Controller
         string? user_id = HttpContext.Session.GetString("userID");
         if (user_id == null)
         {
-
             return RedirectToAction("Login", "User");
+        }
+        var user = await _userService.GetById(user_id);
+        {
+            if (user == null)
+            {
+
+                return RedirectToAction("Login", "User");
+
+            }
+        }
+        if (newEvent.latitude == null || newEvent.longitude == null || newEvent.googlemap_location == null || !ModelState.IsValid)
+        {
+            ViewBag.UserName = $"{user.firstname} {user.lastname}";
+            ViewBag.ProfileImg = $"{user.profile_img}";
+            ViewBag.validMessage = "Please enter all information.";
+            return View();
         }
         newEvent.user_id = user_id;
         foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
@@ -67,7 +82,9 @@ public class EventController : Controller
 
         if (images == null || images.Count == 0)
         {
-            ModelState.AddModelError("imageFile", "Please select an image file to upload.");
+            ViewBag.UserName = $"{user.firstname} {user.lastname}";
+            ViewBag.ProfileImg = $"{user.profile_img}";
+            ViewBag.validMessage = "Please select an image file to upload.";
             Console.WriteLine("-----no images-----");
             return View();
         }
