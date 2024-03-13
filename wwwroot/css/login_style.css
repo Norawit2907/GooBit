@@ -147,6 +147,10 @@ form h2 {
     outline: none;
 }
 
+.err{
+    color: red;
+}
+
 @media screen and (max-width: 900px) {
     .login-detail {
         display: none;
