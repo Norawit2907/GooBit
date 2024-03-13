@@ -189,7 +189,7 @@ public class UserController : Controller
         }
 
         await _userService.UpdateAsync(id,updatedUser);
-        return RedirectToAction("Index","Home");
+        return RedirectToAction("Index","Profile");
     }
 
     // [For Test][Not use] Delete user 
