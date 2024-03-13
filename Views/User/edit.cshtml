@@ -1,7 +1,9 @@
 @model GooBitAPI.Models.UserNoPassword
 @{
-    ViewData["Title"] = "Post";
+    ViewData["Title"] = "Edit profile";
     Layout = "_layoutlogoleft";
+    ViewData["ufirst"] = @ViewBag.first;
+    ViewData["ulast"] =@ViewBag.last;
 }
 <!DOCTYPE html>
 <html>

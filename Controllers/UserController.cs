@@ -131,7 +131,7 @@ public class UserController : Controller
     public IActionResult LogOut()
     {
         HttpContext.Session.Clear();
-        return Ok("Logout success");
+        return RedirectToAction("Login","User");
     }
 
     public async Task<IActionResult> Edit()
@@ -142,6 +142,9 @@ public class UserController : Controller
             return RedirectToAction("Login","User");
         }
         UserNoPassword user = await _userService.userProfile(id);
+        ViewBag.first = user.firstname;
+        ViewBag.last = user.lastname;
+        ViewBag.image = user.profile_img;
         return View(user);
     }
 
