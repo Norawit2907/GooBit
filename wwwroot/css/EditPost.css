@@ -64,6 +64,11 @@ body {
   font-size: 32px;
 }
 
+.header #back{
+  position: absolute;
+  top: 25px;
+  left: 20px;
+}
 .edit-form-input{
   margin-bottom: 10px;
   border-radius: 10px;
