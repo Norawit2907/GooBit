@@ -540,7 +540,7 @@ body {
     bottom: 28em;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 .slider_nav a {
