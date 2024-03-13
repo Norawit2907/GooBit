@@ -36,6 +36,7 @@ body{
     height: 60px;
     border-radius: 90px;
     margin: 5px;
+    object-fit: cover;
 }
 
 .noti p{
