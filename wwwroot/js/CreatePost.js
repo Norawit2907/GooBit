@@ -85,6 +85,7 @@ function clearForm() {
     document.getElementById("post-form").reset();
     const previewContainer = document.getElementById('image-preview');
     previewContainer.innerHTML = '';
+    window.location.href = "/profile/index";
 }
 
 function createsubmitForm() {

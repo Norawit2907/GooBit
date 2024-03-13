@@ -65,13 +65,21 @@ public class EventController : Controller
 
             }
         }
-        if (newEvent.latitude == null || newEvent.longitude == null || newEvent.googlemap_location == null || !ModelState.IsValid)
+        if (newEvent.latitude == null || 
+            newEvent.longitude == null || 
+            newEvent.googlemap_location == null || 
+            newEvent.title == null || 
+            newEvent.description == null ||
+            newEvent.max_member == 0 ||
+            newEvent.duration == null
+        )
         {
             ViewBag.UserName = $"{user.firstname} {user.lastname}";
             ViewBag.ProfileImg = $"{user.profile_img}";
             ViewBag.validMessage = "Please enter all information.";
             return View();
         }
+
         newEvent.user_id = user_id;
         foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(newEvent))
         {
@@ -114,6 +122,8 @@ public class EventController : Controller
         }
 
         await _eventService.CreateAsync(newEvent);
+        ViewBag.UserName = $"{user.firstname} {user.lastname}";
+        ViewBag.ProfileImg = $"{user.profile_img}";
         ViewBag.message = "Event Created Successfully";
         return View("Create");
     }
@@ -298,6 +308,6 @@ public class EventController : Controller
             }
             await _notificationService.CreateNoti(user_id,id,"Closed");
         }
-        return Ok();
+        return RedirectToAction("Index", "Profile");;
     } 
 }
