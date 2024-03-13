@@ -230,6 +230,13 @@ body{
   cursor: pointer;
   margin-left: auto; 
 }
+.header-status{
+  display: flex;
+  color: dimgray;
+}
+#status{
+  margin: 0px 5px;
+}
 
 
 .post__container-header p{
@@ -319,6 +326,20 @@ body{
   font-size: 15px;
   font-weight: 500;
   
+}
+
+.post__containter-category{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin: 10px 15px;
+}
+
+.post__containter-category p{
+  margin: 0px 15px;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .post__container-date{
