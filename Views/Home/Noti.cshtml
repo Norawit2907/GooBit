@@ -35,7 +35,34 @@
             </div>
         }
     }
-}
+    foreach(var part in ViewBag.allpart){
+        if(part.status == "submitted"){
+            <div class="noti">
+                <img src="~/uploadFiles/UserProfile/@part.user_image">
+                <p>@part.firstname @part.lastname</p>
+                <p>Wants to join your event : </p>
+                <p>submitted</p>
+            </div>
+        }
+        else if(part.status == "pending"){
+            <div class="noti">
+                <img src="~/uploadFiles/UserProfile/@part.user_image">
+                <p>@part.firstname @part.lastname</p>
+                <p>Wants to join your event : @part.event_title</p>
+                <p>pending</p>
+            </div>
+        }
+        else if(part.status == "rejected"){
+            <div class="noti">
+                <img src="~/uploadFiles/UserProfile/@part.user_image">
+                <p>@part.firstname @part.lastname</p>
+                <p>Wants to join your event : </p>
+                <p>rejected</p>
+            </div>
+        }
+        
+    }
+    }
 </div>
 
 
