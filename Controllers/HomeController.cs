@@ -37,6 +37,7 @@ public class HomeController : Controller
             if(closeEvent.Id != null)
             {
                 List<Participant> participants = await _participantService.GetByEventId(closeEvent.Id);
+                int rUser = 0;
                 foreach (Participant p in participants)
                 {
                     if (p.status == "submitted")
@@ -48,10 +49,13 @@ public class HomeController : Controller
                         {
                             p.status = "rejected";
                             if (p.Id != null){await _participantService.UpdateAsync(p.Id,p);}
+                            rUser ++;
                         }
                     }
                 }
                 await _notificationService.CreateNoti(closeEvent.user_id,closeEvent.Id,"Closed");
+                closeEvent.total_member -= rUser;
+                await _eventService.UpdateAsync(closeEvent.Id,closeEvent);
             }
         }
 
@@ -129,6 +133,7 @@ public class HomeController : Controller
             if(closeEvent.Id != null)
             {
                 List<Participant> participants = await _participantService.GetByEventId(closeEvent.Id);
+                int rUser = 0;
                 foreach (Participant p in participants)
                 {
                     if (p.status == "submitted")
@@ -140,10 +145,13 @@ public class HomeController : Controller
                         {
                             p.status = "rejected";
                             if (p.Id != null){await _participantService.UpdateAsync(p.Id,p);}
+                            rUser ++;
                         }
                     }
                 }
                 await _notificationService.CreateNoti(closeEvent.user_id,closeEvent.Id,"Closed");
+                closeEvent.total_member -= rUser;
+                await _eventService.UpdateAsync(closeEvent.Id,closeEvent);
             }
         }
 
@@ -214,6 +222,7 @@ public class HomeController : Controller
             if(closeEvent.Id != null)
             {
                 List<Participant> participants = await _participantService.GetByEventId(closeEvent.Id);
+                int rUser = 0;
                 foreach (Participant p in participants)
                 {
                     if (p.status == "submitted")
@@ -225,10 +234,13 @@ public class HomeController : Controller
                         {
                             p.status = "rejected";
                             if (p.Id != null){await _participantService.UpdateAsync(p.Id,p);}
+                            rUser ++;
                         }
                     }
                 }
                 await _notificationService.CreateNoti(closeEvent.user_id,closeEvent.Id,"Closed");
+                closeEvent.total_member -= rUser;
+                await _eventService.UpdateAsync(closeEvent.Id,closeEvent);
             }
         }
         
