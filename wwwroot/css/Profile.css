@@ -30,8 +30,10 @@ body{
 }
 
 .profile-box #user-profile{
+  width: 120px;
+  height: 120px;
   margin-bottom: 10px;
-  border-radius: 50%;
+  border-radius: 90px;
   max-width: 128px;
 }
 .profile-box #profile-email{
@@ -178,6 +180,8 @@ body{
 
 .create-event-box img{
   height: 45px;
+  width: 45px;
+  border-radius: 90px;
   margin: 0px 5px;
 }
 
@@ -395,6 +399,7 @@ body{
   }
   .profile-box img{
     height: 80px;
+    width: 80px;
   }
 
   .profile-stats h3{

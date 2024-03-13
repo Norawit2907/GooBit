@@ -49,6 +49,8 @@ color: white;
 
 .create-event-box img{
 height: 45px;
+width: 45px;
+border-radius: 90px;
 margin: 0px 5px;
 }  
   
