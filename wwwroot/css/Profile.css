@@ -30,6 +30,8 @@ body{
 
 .profile-box #user-profile{
   margin-bottom: 20px;
+  border-radius: 50%;
+  max-width: 128px;
 
 }
 .profile-box #profile-email{
