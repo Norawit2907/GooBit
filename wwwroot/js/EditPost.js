@@ -103,6 +103,7 @@ function clearForm() {
     document.getElementById("edit-form").reset();
     const previewContainer = document.getElementById('image-preview');
     previewContainer.innerHTML = '';
+    window.location.href = "/profile/index";
 }
 
 function editsubmitForm() {
