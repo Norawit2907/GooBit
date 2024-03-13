@@ -47,10 +47,14 @@ color: white;
 color: white;
 }
 
+.create-event-box #profile{
+    border-radius: 90px;
+    object-fit: cover;
+}
+
 .create-event-box img{
 height: 45px;
 width: 45px;
-border-radius: 90px;
 margin: 0px 5px;
 }  
   
@@ -85,6 +89,7 @@ margin: 0px 5px;
     border-radius: 45px;
     align-items: center;
     padding: 10px;
+    object-fit: cover;
 }
 
 .header-status{

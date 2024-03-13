@@ -251,8 +251,25 @@ public class HomeController : Controller
         {
             if (_comment.Id != null)
             {
+                User? _cu = await _userService.GetById(_comment.user_id);
+                if(_cu != null && _cu.profile_img != null)
+                {
+
+                    _comment.user_image = _cu.profile_img;
+                }
+
                 List<Reply> _replies = await _replyService.GetRepliesAsyncByCommentId(_comment.Id);
-                
+                foreach(var _r in _replies)
+                {
+                    if(_r != null)
+                    {
+                        User? _u = await _userService.GetById(_r.user_id);
+                        if(_u != null && _u.profile_img != null)
+                        {
+                            _r.user_image = _u.profile_img;
+                        }
+                    }
+                }
                 ShowComment SC = _commentService.MakeSComment(_comment, _comment.firstname, _comment.lastname, _replies);
                 _showcomments.Add(SC);
             }
