@@ -33,7 +33,6 @@ body{
   margin-bottom: 10px;
   border-radius: 50%;
   max-width: 128px;
-
 }
 .profile-box #profile-email{
   margin-bottom: 20px;
@@ -83,7 +82,7 @@ body{
   margin-top: -3px;
   background-color: white;
   padding-top: 3px;
-  padding-bottom: 5px;
+  padding-bottom: 20px;
 }
 
 .profile-stats img{
@@ -373,8 +372,13 @@ body{
   .create-event-box,.create-event-box ,.profile-stats, .post__list{
     width: 100%;
   }
+  .profile-box img{
+    height: 80px;
+  }
+
   .profile-stats h3{
     font-size: 12px;
+    padding: 5px;
   }
 }
 
@@ -392,6 +396,12 @@ body{
   }
   .split-left{
     justify-self: center;
+  }
+
+  .split-right
+  {
+    justify-self: center;
+    margin-left: 1%;
   }
   .setting-container{
     width: 50%;
