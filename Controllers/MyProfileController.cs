@@ -57,19 +57,28 @@ namespace BasicASP.Controllers
             }
         }
 
-        
-        if (id == null)
+        var my_id = HttpContext.Session.GetString("userID");
+        if (my_id == null)
         {
             return RedirectToAction("Login","User");
         }
-        var unow = await _userService.GetById(id);
+        if (id == null)
+        {
+            id = my_id;
+        }
+        var unow = await _userService.GetById(my_id);
         if(unow == null || unow.Id == null){
             return RedirectToAction("Login","User");
         }
 
+        var proUser = await _userService.userProfile(id);
+        if(proUser == null || proUser.Id == null){
+            return BadRequest("What are you doing");
+        }
+
         var allEvent = new List<ShortEventDisplay>{};
 
-        List<Event> _events = await _eventService.GetByUserId(unow.Id);
+        List<Event> _events = await _eventService.GetByUserId(proUser.Id);
 
         if(_events == null)
         {
@@ -93,11 +102,11 @@ namespace BasicASP.Controllers
         }
 
         var hosted_counter = 0;
-        List<Event> countEvent = await _eventService.GetByUserId(unow.Id);
+        List<Event> countEvent = await _eventService.GetByUserId(proUser.Id);
         foreach(var cE in countEvent)
         {hosted_counter++;}
 
-        List<Participant> countParti = await _participantService.GetByUserId(unow.Id);
+        List<Participant> countParti = await _participantService.GetByUserId(proUser.Id);
         var participated_counter = 0;
         foreach(var cP in countParti)
         {
@@ -117,7 +126,7 @@ namespace BasicASP.Controllers
         ViewBag.participated_counter = participated_counter;
         ViewBag.Hosted_evented = hosted_counter;
         ViewBag.ShortEventDisplay = allEvent;
-        return View();
+        return View(proUser);
     }
         
     }
