@@ -540,6 +540,7 @@ body {
     border-radius: 90px;
     margin-right: 20px;
     margin-left: 0px;
+    object-fit: cover;
 }
 
 .show-parti img{
