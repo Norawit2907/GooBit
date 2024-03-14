@@ -35,9 +35,12 @@
                             <h1>@ViewBag.EventDisplay.title</h1>
                             @if(@ViewBag.EventDisplay.creator_Id == @ViewBag.user_id)
                             {
-                                <a href="/event/edit/@ViewBag.EventDisplay.Id">
-                                    <img id = "icon" src="~/icon/settings.png">
-                                </a>
+                                if(@ViewBag.EventDisplay.status == true)
+                                {
+                                    <a href="/event/edit/@ViewBag.EventDisplay.Id">
+                                        <img id = "icon" src="~/icon/settings.png">
+                                    </a>
+                                }
                             }
                         </div>
                         <p id="author">by @ViewBag.EventDisplay.firstname @ViewBag.EventDisplay.lastname</p>
@@ -100,7 +103,7 @@
                     <div class="comment-section">
                         <div class="create-comment">
                             <img id="create-comment-image"
-                                src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image" />
+                                src="~/uploadFiles/UserProfile/@ViewBag.image" />
                             <input id="create-comment-text" type="text" placeholder="Add comment">
                             <button id="create-icon" type="submit"
                                 onclick="CreateComment('@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@ViewBag.user_firstname', '@ViewBag.user_lastname', '@ViewBag.EventDisplay.Id')">                          
@@ -149,10 +152,10 @@
                                     </div>
                                     <div class="create-reply-container">
                                         <img id="reply-image"
-                                            src="~/uploadFiles/UserProfile/@ViewBag.EventDisplay.user_image" />
+                                            src="~/uploadFiles/UserProfile/@ViewBag.image" />
                                         <input id="@_comment.Id" type="text" placeholder="Add comment">
                                         <button id="reply-button" type="submit"
-                                            onclick="CreateReply('@_comment.Id', '@ViewBag.user_id', '@ViewBag.EventDisplay.user_image', '@ViewBag.user_firstname', '@ViewBag.user_lastname')">
+                                            onclick="CreateReply('@_comment.Id', '@ViewBag.user_id', '@ViewBag.image', '@ViewBag.user_firstname', '@ViewBag.user_lastname')">
                                             <img src="~/Icon/send.png" width="23px" height="20px">
                                         </button>
                                     </div>
