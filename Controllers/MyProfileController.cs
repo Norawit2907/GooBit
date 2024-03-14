@@ -26,7 +26,7 @@ namespace BasicASP.Controllers
             _notificationService = notificationService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string id)
     {
         //Update event status
         List<Event> closedEvents = await _eventService.UpdateCloseEvent();
@@ -57,12 +57,12 @@ namespace BasicASP.Controllers
             }
         }
 
-        string? userid = HttpContext.Session.GetString("userID");
-        if (userid == null)
+        
+        if (id == null)
         {
             return RedirectToAction("Login","User");
         }
-        var unow = await _userService.GetById(userid);
+        var unow = await _userService.GetById(id);
         if(unow == null || unow.Id == null){
             return RedirectToAction("Login","User");
         }
