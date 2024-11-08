@@ -1,4 +1,4 @@
-@model GooBitAPI.Models.User
+@model GooBitAPI.Models.UserNoPassword
 @{
     ViewData["Title"] = "Profile";
     ViewData["ufirst"] = @ViewBag.first;
@@ -51,10 +51,10 @@
   <div></div>
   <div class="split-left">
     <div class="profile-box">
-      <img id="user-profile" src="~/uploadFiles/UserProfile/@ViewBag.image">
-      <h1>@ViewBag.first @ViewBag.last</h1>
-      <p id="profile-email">@ViewBag.mail</p>
-      <p id="profile-description">@ViewBag.description</p>
+      <img id="user-profile" src="~/uploadFiles/UserProfile/@Model.profile_img">
+      <h1>@Model.firstname @Model.lastname</h1>
+      <p id="profile-email">@Model.email</p>
+      <p id="profile-description">@Model.description</p>
         <div class="profile-stats-container">
           <div class="profile-stats">
             <div class="profile-stats-header">
@@ -89,7 +89,7 @@
   <div class="split-right">
     <div class="create-event-container">
       <a class="create-event-box" href="/event/create">
-        <img id="profile-image"src="~/uploadFiles/UserProfile/@ViewBag.image">
+        <img id="profile-image"src="~/uploadFiles/UserProfile/@Model.profile_img">
           <p>What event do you want to start?</p>
         <img src="~/icon/image-gallery.png">
         <img src="~/icon/location.png">

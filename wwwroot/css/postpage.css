@@ -35,7 +35,6 @@ body {
 
 .title-setter{
     display: flex;
-    
 }
 .title-setter img{
     background-color: #131313;
@@ -71,6 +70,11 @@ body {
     color: #cdcdcd;
     font-size: 16px;
 }
+
+.title-author a{
+    color: white;
+}
+
 
 .category-location {
     margin-right: 2rem;
